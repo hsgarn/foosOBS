@@ -447,7 +447,7 @@ public class MainJPanel extends JPanel {
 		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
 		add(lblTimerDisplay, "cell 2 13 3 4,alignx center,aligny center");
 		
-		JLabel lblNonPossession = new JLabel("Non 5 Possession Timer");
+		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
 		add(lblNonPossession, "cell 5 13,alignx right");
 		
 		JButton btnPossessionTimer = new JButton("15.0");
@@ -462,7 +462,7 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnResetScores, "cell 1 14,growx");
 		
-		JLabel lblRowPossession = new JLabel("5 Row Possession Timer");
+		JLabel lblRowPossession = new JLabel("Pass Timer (5 row)");
 		add(lblRowPossession, "cell 5 14,alignx right");
 		
 		JButton btn5RowTimer = new JButton("10.0");
@@ -510,10 +510,20 @@ public class MainJPanel extends JPanel {
 		add(lblAutoUpdate, "cell 1 17");
 		
 		JCheckBox chckbxAlwaysOnTop = new JCheckBox("");
-		add(chckbxAlwaysOnTop, "cell 4 17,alignx right");
+		add(chckbxAlwaysOnTop, "cell 2 17,alignx right");
 		
 		JLabel lblAlwaysOnTop = new JLabel("Always On Top");
-		add(lblAlwaysOnTop, "cell 5 17");
+		add(lblAlwaysOnTop, "cell 3 17");
+		
+		JLabel lblRecallTimer = new JLabel("Recall Timer");
+		add(lblRecallTimer, "cell 5 17,alignx right");
+		
+		JButton btnRecallTimer = new JButton("10");
+		btnRecallTimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		add(btnRecallTimer, "cell 6 17,growx");
 		
 		JLabel lblPath = new JLabel("Path");
 		add(lblPath, "cell 0 18,alignx trailing");
@@ -545,6 +555,18 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnAllSwitch, "cell 3 0,alignx center");
 		
+		btnGameTimer = new JButton("90.0");
+		btnGameTimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				float count = (float) (Double.parseDouble(btnGameTimer.getText()) * 10);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				TimeClass tc = new TimeClass(count);
+				timer = new Timer(100, tc);
+				timer.start();
+			}
+		});
+		add(btnGameTimer, "cell 6 16,growx");
+		
 		JButton btnClearAll = new JButton("Clear All");
 		btnClearAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -564,19 +586,7 @@ public class MainJPanel extends JPanel {
 				tglbtnWarn2.setSelected(false);
 			}
 		});
-		add(btnClearAll, "cell 5 18,growx");
-		
-		btnGameTimer = new JButton("10.0");
-		btnGameTimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				float count = (float) (Double.parseDouble(btnGameTimer.getText()) * 10);
-				lblTimerDisplay.setBackground(Color.GREEN);
-				TimeClass tc = new TimeClass(count);
-				timer = new Timer(100, tc);
-				timer.start();
-			}
-		});
-		add(btnGameTimer, "cell 6 16,growx");
+		add(btnClearAll, "cell 3 18,growx");
 	}
 	
 	public class TimeClass implements ActionListener {

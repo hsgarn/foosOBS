@@ -12,6 +12,7 @@ import java.awt.event.ActionEvent;
 public class FrameIntro {
 
 	private JFrame frmFoosOBSIntro;
+	public TimeClock tc;
 
 	/**
 	 * Launch the application.
@@ -55,6 +56,8 @@ public class FrameIntro {
 
 				JFrame f = new JFrame("Foos OBS");
 				f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+				
+//				TimeClock tc = new TimeClock();
 
 				MainJPanel p = new MainJPanel();
 //				p.setPreferredSize(new Dimension(800, 800));
