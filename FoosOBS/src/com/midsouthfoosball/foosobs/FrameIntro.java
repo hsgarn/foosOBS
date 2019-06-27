@@ -57,7 +57,7 @@ public class FrameIntro {
 				JFrame f = new JFrame("Foos OBS");
 				f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
 				
-//				TimeClock tc = new TimeClock();
+				TimeClock tc = new TimeClock();
 
 				MainJPanel p = new MainJPanel();
 //				p.setPreferredSize(new Dimension(800, 800));

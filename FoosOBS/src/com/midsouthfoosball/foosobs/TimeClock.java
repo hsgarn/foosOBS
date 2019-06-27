@@ -10,7 +10,7 @@ public class TimeClock implements ActionListener {
 	private Timer tmr;
 	
 	{
-		Timer tmr = new Timer(10,null);
+		Timer tmr = new Timer(100,null);
 		tmr.start();
 		tmr.stop();
 	}
