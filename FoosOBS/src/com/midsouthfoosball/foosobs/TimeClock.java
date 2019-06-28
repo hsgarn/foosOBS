@@ -2,40 +2,36 @@ package com.midsouthfoosball.foosobs;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.Timer;
 
-public class TimeClock implements ActionListener {
-	private float nbrOfSeconds;
-	private float timeRemaining;
-	private Timer tmr;
+public class TimeClock {
+	private int nbrOfSeconds;
+	private int timeRemaining;
+	private Timer timer;
 	
-	{
-		Timer tmr = new Timer(100,null);
-		tmr.start();
-		tmr.stop();
+	public TimeClock() {
+		ActionListener action = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				timeRemaining--;
+System.out.print(timeRemaining + "\r\n");
+ 				if(timeRemaining < 1) {
+					timer.stop();
+				}
+			}
+		};
+
+		timer = new Timer(100, action);
+		timer.setInitialDelay(0);
+//		timer.start();
+	}
+	public void resetTimer(int nbrOfSeconds) {
+		this.nbrOfSeconds = nbrOfSeconds;
+		this.timeRemaining = this.nbrOfSeconds;
+		timer.restart();
+	}
+	public int getTimeRemaining() {
+		return timeRemaining;
 	}
 
-	public float getNbrOfSeconds() {
-		return nbrOfSeconds;
-	}
-	public void setNbrOfSeconds(int nbrOfSeconds) {
-		this.nbrOfSeconds = nbrOfSeconds;
-	}
-	public void StartTimer(int nbrOfSeconds) {
-		tmr.stop();
-		tmr.setDelay(nbrOfSeconds * 10);
-	}
-	public void ResetTimer(int nbrOfSeconds) {
-		tmr.setDelay(nbrOfSeconds);
-		tmr.setInitialDelay(nbrOfSeconds);
-		tmr.stop();
-		tmr.start();
-	}
-	public void actionPerformed(ActionEvent tc) {
-		timeRemaining--;
-		
-		if(timeRemaining < 1) {
-			tmr.stop();
-		}
-	}
 }

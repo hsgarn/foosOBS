@@ -9,12 +9,13 @@ import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.FlowLayout;
 
 
 public class MainJPanel extends JPanel {
@@ -35,14 +36,16 @@ public class MainJPanel extends JPanel {
 	JButton btnGameTimer;
 	Timer timer;
 	JLabel lblTimerDisplay;
+	public TimeClock timeClock;
 
 	/**
 	 * Create the panel.
 	 */
-
-	public MainJPanel() {
+    public MainJPanel() {
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
-		
+    }
+	public MainJPanel(TimeClock timeClock) {
+		this();
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
@@ -450,7 +453,14 @@ public class MainJPanel extends JPanel {
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
 		add(lblNonPossession, "cell 5 13,alignx right");
 		
-		JButton btnPossessionTimer = new JButton("15.0");
+		JButton btnPossessionTimer = new JButton("15");
+		btnPossessionTimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = (int) (Integer.parseInt(btnPossessionTimer.getText()) * 10);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(count);
+			}
+		});
 		add(btnPossessionTimer, "cell 6 13,growx");
 		
 		JButton btnResetScores = new JButton("Reset Scores");
@@ -465,7 +475,14 @@ public class MainJPanel extends JPanel {
 		JLabel lblRowPossession = new JLabel("Pass Timer (5 row)");
 		add(lblRowPossession, "cell 5 14,alignx right");
 		
-		JButton btn5RowTimer = new JButton("10.0");
+		JButton btn5RowTimer = new JButton("10");
+		btn5RowTimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = (int) (Integer.parseInt(btn5RowTimer.getText()) * 10);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(count);
+			}
+		});
 		add(btn5RowTimer, "cell 6 14,growx,aligny bottom");
 		
 		JButton btnResetTimeOuts = new JButton("Reset Time Outs");
@@ -480,7 +497,14 @@ public class MainJPanel extends JPanel {
 		JLabel lblTimeOutTimer = new JLabel("Time Out Timer");
 		add(lblTimeOutTimer, "cell 5 15,alignx right");
 		
-		JButton btnTimeOutTimer = new JButton("30.0");
+		JButton btnTimeOutTimer = new JButton("30");
+		btnTimeOutTimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = (int) (Integer.parseInt(btnTimeOutTimer.getText()) * 10);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(count);
+			}
+		});
 		add(btnTimeOutTimer, "cell 6 15,growx");
 		
 		JButton btnResetAll = new JButton("Reset All");
@@ -520,7 +544,10 @@ public class MainJPanel extends JPanel {
 		
 		JButton btnRecallTimer = new JButton("10");
 		btnRecallTimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent e) {
+				int count = (int) (Integer.parseInt(btnRecallTimer.getText()) * 10 * 60);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(count);
 			}
 		});
 		add(btnRecallTimer, "cell 6 17,growx");
@@ -555,14 +582,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnAllSwitch, "cell 3 0,alignx center");
 		
-		btnGameTimer = new JButton("90.0");
+		btnGameTimer = new JButton("90");
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				float count = (float) (Double.parseDouble(btnGameTimer.getText()) * 10);
+				int count = (int) (Integer.parseInt(btnGameTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
-				TimeClass tc = new TimeClass(count);
-				timer = new Timer(100, tc);
-				timer.start();
+				timeClock.resetTimer(count);
 			}
 		});
 		add(btnGameTimer, "cell 6 16,growx");
@@ -588,7 +613,7 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnClearAll, "cell 3 18,growx");
 	}
-	
+/**	
 	public class TimeClass implements ActionListener {
 		float counter;
 //		boolean instanceExists = false;
@@ -611,5 +636,6 @@ public class MainJPanel extends JPanel {
 			}
 		}
 	}
+**/
 
 }
