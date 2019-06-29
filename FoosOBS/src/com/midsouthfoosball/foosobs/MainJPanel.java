@@ -9,14 +9,10 @@ import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
-import javax.swing.Timer;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-
 
 public class MainJPanel extends JPanel {
 
@@ -34,18 +30,19 @@ public class MainJPanel extends JPanel {
 	private JTextField txtTimeOut2;
 	private int maxGameCount = 3, maxTimeOut = 2, maxScore = 9;
 	JButton btnGameTimer;
-	Timer timer;
 	JLabel lblTimerDisplay;
-	public TimeClock timeClock;
+	TimeClock timeClock;
+	ActionListener alAction;
+	// Initialization Block
+	{
+		timeClock = new TimeClock();
+	}
 
 	/**
 	 * Create the panel.
 	 */
     public MainJPanel() {
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
-    }
-	public MainJPanel(TimeClock timeClock) {
-		this();
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
@@ -433,6 +430,12 @@ public class MainJPanel extends JPanel {
 		add(button, "cell 3 11,alignx center");
 		
 		JButton btnResetTimers = new JButton("Reset");
+		btnResetTimers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(0);
+			}
+		});
 		add(btnResetTimers, "cell 6 12,growx,aligny bottom");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts");
@@ -448,6 +451,17 @@ public class MainJPanel extends JPanel {
 		lblTimerDisplay.setOpaque(true);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
+		ActionListener alAction = new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				int timeRemaining = timeClock.getTimeRemaining();
+				int nbrOfSeconds = timeClock.getNbrOfSeconds();
+				if(timeRemaining <= 0 && nbrOfSeconds != 0) {
+					lblTimerDisplay.setBackground(Color.RED);
+				}
+				lblTimerDisplay.setText("   " + Float.toString(((float) timeRemaining) / 10) + "   ");
+			}
+		};
+		timeClock.addTimeClockTimerListener(alAction);
 		add(lblTimerDisplay, "cell 2 13 3 4,alignx center,aligny center");
 		
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
@@ -609,33 +623,11 @@ public class MainJPanel extends JPanel {
 				tglbtnReset2.setSelected(false);
 				tglbtnWarn1.setSelected(false);
 				tglbtnWarn2.setSelected(false);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(0);
 			}
 		});
 		add(btnClearAll, "cell 3 18,growx");
 	}
-/**	
-	public class TimeClass implements ActionListener {
-		float counter;
-//		boolean instanceExists = false;
-		
-		public TimeClass(float counter) {
-//			this.instanceExists = true;
-			this.counter = counter;
-		}
-		
-		public void actionPerformed(ActionEvent tc) {
-			counter--;
-			
-			if(counter >= 1) {
-				//update btntxt
-				lblTimerDisplay.setText(" "+Float.toString(counter / 10)+" ");
-			} else {
-				timer.stop();
-				lblTimerDisplay.setText(" 0.0 ");
-				lblTimerDisplay.setBackground(new Color(255, 0, 0));
-			}
-		}
-	}
-**/
 
 }

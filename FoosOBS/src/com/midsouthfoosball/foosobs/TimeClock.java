@@ -14,16 +14,15 @@ public class TimeClock {
 		ActionListener action = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				timeRemaining--;
-System.out.print(timeRemaining + "\r\n");
+//System.out.print(timeRemaining + "\r\n");
  				if(timeRemaining < 1) {
-					timer.stop();
+					timeRemaining = 0;
 				}
 			}
 		};
 
 		timer = new Timer(100, action);
 		timer.setInitialDelay(0);
-//		timer.start();
 	}
 	public void resetTimer(int nbrOfSeconds) {
 		this.nbrOfSeconds = nbrOfSeconds;
@@ -32,6 +31,12 @@ System.out.print(timeRemaining + "\r\n");
 	}
 	public int getTimeRemaining() {
 		return timeRemaining;
+	}
+	public int getNbrOfSeconds() {
+		return nbrOfSeconds;
+	}
+	public void addTimeClockTimerListener(ActionListener alAction) {
+		timer.addActionListener(alAction);
 	}
 
 }
