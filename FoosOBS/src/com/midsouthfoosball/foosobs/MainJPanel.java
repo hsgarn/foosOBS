@@ -13,6 +13,11 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.io.IOException;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainJPanel extends JPanel {
 
@@ -35,11 +40,14 @@ public class MainJPanel extends JPanel {
 	JLabel lblTimerDisplay;
 	TimeClock timeClock;
 	ActionListener alAction;
+	OBSInterface obsInterface;
+	String[] fileNames;
 	/**
 	 * Create the panel.
 	 */
     public MainJPanel() {
 		timeClock = new TimeClock();
+		obsInterface = new OBSInterface();
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
@@ -48,6 +56,31 @@ public class MainJPanel extends JPanel {
 		add(lblEvent, "cell 5 0,alignx center");
 		
 		txtTournamentName = new JTextField();
+		txtTournamentName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtTournamentName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent evt) {
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
 		txtTournamentName.setText("High Pockets Monday Night");
 		add(txtTournamentName, "flowy,cell 1 1,growx");
 		txtTournamentName.setColumns(10);
@@ -56,6 +89,12 @@ public class MainJPanel extends JPanel {
 		btnTournamentNameClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtTournamentName.setText(null);
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTournamentNameClear, "cell 2 1,alignx left");
@@ -64,17 +103,46 @@ public class MainJPanel extends JPanel {
 		add(separator, "cell 3 1");
 		
 		txtEventName = new JTextField();
+		txtEventName.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("event.txt", txtEventName.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtEventName.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("event.txt", txtEventName.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		txtEventName.setText("DYP #1");
 		add(txtEventName, "flowx,cell 5 1,growx");
 		txtEventName.setColumns(10);
 		
-		JButton btnTeam2Clear = new JButton("X");
-		btnTeam2Clear.addActionListener(new ActionListener() {
+		JButton btnEventClear = new JButton("X");
+		btnEventClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtEventName.setText(null);
+				try {
+					obsInterface.setContents("event.txt", txtEventName.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
-		add(btnTeam2Clear, "cell 6 1,alignx left");
+		add(btnEventClear, "cell 6 1,alignx left");
 		
 		JLabel lblTeam1 = new JLabel("Team 1:");
 		add(lblTeam1, "cell 1 2,alignx center");
@@ -86,6 +154,30 @@ public class MainJPanel extends JPanel {
 		add(lblName1, "cell 0 3,alignx right");
 		
 		txtTeam1 = new JTextField();
+		txtTeam1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("team1.txt", txtTeam1.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtTeam1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtTeam1, "cell 1 3,growx");
 		txtTeam1.setColumns(10);
 		
@@ -103,6 +195,12 @@ public class MainJPanel extends JPanel {
 				String temp1 = txtTeam1.getText();
 				txtTeam1.setText(txtTeam2.getText());
 				txtTeam2.setText(temp1);
+				try {
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTeamSwitch, "cell 3 3,alignx center");
@@ -111,16 +209,32 @@ public class MainJPanel extends JPanel {
 		add(lblName2, "cell 4 3,alignx right");
 		
 		txtTeam2 = new JTextField();
-		add(txtTeam2, "flowx,cell 5 3,growx");
-		txtTeam2.setColumns(10);
-		
-		JButton btnEventClear = new JButton("X");
-		btnEventClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtTeam2.setText(null);
+		txtTeam2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("team2.txt", txtTeam2.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
 			}
 		});
-		add(btnEventClear, "cell 6 3,alignx left");
+		txtTeam2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		add(txtTeam2, "flowx,cell 5 3,growx");
+		txtTeam2.setColumns(10);
 		
 		JButton btnTeam1NameSwitch = new JButton("<->");
 		btnTeam1NameSwitch.addActionListener(new ActionListener() {
@@ -128,12 +242,25 @@ public class MainJPanel extends JPanel {
 				String team = txtTeam1.getText();
 				int index = team.indexOf("/");
 				if (index>-1) {
-				String player1 = team.substring(0,index);
-				String player2 = team.substring(index+1);
-				txtTeam1.setText(player2+"/"+player1);
+					String player1 = team.substring(0,index);
+					String player2 = team.substring(index+1);
+					txtTeam1.setText(player2+"/"+player1);
+					try {
+						obsInterface.setContents("team1.txt", txtTeam1.getText());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
+		
+		JButton btnTeam2Clear = new JButton("X");
+		btnTeam2Clear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtEventName.setText(null);
+			}
+		});
+		add(btnTeam2Clear, "cell 6 3,alignx left");
 		add(btnTeam1NameSwitch, "cell 1 4,alignx center");
 		
 		JButton btnTeam2NameSwitch = new JButton("<->");
@@ -142,9 +269,14 @@ public class MainJPanel extends JPanel {
 				String team = txtTeam2.getText();
 				int index = team.indexOf("/");
 				if (index>-1) {
-				String player1 = team.substring(0,index);
-				String player2 = team.substring(index+1);
-				txtTeam2.setText(player2+"/"+player1);
+					String player1 = team.substring(0,index);
+					String player2 = team.substring(index+1);
+					txtTeam2.setText(player2+"/"+player1);
+					try {
+						obsInterface.setContents("team2.txt", txtTeam2.getText());
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -166,12 +298,41 @@ public class MainJPanel extends JPanel {
 					num1 = 0;
 				}
 				txtGameCount1.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnGameCount1Minus, "cell 0 6,growx");
 		
 		txtGameCount1 = new JTextField();
 		txtGameCount1.setText("0");
+		txtGameCount1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtGameCount1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtGameCount1, "cell 1 6,growx");
 		txtGameCount1.setColumns(10);
 		
@@ -185,6 +346,11 @@ public class MainJPanel extends JPanel {
 					num1 = maxGameCount;
 				}
 				txtGameCount1.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnGameCount1Plus, "cell 2 6,growx");
@@ -195,6 +361,12 @@ public class MainJPanel extends JPanel {
 				String temp1 = txtGameCount1.getText();
 				txtGameCount1.setText(txtGameCount2.getText());
 				txtGameCount2.setText(temp1);
+				try {
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnGameCountSwitch, "cell 3 6,alignx center");
@@ -209,12 +381,41 @@ public class MainJPanel extends JPanel {
 					num1 = 0;
 				}
 				txtGameCount2.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnGameCount2Minus, "cell 4 6,growx");
 		
 		txtGameCount2 = new JTextField();
 		txtGameCount2.setText("0");
+		txtGameCount2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtGameCount2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtGameCount2, "cell 5 6,growx");
 		txtGameCount2.setColumns(10);
 		
@@ -228,6 +429,11 @@ public class MainJPanel extends JPanel {
 					num1 = maxGameCount;
 				}
 				txtGameCount2.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnGameCount2Plus, "cell 6 6,growx");
@@ -248,12 +454,41 @@ public class MainJPanel extends JPanel {
 					num1 = 0;
 				}
 				txtScore1.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnGameScore1Minus, "cell 0 8,growx,aligny top");
 		
 		txtScore1 = new JTextField();
 		txtScore1.setText("0");
+		txtScore1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("score1.txt", txtScore1.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtScore1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtScore1, "cell 1 8,growx");
 		txtScore1.setColumns(10);
 		
@@ -267,6 +502,12 @@ public class MainJPanel extends JPanel {
 					num1 = maxScore;
 				}
 				txtScore1.setText(Integer.toString(num1));
+				txtScore1.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnScore1Plus, "cell 2 8,growx");
@@ -277,6 +518,12 @@ public class MainJPanel extends JPanel {
 				String temp1 = txtScore1.getText();
 				txtScore1.setText(txtScore2.getText());
 				txtScore2.setText(temp1);
+				try {
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnScoreSwitch, "cell 3 8,alignx center");
@@ -291,12 +538,41 @@ public class MainJPanel extends JPanel {
 					num1 = 0;
 				}
 				txtScore2.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnScore2Minus, "cell 4 8,growx");
 		
 		txtScore2 = new JTextField();
 		txtScore2.setText("0");
+		txtScore2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("score2.txt", txtScore2.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtScore2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtScore2, "cell 5 8,growx");
 		txtScore2.setColumns(10);
 		
@@ -310,6 +586,11 @@ public class MainJPanel extends JPanel {
 					num1 = maxScore;
 				}
 				txtScore2.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnScore2Plus, "cell 6 8,growx");
@@ -330,12 +611,42 @@ public class MainJPanel extends JPanel {
 					num1 = 0;
 				}
 				txtTimeOut1.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTimeOut1Minus, "cell 0 10,growx");
 		
 		txtTimeOut1 = new JTextField();
 		txtTimeOut1.setText("0");
+		txtTimeOut1.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtTimeOut1.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtTimeOut1, "cell 1 10,growx");
 		txtTimeOut1.setColumns(10);
 		
@@ -349,6 +660,11 @@ public class MainJPanel extends JPanel {
 					num1 = maxTimeOut;
 				}
 				txtTimeOut1.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTimeOut1Plus, "cell 2 10,growx");
@@ -359,6 +675,12 @@ public class MainJPanel extends JPanel {
 				String temp1 = txtTimeOut1.getText();
 				txtTimeOut1.setText(txtTimeOut2.getText());
 				txtTimeOut2.setText(temp1);
+				try {
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTimeOutSwitch, "cell 3 10,alignx center");
@@ -373,12 +695,41 @@ public class MainJPanel extends JPanel {
 					num1 = 0;
 				}
 				txtTimeOut2.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTimeOut2Minus, "cell 4 10,growx,aligny bottom");
 		
 		txtTimeOut2 = new JTextField();
 		txtTimeOut2.setText("0");
+		txtTimeOut2.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+			    	try {
+			    		obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			    }
+			}
+		});
+		txtTimeOut2.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+				try {
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(txtTimeOut2, "cell 5 10,growx");
 		txtTimeOut2.setColumns(10);
 		
@@ -392,6 +743,11 @@ public class MainJPanel extends JPanel {
 					num1 = maxTimeOut;
 				}
 				txtTimeOut2.setText(Integer.toString(num1));
+				try {
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnTimeOut2Plus, "cell 6 10,growx");
@@ -414,8 +770,8 @@ public class MainJPanel extends JPanel {
 		JToggleButton tglbtnWarn2 = new JToggleButton(" Warn ");
 		add(tglbtnWarn2, "cell 6 11,growx");
 
-		JButton button = new JButton("<->");
-		button.addActionListener(new ActionListener() {
+		JButton btnResetSwitch = new JButton("<->");
+		btnResetSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				boolean sel1 = tglbtnReset1.isSelected();
 				tglbtnReset1.setSelected(tglbtnReset2.isSelected());
@@ -425,7 +781,7 @@ public class MainJPanel extends JPanel {
 				tglbtnWarn2.setSelected(sel2);
 			}
 		});
-		add(button, "cell 3 11,alignx center");
+		add(btnResetSwitch, "cell 3 11,alignx center");
 		
 		JButton btnResetTimers = new JButton("Reset");
 		btnResetTimers.addActionListener(new ActionListener() {
@@ -441,6 +797,12 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				txtGameCount1.setText("0");
 				txtGameCount2.setText("0");
+				try {
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnResetGameCounts, "cell 1 13,growx");
@@ -480,6 +842,12 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				txtScore1.setText("0");
 				txtScore2.setText("0");
+				try {
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnResetScores, "cell 1 14,growx");
@@ -502,6 +870,12 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				txtTimeOut1.setText("0");
 				txtTimeOut2.setText("0");
+				try {
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnResetTimeOuts, "cell 1 15,growx");
@@ -532,6 +906,16 @@ public class MainJPanel extends JPanel {
 				tglbtnReset2.setSelected(false);
 				tglbtnWarn1.setSelected(false);
 				tglbtnWarn2.setSelected(false);
+				try {
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnResetAll, "cell 1 16,growx");
@@ -590,7 +974,20 @@ public class MainJPanel extends JPanel {
 				tglbtnReset2.setSelected(sel1);
 				boolean sel2 = tglbtnWarn1.isSelected();
 				tglbtnWarn1.setSelected(tglbtnWarn2.isSelected());
-				tglbtnWarn2.setSelected(sel2);			}
+				tglbtnWarn2.setSelected(sel2);
+				try {
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
 		});
 		add(btnAllSwitch, "cell 3 0,alignx center");
 		
@@ -623,6 +1020,25 @@ public class MainJPanel extends JPanel {
 				tglbtnWarn2.setSelected(false);
 				lblTimerDisplay.setBackground(Color.GREEN);
 				timeClock.resetTimer(0);
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+					obsInterface.setContents("event.txt", txtEventName.getText());
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					obsInterface.setContents("reset1.txt", "");
+					obsInterface.setContents("reset2.txt", "");
+					obsInterface.setContents("warn1.txt", "");
+					obsInterface.setContents("warn2.txt", "");
+					obsInterface.setContents("timeremaining.txt", "0.0");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		
