@@ -9,7 +9,6 @@ public class TimeClock {
 	private int nbrOfSeconds;
 	private int timeRemaining;
 	private Timer timer;
-//	public boolean stopMe;
 	
 	public TimeClock() {
 		ActionListener action = new ActionListener() {

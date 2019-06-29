@@ -625,6 +625,9 @@ public class MainJPanel extends JPanel {
 				timeClock.resetTimer(0);
 			}
 		});
+		
+		JButton btnFetch = new JButton("Fetch");
+		add(btnFetch, "cell 2 18,alignx center");
 		add(btnClearAll, "cell 3 18,growx");
 	}
 
