@@ -9,13 +9,15 @@ public class TimeClock {
 	private int nbrOfSeconds;
 	private int timeRemaining;
 	private Timer timer;
+//	public boolean stopMe;
 	
 	public TimeClock() {
 		ActionListener action = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				timeRemaining--;
-//System.out.print(timeRemaining + "\r\n");
- 				if(timeRemaining < 1) {
+ 				if(timeRemaining < 0) {
+ 					timer.stop();
+ 				} else if(timeRemaining < 1 ) {
 					timeRemaining = 0;
 				}
 			}

@@ -29,19 +29,17 @@ public class MainJPanel extends JPanel {
 	private JTextField txtTimeOut1;
 	private JTextField txtTimeOut2;
 	private int maxGameCount = 3, maxTimeOut = 2, maxScore = 9;
+	private int shotTimerValue = 15, passTimerValue = 10, timeOutTimerValue = 30, gameTimerValue = 90, recallTimerValue = 10;
+	private String defaultFilePath = "c:\\temp\\";
 	JButton btnGameTimer;
 	JLabel lblTimerDisplay;
 	TimeClock timeClock;
 	ActionListener alAction;
-	// Initialization Block
-	{
-		timeClock = new TimeClock();
-	}
-
 	/**
 	 * Create the panel.
 	 */
     public MainJPanel() {
+		timeClock = new TimeClock();
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
@@ -467,7 +465,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
 		add(lblNonPossession, "cell 5 13,alignx right");
 		
-		JButton btnPossessionTimer = new JButton("15");
+		JButton btnPossessionTimer = new JButton(Integer.toString(shotTimerValue));
 		btnPossessionTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnPossessionTimer.getText()) * 10);
@@ -489,7 +487,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblRowPossession = new JLabel("Pass Timer (5 row)");
 		add(lblRowPossession, "cell 5 14,alignx right");
 		
-		JButton btn5RowTimer = new JButton("10");
+		JButton btn5RowTimer = new JButton(Integer.toString(passTimerValue));
 		btn5RowTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btn5RowTimer.getText()) * 10);
@@ -511,7 +509,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblTimeOutTimer = new JLabel("Time Out Timer");
 		add(lblTimeOutTimer, "cell 5 15,alignx right");
 		
-		JButton btnTimeOutTimer = new JButton("30");
+		JButton btnTimeOutTimer = new JButton(Integer.toString(timeOutTimerValue));
 		btnTimeOutTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnTimeOutTimer.getText()) * 10);
@@ -556,7 +554,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 17,alignx right");
 		
-		JButton btnRecallTimer = new JButton("10");
+		JButton btnRecallTimer = new JButton(Integer.toString(recallTimerValue));
 		btnRecallTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnRecallTimer.getText()) * 10 * 60);
@@ -569,7 +567,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblPath = new JLabel("Path");
 		add(lblPath, "cell 0 18,alignx trailing");
 		
-		JFormattedTextField formattedTxtPath = new JFormattedTextField();
+		JFormattedTextField formattedTxtPath = new JFormattedTextField(defaultFilePath);
 		add(formattedTxtPath, "cell 1 18,growx");
 		
 		JButton btnAllSwitch = new JButton("<->");
@@ -596,7 +594,7 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnAllSwitch, "cell 3 0,alignx center");
 		
-		btnGameTimer = new JButton("90");
+		btnGameTimer = new JButton(Integer.toString(gameTimerValue));
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnGameTimer.getText()) * 10);

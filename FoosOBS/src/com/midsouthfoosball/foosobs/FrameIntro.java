@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -57,11 +58,8 @@ public class FrameIntro {
 				JFrame f = new JFrame("Foos OBS");
 				f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
 				
-//				TimeClock timeClock = new TimeClock();
-
-//				MainJPanel p = new MainJPanel(timeClock);
 				MainJPanel p = new MainJPanel();
-//				p.setPreferredSize(new Dimension(800, 800));
+				p.setPreferredSize(new Dimension(850, 550));
 
 				f.getContentPane().add(p);
 				f.pack();
