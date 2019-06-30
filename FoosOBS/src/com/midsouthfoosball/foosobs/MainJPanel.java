@@ -9,6 +9,7 @@ import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
@@ -34,6 +35,10 @@ public class MainJPanel extends JPanel {
 	private JTextField txtScore2;
 	private JTextField txtTimeOut1;
 	private JTextField txtTimeOut2;
+	private JToggleButton tglbtnReset1;
+	private JToggleButton tglbtnReset2;
+	private JToggleButton tglbtnWarn1;
+	private JToggleButton tglbtnWarn2;
 	private int maxGameCount = 3, maxTimeOut = 2, maxScore = 9;
 	private int shotTimerValue = 15, passTimerValue = 10, timeOutTimerValue = 30, gameTimerValue = 90, recallTimerValue = 10;
 	private String defaultFilePath = "c:\\temp\\";
@@ -42,18 +47,59 @@ public class MainJPanel extends JPanel {
 	TimeClock timeClock;
 	ActionListener alAction;
 	OBSInterface obsInterface;
-	String[] fileNames;
+	JFrame f;
 	/**
 	 * Create the panel.
-	 */
-    public MainJPanel() throws IOException {
+	 **/
+    public MainJPanel(JFrame f) throws IOException {
 		timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
-//		frame.setAlwaysOnTop(true);//https://www.rune-server.ee/runescape-development/rs2-client/snippets/430001-implementing-always-top-checkbox-your-jpanel.html
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
+		JButton btnClearAll = new JButton("Clear All");
+		btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtTournamentName.setText(null);
+				txtEventName.setText(null);
+				txtTeam1.setText(null);
+				txtTeam2.setText(null);
+				txtGameCount1.setText("0");
+				txtGameCount2.setText("0");
+				txtScore1.setText("0");
+				txtScore2.setText("0");
+				txtTimeOut1.setText("0");
+				txtTimeOut2.setText("0");
+				tglbtnReset1.setSelected(false);
+				tglbtnReset2.setSelected(false);
+				tglbtnWarn1.setSelected(false);
+				tglbtnWarn2.setSelected(false);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(0);
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+					obsInterface.setContents("event.txt", txtEventName.getText());
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					obsInterface.setContents("reset1.txt", "");
+					obsInterface.setContents("reset2.txt", "");
+					obsInterface.setContents("warn1.txt", "");
+					obsInterface.setContents("warn2.txt", "");
+					obsInterface.setContents("timeremaining.txt", "0.0");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		add(btnClearAll, "cell 3 0,growx");
+
 		JLabel lblEvent = new JLabel("Event:");
 		add(lblEvent, "cell 5 0,alignx center");
 		
@@ -103,7 +149,7 @@ public class MainJPanel extends JPanel {
 		add(btnTournamentNameClear, "cell 2 1,alignx left");
 		
 		JSeparator separator = new JSeparator();
-		add(separator, "cell 3 1");
+		add(separator, "flowx,cell 3 1");
 		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -802,28 +848,28 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		
-		JButton btnClearAll = new JButton("Clear All");
-		btnClearAll.addActionListener(new ActionListener() {
+		JButton btnAllSwitch = new JButton("<->");
+		btnAllSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtTournamentName.setText(null);
-				txtEventName.setText(null);
-				txtTeam1.setText(null);
-				txtTeam2.setText(null);
-				txtGameCount1.setText("0");
-				txtGameCount2.setText("0");
-				txtScore1.setText("0");
-				txtScore2.setText("0");
-				txtTimeOut1.setText("0");
-				txtTimeOut2.setText("0");
-				tglbtnReset1.setSelected(false);
-				tglbtnReset2.setSelected(false);
-				tglbtnWarn1.setSelected(false);
-				tglbtnWarn2.setSelected(false);
-				lblTimerDisplay.setBackground(Color.GREEN);
-				timeClock.resetTimer(0);
+				String temp1 = txtTeam1.getText();
+				txtTeam1.setText(txtTeam2.getText());
+				txtTeam2.setText(temp1);
+				String temp2 = txtGameCount1.getText();
+				txtGameCount1.setText(txtGameCount2.getText());
+				txtGameCount2.setText(temp2);
+				String temp3 = txtScore1.getText();
+				txtScore1.setText(txtScore2.getText());
+				txtScore2.setText(temp3);
+				String temp4 = txtTimeOut1.getText();
+				txtTimeOut1.setText(txtTimeOut2.getText());
+				txtTimeOut2.setText(temp4);
+				boolean sel1 = tglbtnReset1.isSelected();
+				tglbtnReset1.setSelected(tglbtnReset2.isSelected());
+				tglbtnReset2.setSelected(sel1);
+				boolean sel2 = tglbtnWarn1.isSelected();
+				tglbtnWarn1.setSelected(tglbtnWarn2.isSelected());
+				tglbtnWarn2.setSelected(sel2);
 				try {
-					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
-					obsInterface.setContents("event.txt", txtEventName.getText());
 					obsInterface.setContents("team1.txt", txtTeam1.getText());
 					obsInterface.setContents("team2.txt", txtTeam2.getText());
 					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
@@ -832,17 +878,12 @@ public class MainJPanel extends JPanel {
 					obsInterface.setContents("score2.txt", txtScore2.getText());
 					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
 					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
-					obsInterface.setContents("reset1.txt", "");
-					obsInterface.setContents("reset2.txt", "");
-					obsInterface.setContents("warn1.txt", "");
-					obsInterface.setContents("warn2.txt", "");
-					obsInterface.setContents("timeremaining.txt", "0.0");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-		add(btnClearAll, "cell 3 12,growx");
+		add(btnAllSwitch, "cell 3 12,growx");
 		add(btnResetTimers, "cell 6 12,growx,aligny bottom");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts");
@@ -984,17 +1025,18 @@ public class MainJPanel extends JPanel {
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 16,alignx right");
 		
-		JCheckBox chckbxAutoUpdate = new JCheckBox("");
+		JCheckBox chckbxAutoUpdate = new JCheckBox("Auto Update");
 		add(chckbxAutoUpdate, "cell 0 17,alignx right");
 		
-		JLabel lblAutoUpdate = new JLabel("Auto Update");
-		add(lblAutoUpdate, "cell 1 17");
-		
-		JCheckBox chckbxAlwaysOnTop = new JCheckBox("");
+		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
+		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				f.setAlwaysOnTop(chckbxAlwaysOnTop.isSelected());
+			}
+		});
+		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
+        chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
 		add(chckbxAlwaysOnTop, "cell 2 17,alignx right");
-		
-		JLabel lblAlwaysOnTop = new JLabel("Always On Top");
-		add(lblAlwaysOnTop, "cell 3 17");
 		
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 17,alignx right");
@@ -1024,43 +1066,6 @@ public class MainJPanel extends JPanel {
 		});
 		add(formattedTxtPath, "cell 1 18,growx");
 		
-		JButton btnAllSwitch = new JButton("<->");
-		btnAllSwitch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String temp1 = txtTeam1.getText();
-				txtTeam1.setText(txtTeam2.getText());
-				txtTeam2.setText(temp1);
-				String temp2 = txtGameCount1.getText();
-				txtGameCount1.setText(txtGameCount2.getText());
-				txtGameCount2.setText(temp2);
-				String temp3 = txtScore1.getText();
-				txtScore1.setText(txtScore2.getText());
-				txtScore2.setText(temp3);
-				String temp4 = txtTimeOut1.getText();
-				txtTimeOut1.setText(txtTimeOut2.getText());
-				txtTimeOut2.setText(temp4);
-				boolean sel1 = tglbtnReset1.isSelected();
-				tglbtnReset1.setSelected(tglbtnReset2.isSelected());
-				tglbtnReset2.setSelected(sel1);
-				boolean sel2 = tglbtnWarn1.isSelected();
-				tglbtnWarn1.setSelected(tglbtnWarn2.isSelected());
-				tglbtnWarn2.setSelected(sel2);
-				try {
-					obsInterface.setContents("team1.txt", txtTeam1.getText());
-					obsInterface.setContents("team2.txt", txtTeam2.getText());
-					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
-					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
-					obsInterface.setContents("score1.txt", txtScore1.getText());
-					obsInterface.setContents("score2.txt", txtScore2.getText());
-					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
-					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		add(btnAllSwitch, "cell 3 0,growx");
-		
 		btnGameTimer = new JButton(Integer.toString(gameTimerValue));
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -1070,14 +1075,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnGameTimer, "cell 6 16,growx");
-		
-		JButton btnSetPath = new JButton("Set Path");
-		btnSetPath.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				obsInterface.setFilePath(formattedTxtPath.getText());
-			}
-		});
-		add(btnSetPath, "cell 2 18");
 		
 		JButton btnFetch = new JButton("Fetch");
 		btnFetch.addActionListener(new ActionListener() {
@@ -1098,6 +1095,15 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
+		
+		JButton btnSetPath = new JButton("Set Path");
+		btnSetPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				obsInterface.setFilePath(formattedTxtPath.getText());
+			}
+		});
+		
+		add(btnSetPath, "cell 2 18,growx");
 		add(btnFetch, "cell 4 18,growx");
 	}
 

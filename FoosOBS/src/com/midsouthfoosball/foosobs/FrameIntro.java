@@ -62,12 +62,14 @@ public class FrameIntro {
 				
 				MainJPanel p;
 				try {
-					p = new MainJPanel();
+					f.setAlwaysOnTop(true);
+					p = new MainJPanel(f);
 					p.setPreferredSize(new Dimension(850, 550));
-	
+
 					f.getContentPane().add(p);
 					f.pack();
 					f.setVisible(true);
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
