@@ -78,7 +78,7 @@ public class FrameIntro {
 		btnContinue.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnContinue.setForeground(Color.BLACK);
 		btnContinue.setBackground(new Color(0, 255, 255));
-		btnContinue.setBounds(102, 104, 100, 23);
+		btnContinue.setBounds(91, 100, 125, 23);
 		frmFoosOBSIntro.getContentPane().add(btnContinue);
 		
 		JLabel lblFoosObs = new JLabel("Foos OBS");

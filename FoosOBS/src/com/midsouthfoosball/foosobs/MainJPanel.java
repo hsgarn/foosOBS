@@ -50,6 +50,7 @@ public class MainJPanel extends JPanel {
 		timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
+//		frame.setAlwaysOnTop(true);//https://www.rune-server.ee/runescape-development/rs2-client/snippets/430001-implementing-always-top-checkbox-your-jpanel.html
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
@@ -207,7 +208,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnTeamSwitch, "cell 3 3,alignx center");
+		add(btnTeamSwitch, "cell 3 3,growx");
 		
 		JLabel lblName2 = new JLabel("Name:");
 		add(lblName2, "cell 4 3,alignx right");
@@ -375,7 +376,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnGameCountSwitch, "cell 3 6,alignx center");
+		add(btnGameCountSwitch, "cell 3 6,growx");
 		
 		JButton btnGameCount2Minus = new JButton("-");
 		btnGameCount2Minus.addActionListener(new ActionListener() {
@@ -534,7 +535,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnScoreSwitch, "cell 3 8,alignx center");
+		add(btnScoreSwitch, "cell 3 8,growx");
 		
 		JButton btnScore2Minus = new JButton("-");
 		btnScore2Minus.addActionListener(new ActionListener() {
@@ -692,7 +693,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnTimeOutSwitch, "cell 3 10,alignx center");
+		add(btnTimeOutSwitch, "cell 3 10,growx");
 		
 		JButton btnTimeOut2Minus = new JButton("-");
 		btnTimeOut2Minus.addActionListener(new ActionListener() {
@@ -791,7 +792,7 @@ public class MainJPanel extends JPanel {
 				tglbtnWarn2.setSelected(sel2);
 			}
 		});
-		add(btnResetSwitch, "cell 3 11,alignx center");
+		add(btnResetSwitch, "cell 3 11,growx");
 		
 		JButton btnResetTimers = new JButton("Reset");
 		btnResetTimers.addActionListener(new ActionListener() {
@@ -800,6 +801,48 @@ public class MainJPanel extends JPanel {
 				timeClock.resetTimer(0);
 			}
 		});
+		
+		JButton btnClearAll = new JButton("Clear All");
+		btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtTournamentName.setText(null);
+				txtEventName.setText(null);
+				txtTeam1.setText(null);
+				txtTeam2.setText(null);
+				txtGameCount1.setText("0");
+				txtGameCount2.setText("0");
+				txtScore1.setText("0");
+				txtScore2.setText("0");
+				txtTimeOut1.setText("0");
+				txtTimeOut2.setText("0");
+				tglbtnReset1.setSelected(false);
+				tglbtnReset2.setSelected(false);
+				tglbtnWarn1.setSelected(false);
+				tglbtnWarn2.setSelected(false);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(0);
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+					obsInterface.setContents("event.txt", txtEventName.getText());
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					obsInterface.setContents("reset1.txt", "");
+					obsInterface.setContents("reset2.txt", "");
+					obsInterface.setContents("warn1.txt", "");
+					obsInterface.setContents("warn2.txt", "");
+					obsInterface.setContents("timeremaining.txt", "0.0");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		add(btnClearAll, "cell 3 12,growx");
 		add(btnResetTimers, "cell 6 12,growx,aligny bottom");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts");
@@ -970,6 +1013,15 @@ public class MainJPanel extends JPanel {
 		add(lblPath, "cell 0 18,alignx trailing");
 		
 		JFormattedTextField formattedTxtPath = new JFormattedTextField(defaultFilePath);
+		formattedTxtPath.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent evt) {
+				int key = evt.getKeyCode();
+			    if (key == KeyEvent.VK_ENTER) {
+					obsInterface.setFilePath(formattedTxtPath.getText());
+			    }
+			}
+		});
 		add(formattedTxtPath, "cell 1 18,growx");
 		
 		JButton btnAllSwitch = new JButton("<->");
@@ -1007,7 +1059,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnAllSwitch, "cell 3 0,alignx center");
+		add(btnAllSwitch, "cell 3 0,growx");
 		
 		btnGameTimer = new JButton(Integer.toString(gameTimerValue));
 		btnGameTimer.addActionListener(new ActionListener() {
@@ -1019,46 +1071,13 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnGameTimer, "cell 6 16,growx");
 		
-		JButton btnClearAll = new JButton("Clear All");
-		btnClearAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtTournamentName.setText(null);
-				txtEventName.setText(null);
-				txtTeam1.setText(null);
-				txtTeam2.setText(null);
-				txtGameCount1.setText("0");
-				txtGameCount2.setText("0");
-				txtScore1.setText("0");
-				txtScore2.setText("0");
-				txtTimeOut1.setText("0");
-				txtTimeOut2.setText("0");
-				tglbtnReset1.setSelected(false);
-				tglbtnReset2.setSelected(false);
-				tglbtnWarn1.setSelected(false);
-				tglbtnWarn2.setSelected(false);
-				lblTimerDisplay.setBackground(Color.GREEN);
-				timeClock.resetTimer(0);
-				try {
-					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
-					obsInterface.setContents("event.txt", txtEventName.getText());
-					obsInterface.setContents("team1.txt", txtTeam1.getText());
-					obsInterface.setContents("team2.txt", txtTeam2.getText());
-					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
-					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
-					obsInterface.setContents("score1.txt", txtScore1.getText());
-					obsInterface.setContents("score2.txt", txtScore2.getText());
-					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
-					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
-					obsInterface.setContents("reset1.txt", "");
-					obsInterface.setContents("reset2.txt", "");
-					obsInterface.setContents("warn1.txt", "");
-					obsInterface.setContents("warn2.txt", "");
-					obsInterface.setContents("timeremaining.txt", "0.0");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
+		JButton btnSetPath = new JButton("Set Path");
+		btnSetPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				obsInterface.setFilePath(formattedTxtPath.getText());
 			}
 		});
+		add(btnSetPath, "cell 2 18");
 		
 		JButton btnFetch = new JButton("Fetch");
 		btnFetch.addActionListener(new ActionListener() {
@@ -1066,13 +1085,20 @@ public class MainJPanel extends JPanel {
 				try {
 					txtTournamentName.setText(obsInterface.getContents("tournament.txt"));
 					txtEventName.setText(obsInterface.getContents("event.txt"));
+					txtTeam1.setText(obsInterface.getContents("team1.txt"));
+					txtTeam2.setText(obsInterface.getContents("team2.txt"));
+					txtGameCount1.setText(obsInterface.getContents("gamecount1.txt"));
+					txtGameCount2.setText(obsInterface.getContents("gamecount2.txt"));
+					txtScore1.setText(obsInterface.getContents("score1.txt"));
+					txtScore2.setText(obsInterface.getContents("score2.txt"));
+					txtTimeOut1.setText(obsInterface.getContents("timeout1.txt"));
+					txtTimeOut2.setText(obsInterface.getContents("timeout2.txt"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-		add(btnFetch, "cell 2 18,alignx center");
-		add(btnClearAll, "cell 3 18,growx");
+		add(btnFetch, "cell 4 18,growx");
 	}
 
 }
