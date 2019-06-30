@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class FrameIntro {
 
@@ -47,7 +48,7 @@ public class FrameIntro {
 		frmFoosOBSIntro.setTitle("Foos OBS");
 		frmFoosOBSIntro.setBackground(new Color(240, 240, 240));
 		frmFoosOBSIntro.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 15));
-		frmFoosOBSIntro.setBounds(100, 100, 292, 199);
+		frmFoosOBSIntro.setBounds(100, 100, 320, 200);
 		frmFoosOBSIntro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFoosOBSIntro.getContentPane().setLayout(null);
 		
@@ -77,12 +78,13 @@ public class FrameIntro {
 		btnContinue.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnContinue.setForeground(Color.BLACK);
 		btnContinue.setBackground(new Color(0, 255, 255));
-		btnContinue.setBounds(81, 103, 100, 23);
+		btnContinue.setBounds(102, 104, 100, 23);
 		frmFoosOBSIntro.getContentPane().add(btnContinue);
 		
 		JLabel lblFoosObs = new JLabel("Foos OBS");
-		lblFoosObs.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblFoosObs.setBounds(81, 11, 100, 46);
+		lblFoosObs.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFoosObs.setFont(new Font("Tahoma", Font.BOLD, 26));
+		lblFoosObs.setBounds(71, 27, 156, 47);
 		frmFoosOBSIntro.getContentPane().add(lblFoosObs);
 	}
 }

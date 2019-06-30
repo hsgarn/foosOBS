@@ -18,6 +18,7 @@ import java.awt.event.FocusEvent;
 import java.io.IOException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
 
 public class MainJPanel extends JPanel {
 
@@ -56,6 +57,7 @@ public class MainJPanel extends JPanel {
 		add(lblEvent, "cell 5 0,alignx center");
 		
 		txtTournamentName = new JTextField();
+		txtTournamentName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTournamentName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {
@@ -103,6 +105,7 @@ public class MainJPanel extends JPanel {
 		add(separator, "cell 3 1");
 		
 		txtEventName = new JTextField();
+		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
 		txtEventName.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {
@@ -154,6 +157,7 @@ public class MainJPanel extends JPanel {
 		add(lblName1, "cell 0 3,alignx right");
 		
 		txtTeam1 = new JTextField();
+		txtTeam1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTeam1.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {
@@ -209,6 +213,7 @@ public class MainJPanel extends JPanel {
 		add(lblName2, "cell 4 3,alignx right");
 		
 		txtTeam2 = new JTextField();
+		txtTeam2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTeam2.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {
@@ -308,6 +313,7 @@ public class MainJPanel extends JPanel {
 		add(btnGameCount1Minus, "cell 0 6,growx");
 		
 		txtGameCount1 = new JTextField();
+		txtGameCount1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtGameCount1.setText("0");
 		txtGameCount1.addKeyListener(new KeyAdapter() {
 			@Override
@@ -391,6 +397,7 @@ public class MainJPanel extends JPanel {
 		add(btnGameCount2Minus, "cell 4 6,growx");
 		
 		txtGameCount2 = new JTextField();
+		txtGameCount2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtGameCount2.setText("0");
 		txtGameCount2.addKeyListener(new KeyAdapter() {
 			@Override
@@ -464,6 +471,7 @@ public class MainJPanel extends JPanel {
 		add(btnGameScore1Minus, "cell 0 8,growx,aligny top");
 		
 		txtScore1 = new JTextField();
+		txtScore1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtScore1.setText("0");
 		txtScore1.addKeyListener(new KeyAdapter() {
 			@Override
@@ -548,6 +556,7 @@ public class MainJPanel extends JPanel {
 		add(btnScore2Minus, "cell 4 8,growx");
 		
 		txtScore2 = new JTextField();
+		txtScore2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtScore2.setText("0");
 		txtScore2.addKeyListener(new KeyAdapter() {
 			@Override
@@ -613,7 +622,6 @@ public class MainJPanel extends JPanel {
 				txtTimeOut1.setText(Integer.toString(num1));
 				try {
 					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
-					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -622,6 +630,7 @@ public class MainJPanel extends JPanel {
 		add(btnTimeOut1Minus, "cell 0 10,growx");
 		
 		txtTimeOut1 = new JTextField();
+		txtTimeOut1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTimeOut1.setText("0");
 		txtTimeOut1.addKeyListener(new KeyAdapter() {
 			@Override
@@ -705,6 +714,7 @@ public class MainJPanel extends JPanel {
 		add(btnTimeOut2Minus, "cell 4 10,growx,aligny bottom");
 		
 		txtTimeOut2 = new JTextField();
+		txtTimeOut2.setHorizontalAlignment(SwingConstants.CENTER);
 		txtTimeOut2.setText("0");
 		txtTimeOut2.addKeyListener(new KeyAdapter() {
 			@Override
