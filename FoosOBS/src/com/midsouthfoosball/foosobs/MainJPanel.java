@@ -45,7 +45,7 @@ public class MainJPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-    public MainJPanel() {
+    public MainJPanel() throws IOException {
 		timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
 		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
@@ -818,7 +818,15 @@ public class MainJPanel extends JPanel {
 				if(timeRemaining <= 0 && nbrOfSeconds != 0) {
 					lblTimerDisplay.setBackground(Color.RED);
 				}
-				lblTimerDisplay.setText("   " + Float.toString(((float) timeRemaining) / 10) + "   ");
+				float tr = (float) timeRemaining / 10f;
+				lblTimerDisplay.setText("   " + Float.toString(tr) + "   ");
+				if(tr == (int) tr) {
+					try {
+						obsInterface.setContents("timeremaining.txt", Float.toString(tr));
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+				};
 			}
 		};
 		timeClock.addTimeClockTimerListener(alAction);
@@ -1043,6 +1051,16 @@ public class MainJPanel extends JPanel {
 		});
 		
 		JButton btnFetch = new JButton("Fetch");
+		btnFetch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					txtTournamentName.setText(obsInterface.getContents("tournament.txt"));
+					txtEventName.setText(obsInterface.getContents("event.txt"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(btnFetch, "cell 2 18,alignx center");
 		add(btnClearAll, "cell 3 18,growx");
 	}

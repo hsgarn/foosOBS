@@ -1,6 +1,8 @@
 package com.midsouthfoosball.foosobs;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -71,10 +73,12 @@ public class OBSInterface {
 		writer.close();
 		
 	}
-	public String[] readFiles() {
-		return fileContents;
+	public String getContents(String whichFile) throws IOException {
+		BufferedReader br = new BufferedReader(new FileReader("c:\\Temp\\" + whichFile));
+		String theContents = br.readLine();
+		br.close();
+		return theContents;
 	}
-	
 	public int writeAllFiles() {
 		return writeStatus;
 	}

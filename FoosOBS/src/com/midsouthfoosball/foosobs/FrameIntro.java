@@ -8,6 +8,7 @@ import java.awt.Font;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class FrameIntro {
@@ -58,12 +59,18 @@ public class FrameIntro {
 				JFrame f = new JFrame("Foos OBS");
 				f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
 				
-				MainJPanel p = new MainJPanel();
-				p.setPreferredSize(new Dimension(850, 550));
-
-				f.getContentPane().add(p);
-				f.pack();
-				f.setVisible(true);
+				MainJPanel p;
+				try {
+					p = new MainJPanel();
+					p.setPreferredSize(new Dimension(850, 550));
+	
+					f.getContentPane().add(p);
+					f.pack();
+					f.setVisible(true);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 			}
 		});
