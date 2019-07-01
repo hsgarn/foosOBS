@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import java.awt.event.ActionListener;
@@ -41,9 +42,10 @@ public class MainJPanel extends JPanel {
 	private JToggleButton tglbtnWarn2;
 	private int maxGameCount = 3, maxTimeOut = 2, maxScore = 9;
 	private int shotTimerValue = 15, passTimerValue = 10, timeOutTimerValue = 30, gameTimerValue = 90, recallTimerValue = 10;
-	private String defaultFilePath = "c:\\temp\\";
+	private String defaultFilePath = "c:\\temp";
 	JButton btnGameTimer;
 	JLabel lblTimerDisplay;
+	JLabel lblTimerInUse;
 	TimeClock timeClock;
 	ActionListener alAction;
 	OBSInterface obsInterface;
@@ -54,7 +56,7 @@ public class MainJPanel extends JPanel {
     public MainJPanel(JFrame f) throws IOException {
 		timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
-		setLayout(new MigLayout("", "[71.00][grow][75.00][][71.00][grow][72.00][]", "[][][][][][][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[70.00][135.00,grow][90.00][][90.00][135.00,grow][70.00]", "[][][][][][][][][][][][][][][][][][][]"));
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
@@ -840,10 +842,15 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnResetSwitch, "cell 3 11,growx");
 		
+		JLabel lblTimerInUse = new JLabel("Timer Reset");
+		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblTimerInUse, "cell 3 17,growx");
+		
 		JButton btnResetTimers = new JButton("Reset");
 		btnResetTimers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Timer Reset");
 				timeClock.resetTimer(0);
 			}
 		});
@@ -902,6 +909,7 @@ public class MainJPanel extends JPanel {
 		add(btnResetGameCounts, "cell 1 13,growx");
 		
 		lblTimerDisplay = new JLabel(" 0.0 ");
+		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimerDisplay.setOpaque(true);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
@@ -934,6 +942,7 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnPossessionTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Shot Timer");
 				timeClock.resetTimer(count);
 			}
 		});
@@ -962,6 +971,7 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btn5RowTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Pass Timer");
 				timeClock.resetTimer(count);
 			}
 		});
@@ -990,6 +1000,7 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnTimeOutTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Time Out Timer");
 				timeClock.resetTimer(count);
 			}
 		});
@@ -1025,9 +1036,6 @@ public class MainJPanel extends JPanel {
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 16,alignx right");
 		
-		JCheckBox chckbxAutoUpdate = new JCheckBox("Auto Update");
-		add(chckbxAutoUpdate, "cell 0 17,alignx right");
-		
 		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
 		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1035,8 +1043,8 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
-        chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
-		add(chckbxAlwaysOnTop, "cell 2 17,alignx right");
+		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
+		add(chckbxAlwaysOnTop, "cell 1 17,alignx right");
 		
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 17,alignx right");
@@ -1046,13 +1054,11 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnRecallTimer.getText()) * 10 * 60);
 				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Recall Timer");
 				timeClock.resetTimer(count);
 			}
 		});
 		add(btnRecallTimer, "cell 6 17,growx");
-		
-		JLabel lblPath = new JLabel("Path");
-		add(lblPath, "cell 0 18,alignx trailing");
 		
 		JFormattedTextField formattedTxtPath = new JFormattedTextField(defaultFilePath);
 		formattedTxtPath.addKeyListener(new KeyAdapter() {
@@ -1064,6 +1070,15 @@ public class MainJPanel extends JPanel {
 			    }
 			}
 		});
+		
+		JButton btnSetPath = new JButton("Set Path");
+		btnSetPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				obsInterface.setFilePath(formattedTxtPath.getText());
+			}
+		});
+		
+		add(btnSetPath, "cell 0 18,growx");
 		add(formattedTxtPath, "cell 1 18,growx");
 		
 		btnGameTimer = new JButton(Integer.toString(gameTimerValue));
@@ -1071,12 +1086,33 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int count = (int) (Integer.parseInt(btnGameTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Game Timer");
 				timeClock.resetTimer(count);
 			}
 		});
 		add(btnGameTimer, "cell 6 16,growx");
 		
-		JButton btnFetch = new JButton("Fetch");
+		JButton btnSelectPath = new JButton("Select Path");
+		btnSelectPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				final JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new java.io.File(formattedTxtPath.getText()));
+				chooser.setDialogTitle("Select directory for path");
+				chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				chooser.setAcceptAllFileFilterUsed(false);
+
+				int returnVal = chooser.showOpenDialog(MainJPanel.this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					formattedTxtPath.setText(chooser.getSelectedFile().getAbsolutePath());
+					obsInterface.setFilePath(formattedTxtPath.getText());
+				} else {
+					System.out.print("no directory selected \r\n");
+				}
+			}
+		});
+		add(btnSelectPath, "cell 2 18,growx");
+		
+		JButton btnFetch = new JButton("Fetch Data");
 		btnFetch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -1095,16 +1131,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		
-		JButton btnSetPath = new JButton("Set Path");
-		btnSetPath.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				obsInterface.setFilePath(formattedTxtPath.getText());
-			}
-		});
-		
-		add(btnSetPath, "cell 2 18,growx");
-		add(btnFetch, "cell 4 18,growx");
+		add(btnFetch, "cell 3 18,growx");
 	}
 
 }

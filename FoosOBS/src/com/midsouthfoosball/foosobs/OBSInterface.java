@@ -9,7 +9,7 @@ import java.io.IOException;
 public class OBSInterface {
 	
 	private String txtFileName;
-	private String txtFilePath = "c:\\Temp\\";
+	private String txtFilePath = "c:\\Temp";
 	private String txtFileData;
 	private int writeStatus;
 	
@@ -58,7 +58,6 @@ public class OBSInterface {
 	}
 	public String[] fileNames = {"tournament.txt", "event.txt", "team1.txt", "team2.txt", "game1.txt", "game2.txt", "score1.txt", "score2.txt",
 									"timeout1.txt", "timeout2.txt", "reset1.txt", "reset2.txt", "warn1.txt", "warn2.txt", "timeremaining.txt", "timer.txt"};
-	private String[] fileContents;
 	
 	public void setFilePath(String filePath) {
 		this.txtFilePath = filePath;
@@ -66,7 +65,7 @@ public class OBSInterface {
 
 	public void setContents(String whichFile, String theContents) throws IOException {
 //		System.out.print("filename: " + whichFile + " Contents: " + theContents + "\r\n");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + whichFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + "\\" + whichFile));
 		writer.write(theContents);
 		writer.close();
 	}
@@ -78,7 +77,7 @@ public class OBSInterface {
 		
 	}
 	public String getContents(String whichFile) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(txtFilePath + whichFile));
+		BufferedReader br = new BufferedReader(new FileReader(txtFilePath + "\\" + whichFile));
 		String theContents = br.readLine();
 		br.close();
 		return theContents;
