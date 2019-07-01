@@ -770,21 +770,73 @@ public class MainJPanel extends JPanel {
 		add(btnTimeOut2Plus, "cell 6 10,growx");
 		
 		JToggleButton tglbtnReset1 = new JToggleButton("Reset");
+		tglbtnReset1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					if(tglbtnReset1.isSelected()) {
+						obsInterface.setContents("reset1.txt", "RESET");
+					} else {
+						obsInterface.setContents("reset1.txt", "");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(tglbtnReset1, "cell 0 11,growx");
 		
 		JLabel lblReset1 = new JLabel("Reset");
 		add(lblReset1, "cell 1 11,alignx center");
 		
 		JToggleButton tglbtnWarn1 = new JToggleButton(" Warn ");
+		tglbtnWarn1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					if(tglbtnWarn1.isSelected()) {
+						obsInterface.setContents("warn1.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn1.txt", "");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(tglbtnWarn1, "cell 2 11,growx");
 		
 		JToggleButton tglbtnReset2 = new JToggleButton("Reset");
+		tglbtnReset2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					if(tglbtnReset2.isSelected()) {
+						obsInterface.setContents("reset2.txt", "RESET");
+					} else {
+						obsInterface.setContents("reset2.txt", "");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(tglbtnReset2, "cell 4 11,growx");
 		
 		JLabel lblReset2 = new JLabel("Reset");
 		add(lblReset2, "cell 5 11,alignx center");
 		
 		JToggleButton tglbtnWarn2 = new JToggleButton(" Warn ");
+		tglbtnWarn2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				try {
+					if(tglbtnWarn2.isSelected()) {
+						obsInterface.setContents("warn2.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn2.txt", "");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		add(tglbtnWarn2, "cell 6 11,growx");
 
 		JButton btnResetSwitch = new JButton("<->");
@@ -796,6 +848,30 @@ public class MainJPanel extends JPanel {
 				boolean sel2 = tglbtnWarn1.isSelected();
 				tglbtnWarn1.setSelected(tglbtnWarn2.isSelected());
 				tglbtnWarn2.setSelected(sel2);
+				try {
+					if(tglbtnReset1.isSelected()) {
+						obsInterface.setContents("reset1.txt", "RESET");
+					} else {
+						obsInterface.setContents("reset1.txt", "");
+					}
+					if(tglbtnReset2.isSelected()) {
+						obsInterface.setContents("Reset2.txt", "RESET");
+					} else {
+						obsInterface.setContents("Reset2.txt", "");
+					}
+					if(tglbtnWarn1.isSelected()) {
+						obsInterface.setContents("warn1.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn1.txt", "");
+					}
+					if(tglbtnWarn2.isSelected()) {
+						obsInterface.setContents("warn2.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn2.txt", "");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		add(btnResetSwitch, "cell 3 11,growx");
@@ -817,6 +893,7 @@ public class MainJPanel extends JPanel {
 				timeClock.resetTimer(0);
 			}
 		});
+		add(btnResetTimers, "cell 6 12,growx,aligny bottom");
 		
 		JButton btnAllSwitch = new JButton("<->");
 		btnAllSwitch.addActionListener(new ActionListener() {
@@ -848,13 +925,32 @@ public class MainJPanel extends JPanel {
 					obsInterface.setContents("score2.txt", txtScore2.getText());
 					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
 					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					if(tglbtnReset1.isSelected()) {
+						obsInterface.setContents("reset1.txt", "RESET");
+					} else {
+						obsInterface.setContents("reset1.txt", "");
+					}
+					if(tglbtnReset2.isSelected()) {
+						obsInterface.setContents("Reset2.txt", "RESET");
+					} else {
+						obsInterface.setContents("Reset2.txt", "");
+					}
+					if(tglbtnWarn1.isSelected()) {
+						obsInterface.setContents("warn1.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn1.txt", "");
+					}
+					if(tglbtnWarn2.isSelected()) {
+						obsInterface.setContents("warn2.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn2.txt", "");
+					}
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 		add(btnAllSwitch, "cell 3 12,growx");
-		add(btnResetTimers, "cell 6 12,growx,aligny bottom");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts");
 		btnResetGameCounts.addActionListener(new ActionListener() {
@@ -1004,6 +1100,10 @@ public class MainJPanel extends JPanel {
 					obsInterface.setContents("score2.txt", txtScore2.getText());
 					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
 					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					obsInterface.setContents("reset1.txt", "");
+					obsInterface.setContents("Reset2.txt", "");
+					obsInterface.setContents("warn1.txt", "");
+					obsInterface.setContents("warn2.txt", "");
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -1044,32 +1144,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		
-		JButton btnSetPath = new JButton("Set Path");
-		btnSetPath.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				obsInterface.setFilePath(formattedTxtPath.getText());
-			}
-		});
-		
-		add(btnSetPath, "cell 0 18,growx");
-		add(formattedTxtPath, "cell 1 18,growx");
-		
-		btnGameTimer = new JButton(Integer.toString(gameTimerValue));
-		btnGameTimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int count = (int) (Integer.parseInt(btnGameTimer.getText()) * 10);
-				lblTimerDisplay.setBackground(Color.GREEN);
-				lblTimerInUse.setText("Game Timer");
-				try {
-				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				timeClock.resetTimer(count);
-			}
-		});
-		add(btnGameTimer, "cell 6 16,growx");
-		
 		JButton btnSelectPath = new JButton("Select Path");
 		btnSelectPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
@@ -1088,7 +1162,24 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnSelectPath, "cell 2 18,growx");
+		add(btnSelectPath, "cell 0 18,growx");
+		add(formattedTxtPath, "cell 1 18,growx");
+		
+		btnGameTimer = new JButton(Integer.toString(gameTimerValue));
+		btnGameTimer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int count = (int) (Integer.parseInt(btnGameTimer.getText()) * 10);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerInUse.setText("Game Timer");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				timeClock.resetTimer(count);
+			}
+		});
+		add(btnGameTimer, "cell 6 16,growx");
 		
 		JButton btnFetch = new JButton("Fetch Data");
 		btnFetch.addActionListener(new ActionListener() {
@@ -1104,11 +1195,24 @@ public class MainJPanel extends JPanel {
 					txtScore2.setText(obsInterface.getContents("score2.txt"));
 					txtTimeOut1.setText(obsInterface.getContents("timeout1.txt"));
 					txtTimeOut2.setText(obsInterface.getContents("timeout2.txt"));
+					tglbtnReset1.setSelected(obsInterface.getContents("reset1.txt")!=null);
+					tglbtnReset2.setSelected(obsInterface.getContents("reset2.txt")!=null);
+					tglbtnWarn1.setSelected(obsInterface.getContents("warn1.txt")!=null);
+					tglbtnWarn2.setSelected(obsInterface.getContents("warn2.txt")!=null);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
+		
+		JButton btnSetPath = new JButton("Set Path");
+		btnSetPath.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				obsInterface.setFilePath(formattedTxtPath.getText());
+			}
+		});
+		
+		add(btnSetPath, "cell 2 18,growx");
 		add(btnFetch, "cell 3 18,growx");
 
 		JButton btnClearAll = new JButton("Clear All");
@@ -1161,6 +1265,50 @@ public class MainJPanel extends JPanel {
 				f.setAlwaysOnTop(chckbxAlwaysOnTop.isSelected());
 			}
 		});
+		
+		JButton btnSaveAll = new JButton("Save All");
+		btnSaveAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+					obsInterface.setContents("event.txt", txtEventName.getText());
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					obsInterface.setContents("timeremaining.txt", "0.0");
+					obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+					if(tglbtnReset1.isSelected()) {
+						obsInterface.setContents("reset1.txt", "RESET");
+					} else {
+						obsInterface.setContents("reset1.txt", "");
+					}
+					if(tglbtnReset2.isSelected()) {
+						obsInterface.setContents("Reset2.txt", "RESET");
+					} else {
+						obsInterface.setContents("Reset2.txt", "");
+					}
+					if(tglbtnWarn1.isSelected()) {
+						obsInterface.setContents("warn1.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn1.txt", "");
+					}
+					if(tglbtnWarn2.isSelected()) {
+						obsInterface.setContents("warn2.txt", "WARNING");
+					} else {
+						obsInterface.setContents("warn2.txt", "");
+					}
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		add(btnSaveAll, "cell 4 18,growx");
+		
 		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
 		add(chckbxAlwaysOnTop, "cell 5 18,alignx right");
