@@ -60,48 +60,6 @@ public class MainJPanel extends JPanel {
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
-		JButton btnClearAll = new JButton("Clear All");
-		btnClearAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtTournamentName.setText(null);
-				txtEventName.setText(null);
-				txtTeam1.setText(null);
-				txtTeam2.setText(null);
-				txtGameCount1.setText("0");
-				txtGameCount2.setText("0");
-				txtScore1.setText("0");
-				txtScore2.setText("0");
-				txtTimeOut1.setText("0");
-				txtTimeOut2.setText("0");
-				tglbtnReset1.setSelected(false);
-				tglbtnReset2.setSelected(false);
-				tglbtnWarn1.setSelected(false);
-				tglbtnWarn2.setSelected(false);
-				lblTimerDisplay.setBackground(Color.GREEN);
-				timeClock.resetTimer(0);
-				try {
-					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
-					obsInterface.setContents("event.txt", txtEventName.getText());
-					obsInterface.setContents("team1.txt", txtTeam1.getText());
-					obsInterface.setContents("team2.txt", txtTeam2.getText());
-					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
-					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
-					obsInterface.setContents("score1.txt", txtScore1.getText());
-					obsInterface.setContents("score2.txt", txtScore2.getText());
-					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
-					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
-					obsInterface.setContents("reset1.txt", "");
-					obsInterface.setContents("reset2.txt", "");
-					obsInterface.setContents("warn1.txt", "");
-					obsInterface.setContents("warn2.txt", "");
-					obsInterface.setContents("timeremaining.txt", "0.0");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		add(btnClearAll, "cell 3 0,growx");
-
 		JLabel lblEvent = new JLabel("Event:");
 		add(lblEvent, "cell 5 0,alignx center");
 		
@@ -311,7 +269,7 @@ public class MainJPanel extends JPanel {
 		JButton btnTeam2Clear = new JButton("X");
 		btnTeam2Clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtEventName.setText(null);
+				txtTeam2.setText(null);
 			}
 		});
 		add(btnTeam2Clear, "cell 6 3,alignx left");
@@ -851,6 +809,11 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Timer Reset");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				timeClock.resetTimer(0);
 			}
 		});
@@ -943,6 +906,11 @@ public class MainJPanel extends JPanel {
 				int count = (int) (Integer.parseInt(btnPossessionTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Shot Timer");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				timeClock.resetTimer(count);
 			}
 		});
@@ -972,6 +940,11 @@ public class MainJPanel extends JPanel {
 				int count = (int) (Integer.parseInt(btn5RowTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Pass Timer");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				timeClock.resetTimer(count);
 			}
 		});
@@ -1001,6 +974,11 @@ public class MainJPanel extends JPanel {
 				int count = (int) (Integer.parseInt(btnTimeOutTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Time Out Timer");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				timeClock.resetTimer(count);
 			}
 		});
@@ -1036,16 +1014,6 @@ public class MainJPanel extends JPanel {
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 16,alignx right");
 		
-		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
-		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				f.setAlwaysOnTop(chckbxAlwaysOnTop.isSelected());
-			}
-		});
-		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
-		add(chckbxAlwaysOnTop, "cell 1 17,alignx right");
-		
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 17,alignx right");
 		
@@ -1055,6 +1023,11 @@ public class MainJPanel extends JPanel {
 				int count = (int) (Integer.parseInt(btnRecallTimer.getText()) * 10 * 60);
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Recall Timer");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				timeClock.resetTimer(count);
 			}
 		});
@@ -1087,6 +1060,11 @@ public class MainJPanel extends JPanel {
 				int count = (int) (Integer.parseInt(btnGameTimer.getText()) * 10);
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Game Timer");
+				try {
+				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 				timeClock.resetTimer(count);
 			}
 		});
@@ -1132,6 +1110,60 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnFetch, "cell 3 18,growx");
-	}
+
+		JButton btnClearAll = new JButton("Clear All");
+		btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtTournamentName.setText(null);
+				txtEventName.setText(null);
+				txtTeam1.setText(null);
+				txtTeam2.setText(null);
+				txtGameCount1.setText("0");
+				txtGameCount2.setText("0");
+				txtScore1.setText("0");
+				txtScore2.setText("0");
+				txtTimeOut1.setText("0");
+				txtTimeOut2.setText("0");
+				tglbtnReset1.setSelected(false);
+				tglbtnReset2.setSelected(false);
+				tglbtnWarn1.setSelected(false);
+				tglbtnWarn2.setSelected(false);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				timeClock.resetTimer(0);
+				lblTimerInUse.setText("Timer Reset");
+				try {
+					obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+					obsInterface.setContents("event.txt", txtEventName.getText());
+					obsInterface.setContents("team1.txt", txtTeam1.getText());
+					obsInterface.setContents("team2.txt", txtTeam2.getText());
+					obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+					obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+					obsInterface.setContents("score1.txt", txtScore1.getText());
+					obsInterface.setContents("score2.txt", txtScore2.getText());
+					obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+					obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+					obsInterface.setContents("reset1.txt", "");
+					obsInterface.setContents("reset2.txt", "");
+					obsInterface.setContents("warn1.txt", "");
+					obsInterface.setContents("warn2.txt", "");
+					obsInterface.setContents("timeremaining.txt", "0.0");
+					obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		add(btnClearAll, "cell 3 0,growx");
+		
+		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
+		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				f.setAlwaysOnTop(chckbxAlwaysOnTop.isSelected());
+			}
+		});
+		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
+		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
+		add(chckbxAlwaysOnTop, "cell 5 18,alignx right");
+}
 
 }
