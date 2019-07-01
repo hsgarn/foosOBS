@@ -56,7 +56,7 @@ public class MainJPanel extends JPanel {
     public MainJPanel(JFrame f) throws IOException {
 		timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
-		setLayout(new MigLayout("", "[70.00][135.00,grow][90.00][][90.00][135.00,grow][70.00]", "[][][][][][][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][]"));
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
