@@ -2,6 +2,7 @@ package com.midsouthfoosball.foosobs;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -9,7 +10,7 @@ import java.io.IOException;
 public class OBSInterface {
 	
 	private String txtFileName;
-	private String txtFilePath = "c:\\Temp";
+	private String txtFilePath = "c:" + File.separator + "Temp";
 	private String txtFileData;
 	private int writeStatus;
 	
@@ -65,7 +66,7 @@ public class OBSInterface {
 
 	public void setContents(String whichFile, String theContents) throws IOException {
 //		System.out.print("filename: " + whichFile + " Contents: " + theContents + "\r\n");
-		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + "\\" + whichFile));
+		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + File.separator + whichFile));
 		writer.write(theContents);
 		writer.close();
 	}
@@ -77,9 +78,21 @@ public class OBSInterface {
 		
 	}
 	public String getContents(String whichFile) throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader(txtFilePath + "\\" + whichFile));
-		String theContents = br.readLine();
-		br.close();
+		String theContents = null;
+		String theFileName = txtFilePath + File.separator + whichFile;
+		File theFile = new File(theFileName); 
+		if (!theFile.exists()) {
+			theContents = null;
+		} else {
+			try {
+				BufferedReader br = new BufferedReader(new FileReader(theFileName));
+				theContents = br.readLine();
+				br.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+				System.out.print("io exception!");
+			}
+		}
 		return theContents;
 	}
 	public int writeAllFiles() {
