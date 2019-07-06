@@ -72,6 +72,7 @@ public class MainJPanel extends JPanel {
 		
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][]"));
 		
+//Move logo to java package
 		ImageIcon imageIcon = new ImageIcon("C:\\Temp\\MidsouthFoosballLogo4.png"); // load the image to a imageIcon
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(120, 90,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
@@ -80,7 +81,7 @@ public class MainJPanel extends JPanel {
 		lblLogo.setBackground(Color.BLACK);
 		lblLogo.setOpaque(true);
 		add(lblLogo, "cell 0 0 1 3");
-
+	
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
