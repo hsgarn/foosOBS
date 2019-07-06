@@ -69,10 +69,10 @@ public class MainJPanel extends JPanel {
 			System.out.print("The config.properties file does not exist, default properties loaded.\r\n");
 			System.out.print("did we get this far?" + " " + configProps.getProperty("datapath") + "\r\n");
 		}
-		
+
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
-		
-		ImageIcon imageIcon = new ImageIcon("." + File.separator + "MidsouthFoosballLogo4.png"); // load the image to a imageIcon
+
+		ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("MidsouthFoosballLogo4.png").getPath()); // load the image to a imageIcon
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		imageIcon = new ImageIcon(newimg);  // transform it back
