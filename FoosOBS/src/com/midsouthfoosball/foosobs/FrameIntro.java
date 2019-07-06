@@ -15,8 +15,6 @@ import javax.swing.SwingConstants;
 public class FrameIntro {
 
 	private JFrame frmFoosOBSIntro;
-//	public TimeClock timeClock;
-
 	/**
 	 * Launch the application.
 	 */
@@ -58,7 +56,7 @@ public class FrameIntro {
 				frmFoosOBSIntro.dispose();
 
 				JFrame f = new JFrame("Foos OBS");
-				f.setDefaultCloseOperation(f.EXIT_ON_CLOSE);
+				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				MainJPanel p;
 				try {
@@ -80,13 +78,13 @@ public class FrameIntro {
 		btnContinue.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnContinue.setForeground(Color.BLACK);
 		btnContinue.setBackground(new Color(0, 255, 255));
-		btnContinue.setBounds(91, 100, 125, 23);
+		btnContinue.setBounds(92, 100, 125, 23);
 		frmFoosOBSIntro.getContentPane().add(btnContinue);
 		
 		JLabel lblFoosObs = new JLabel("Foos OBS");
 		lblFoosObs.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFoosObs.setFont(new Font("Tahoma", Font.BOLD, 26));
-		lblFoosObs.setBounds(71, 27, 156, 47);
+		lblFoosObs.setBounds(72, 32, 156, 47);
 		frmFoosOBSIntro.getContentPane().add(lblFoosObs);
 	}
 }

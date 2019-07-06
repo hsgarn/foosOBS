@@ -18,7 +18,12 @@ import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Properties;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
@@ -37,11 +42,9 @@ public class MainJPanel extends JPanel {
 	private JTextField txtScore2;
 	private JTextField txtTimeOut1;
 	private JTextField txtTimeOut2;
-/**	private JToggleButton tglbtnReset1;
-	private JToggleButton tglbtnReset2;
-	private JToggleButton tglbtnWarn1;
-	private JToggleButton tglbtnWarn2;
-	**/
+	private JFormattedTextField formattedTxtPath;
+	private File configFile = new File("config.properties");
+	private Properties configProps;
 	private int maxGameCount = 3, maxTimeOut = 2, maxScore = 9;
 	private int shotTimerValue = 15, passTimerValue = 10, timeOutTimerValue = 30, gameTimerValue = 90, recallTimerValue = 10;
 	private String defaultFilePath = "c:\\temp";
@@ -58,6 +61,13 @@ public class MainJPanel extends JPanel {
     public MainJPanel(JFrame f) throws IOException {
 		timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
+		try {
+			loadProperties();
+		} catch (IOException ex) {
+			System.out.print("The config.properties file does not exist, default properties loaded.\r\n");
+			System.out.print("did we get this far?" + " " + configProps.getProperty("datapath") + "\r\n");
+		}
+		
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][]"));
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
@@ -1140,7 +1150,8 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnRecallTimer, "cell 6 17,growx");
 		
-		JFormattedTextField formattedTxtPath = new JFormattedTextField(defaultFilePath);
+		formattedTxtPath = new JFormattedTextField(defaultFilePath);
+		formattedTxtPath.setText(configProps.getProperty("datapath"));
 		formattedTxtPath.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {
@@ -1164,7 +1175,6 @@ public class MainJPanel extends JPanel {
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					if (chooser.getSelectedFile().exists()) {
 						formattedTxtPath.setText(chooser.getSelectedFile().getAbsolutePath());
-						obsInterface.setFilePath(formattedTxtPath.getText());
 					} else {
 						String directoryName = chooser.getSelectedFile().getAbsolutePath();
 						
@@ -1173,7 +1183,13 @@ public class MainJPanel extends JPanel {
 							directory.mkdirs();
 						}
 						formattedTxtPath.setText(chooser.getSelectedFile().getAbsolutePath());
-						obsInterface.setFilePath(formattedTxtPath.getText());
+					}
+					obsInterface.setFilePath(formattedTxtPath.getText());
+					try {
+						saveProperties();
+//						System.out.print("Properties were saved successfully!");
+					} catch (IOException ex) {
+						System.out.print("Error saving properties file: " + ex.getMessage());		
 					}
 				}
 			}
@@ -1233,7 +1249,12 @@ public class MainJPanel extends JPanel {
 					directory.mkdirs();
 				}
 				obsInterface.setFilePath(formattedTxtPath.getText());
-
+				try {
+					saveProperties();
+					System.out.print("Properties were saved successfully!");
+				} catch (IOException ex) {
+					System.out.print("Error saving properties file: " + ex.getMessage());		
+				}
 			}
 		});
 		add(btnSetPath, "cell 2 18,growx");
@@ -1335,6 +1356,25 @@ public class MainJPanel extends JPanel {
 		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
 		add(chckbxAlwaysOnTop, "cell 5 18,alignx right");
-}
+    }
+	private void loadProperties() throws IOException {
+		Properties defaultProps = new Properties();
+		// sets default properties
+		defaultProps.setProperty("datapath", "c:" + File.separator + "temp");
+		
+		configProps = new Properties(defaultProps);
+		
+		// loads properties from file
+		InputStream inputStream = new FileInputStream(configFile);
+		configProps.load(inputStream);
+		inputStream.close();
+	}
+	
+	private void saveProperties() throws IOException {
+		configProps.setProperty("datapath", formattedTxtPath.getText());
+		OutputStream outputStream = new FileOutputStream(configFile);
+		configProps.store(outputStream, "FoosOSB setttings");
+		outputStream.close();
+	}
 
 }
