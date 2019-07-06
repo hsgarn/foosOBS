@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JToggleButton;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
@@ -69,6 +71,16 @@ public class MainJPanel extends JPanel {
 		}
 		
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][]"));
+		
+		ImageIcon imageIcon = new ImageIcon("C:\\Temp\\MidsouthFoosballLogo4.png"); // load the image to a imageIcon
+		Image image = imageIcon.getImage(); // transform it 
+		Image newimg = image.getScaledInstance(120, 90,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+		imageIcon = new ImageIcon(newimg);  // transform it back
+		JLabel lblLogo = new JLabel(imageIcon);
+		lblLogo.setBackground(Color.BLACK);
+		lblLogo.setOpaque(true);
+		add(lblLogo, "cell 0 0 1 3");
+
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 0,alignx center");
 		
