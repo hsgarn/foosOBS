@@ -1268,7 +1268,7 @@ public class MainJPanel extends JPanel {
 				obsInterface.setFilePath(formattedTxtPath.getText());
 				try {
 					saveProperties();
-					System.out.print("Properties were saved successfully!");
+//					System.out.print("Properties were saved successfully!");
 				} catch (IOException ex) {
 					System.out.print("Error saving properties file: " + ex.getMessage());		
 				}
