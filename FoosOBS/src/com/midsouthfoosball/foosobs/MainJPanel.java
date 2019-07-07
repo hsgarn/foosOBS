@@ -3,6 +3,7 @@ package com.midsouthfoosball.foosobs;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.util.Properties;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -71,8 +73,9 @@ public class MainJPanel extends JPanel {
 		}
 
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
-
-		ImageIcon imageIcon = new ImageIcon(getClass().getClassLoader().getResource("MidsouthFoosballLogo4.png").getPath()); // load the image to a imageIcon
+		String logoURL = new String("/imgs/MidsouthFoosballLogo4.png");
+		ImageIcon imageIcon = new ImageIcon(getClass().getResource(logoURL));
+		
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		imageIcon = new ImageIcon(newimg);  // transform it back
@@ -243,7 +246,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnTeamSwitch, "cell 3 4,growx");
+		add(btnTeamSwitch, "cell 3 4,alignx center");
 		
 		txtTeam2 = new JTextField();
 		txtTeam2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1005,7 +1008,7 @@ public class MainJPanel extends JPanel {
 		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblTimerInUse, "cell 3 18,growx");
 		
-		JButton btnAllSwitch = new JButton("<->");
+		JButton btnAllSwitch = new JButton("<--------------------------------------------->");
 		btnAllSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String temp1 = txtTeam1.getText();
@@ -1060,7 +1063,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnAllSwitch, "cell 3 13,growx");
+		add(btnAllSwitch, "cell 2 13 3 1,growx");
 		
 		lblTimerDisplay = new JLabel(" 0.0 ");
 		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
