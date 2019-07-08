@@ -3,7 +3,6 @@ package com.midsouthfoosball.foosobs;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -26,7 +25,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.URL;
 import java.util.Properties;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -931,13 +929,17 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		
+		JLabel lblTimerInUse = new JLabel("Timer Reset");
+		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblTimerInUse, "cell 3 18,growx");
+		
 		JButton btnResetTimers = new JButton("Reset Timer");
 		btnResetTimers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lblTimerDisplay.setBackground(Color.GREEN);
 				lblTimerInUse.setText("Timer Reset");
 				try {
-				obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+					obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -1003,10 +1005,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnResetAll, "cell 1 17,growx");
-		
-		JLabel lblTimerInUse = new JLabel("Timer Reset");
-		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTimerInUse, "cell 3 18,growx");
 		
 		JButton btnAllSwitch = new JButton("<--------------------------------------------->");
 		btnAllSwitch.addActionListener(new ActionListener() {
