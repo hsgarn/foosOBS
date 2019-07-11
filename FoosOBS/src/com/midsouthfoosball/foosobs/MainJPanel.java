@@ -1072,14 +1072,23 @@ public class MainJPanel extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				int timeRemaining = timeClock.getTimeRemaining();
 				int nbrOfSeconds = timeClock.getNbrOfSeconds();
+				int nbrOfMinutes = 0;
+				int displaySeconds = 0;
 				if(timeRemaining <= 0 && nbrOfSeconds != 0) {
 					lblTimerDisplay.setBackground(Color.RED);
 				}
 				float tr = (float) timeRemaining / 10f;
+				if(Float.compare(tr, 60f) > 0) {
+					nbrOfMinutes = (int) (tr / 60);
+					displaySeconds = (timeRemaining - (nbrOfMinutes * 600))/10;
+					lblTimerDisplay.setText("   " + nbrOfMinutes + ":" + String.format("%02d", displaySeconds) + "   ");
+				} else {
+
 				lblTimerDisplay.setText("   " + Float.toString(tr) + "   ");
+				}
 				if(tr == (int) tr) {
 					try {
-						obsInterface.setContents("timeremaining.txt", Float.toString(tr));
+						obsInterface.setContents("timeremaining.txt", lblTimerDisplay.getText());
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
