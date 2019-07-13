@@ -9,18 +9,8 @@ import java.io.IOException;
 
 public class OBSInterface {
 	
-	private String txtFileName;
 	private String txtFilePath = "c:" + File.separator + "Temp";
-	private String txtFileData;
-	private int writeStatus;
 	
-	public String getFileName() {return txtFileName;};
-	public void setFileName(String txtFileName) {this.txtFileName = txtFileName;}
-	public String getFilePath() {return txtFilePath;};
-	public void setFilePathe(String txtFilePath) {this.txtFilePath = txtFilePath;}
-	public String getFileData() {return txtFileData;};
-	public void setFileData(String txtFileData) {this.txtFileData = txtFileData;}
-		
 	public enum fileNames {
 		TOURNAMENT,
 		EVENTNAME,
@@ -65,7 +55,6 @@ public class OBSInterface {
 	}
 
 	public void setContents(String whichFile, String theContents) throws IOException {
-//		System.out.print("filename: " + whichFile + " Contents: " + theContents + "\r\n");
 		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + File.separator + whichFile));
 		writer.write(theContents);
 		writer.close();
@@ -95,8 +84,4 @@ public class OBSInterface {
 		}
 		return theContents;
 	}
-	public int writeAllFiles() {
-		return writeStatus;
-	}
-
 }
