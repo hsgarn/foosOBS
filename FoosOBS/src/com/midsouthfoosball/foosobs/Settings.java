@@ -20,7 +20,22 @@ public class Settings {
 	public Properties configProps;
 	private File configFile = new File("config.properties");
 	
-	public Settings(Properties configProps) throws IOException {}
+	public Settings() throws IOException {
+		Properties defaultProps = new Properties();
+		// sets default properties
+		defaultProps.setProperty("datapath", "c:" + File.separator + "temp");
+		defaultProps.setProperty("PointsToWin", "5");
+		defaultProps.setProperty("MaxWin", "8");
+		defaultProps.setProperty("WinBy", "1");
+		defaultProps.setProperty("GamesToWin", "2");
+		defaultProps.setProperty("AutoIncrementGame", "1");
+		defaultProps.setProperty("AnnounceWinner", "1");
+		
+		configProps = new Properties(defaultProps);
+		
+		loadFromConfig();
+	
+	}
 	
 	public String getDatapath() {return datapath;}
 	public int getPointsToWin() {return pointsToWin;}
@@ -59,7 +74,7 @@ public class Settings {
 		configProps.setProperty("AnnounceWinner", Integer.toString(this.announceWinner));
 		}
 
-	public void loadFromConfig(Properties configProps) throws IOException {
+	public void loadFromConfig() throws IOException {
 
 		InputStream inputStream = new FileInputStream(configFile);
 		configProps.load(inputStream);
@@ -74,8 +89,7 @@ public class Settings {
 		announceWinner = Integer.parseInt(configProps.getProperty("AnnounceWinner"));
 	}
 	
-	public void saveToConfig(Properties configProps) throws IOException {
-		System.out.println("made it to settings savetoconfig");
+	public void saveToConfig() throws IOException {
 		configProps.setProperty("datapath", this.getDatapath());
 		configProps.setProperty("PointsToWin", Integer.toString(this.getPointsToWin()));
 		configProps.setProperty("MaxWin", Integer.toString(this.getMaxWin()));

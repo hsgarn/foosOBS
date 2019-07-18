@@ -74,15 +74,8 @@ public class MainJPanel extends JPanel {
     public MainJPanel(JFrame f) throws IOException {
     	timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
-		initProperties();
-		foosObsSettings = new Settings(configProps);
-		try {
-			loadProperties();
-		} catch (IOException ex) {
-			System.out.print("The config.properties file does not exist, default properties loaded.\r\n");
-		}
-		foosObsSettings.loadFromConfig(configProps);
-		
+		foosObsSettings = new Settings();
+
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
 		String logoURL = new String("/imgs/MidsouthFoosballLogo4.png");
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource(logoURL));
@@ -716,13 +709,31 @@ public class MainJPanel extends JPanel {
 		add(btnRecallTimer, "cell 6 18,growx");
 		
 		formattedTxtPath = new JFormattedTextField(defaultFilePath);
-		formattedTxtPath.setText(configProps.getProperty("datapath"));
+		formattedTxtPath.setText(foosObsSettings.getDatapath());
+		formattedTxtPath.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent arg0) {
+		    	try {
+					obsInterface.setFilePath(formattedTxtPath.getText());
+					foosObsSettings.setDatapath(formattedTxtPath.getText());
+					foosObsSettings.saveToConfig();
+		    	} catch (IOException ex) {
+		    		System.out.print("Error saving properties file: " + ex.getMessage());		
+		    	}
+			}
+		});
 		formattedTxtPath.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-					obsInterface.setFilePath(formattedTxtPath.getText());
+			    	try {
+						obsInterface.setFilePath(formattedTxtPath.getText());
+						foosObsSettings.setDatapath(formattedTxtPath.getText());
+						foosObsSettings.saveToConfig();
+			    	} catch (IOException ex) {
+			    		System.out.print("Error saving properties file: " + ex.getMessage());		
+			    	}
 			    }
 			}
 		});
@@ -751,7 +762,8 @@ public class MainJPanel extends JPanel {
 					}
 					obsInterface.setFilePath(formattedTxtPath.getText());
 					try {
-						saveProperties(foosObsSettings, obsInterface);
+						foosObsSettings.setDatapath(formattedTxtPath.getText());
+						foosObsSettings.saveToConfig();
 					} catch (IOException ex) {
 						System.out.print("Error saving properties file: " + ex.getMessage());		
 					}
@@ -781,7 +793,8 @@ public class MainJPanel extends JPanel {
 				}
 				obsInterface.setFilePath(formattedTxtPath.getText());
 				try {
-					saveProperties(foosObsSettings, obsInterface);
+					foosObsSettings.setDatapath(formattedTxtPath.getText());
+					foosObsSettings.saveToConfig();
 				} catch (IOException ex) {
 					System.out.print("Error saving properties file: " + ex.getMessage());		
 				}
@@ -842,63 +855,6 @@ public class MainJPanel extends JPanel {
 		btnSettings.setBounds(92, 100, 125, 23);
 		add(btnSettings, "cell 6 19,growx");
     }
-
-    private void initProperties() throws IOException {
-		Properties defaultProps = new Properties();
-		// sets default properties
-		defaultProps.setProperty("datapath", "c:" + File.separator + "temp");
-		defaultProps.setProperty("PointsToWin", "5");
-		defaultProps.setProperty("MaxWin", "8");
-		defaultProps.setProperty("WinBy", "1");
-		defaultProps.setProperty("GamesToWin", "2");
-		defaultProps.setProperty("AutoIncrementGame", "1");
-		defaultProps.setProperty("AnnounceWinner", "1");
-		
-		configProps = new Properties(defaultProps);
-    }
-
-    public void loadProperties() throws IOException {
-		// loads properties from file
-    	foosObsSettings.loadFromConfig(configProps);
-/**
-		System.out.println("Points to win: " + configProps.getProperty("PointsToWin"));
-		System.out.println("Max win: " + configProps.getProperty("MaxWin"));
-		System.out.println("Win by: " + configProps.getProperty("WinBy"));
-		System.out.println("Games to win: " + configProps.getProperty("GamesToWin"));
-		System.out.println("Auto Increment Game: " + configProps.getProperty("AutoIncrementGame"));
-		System.out.println("Announce Winner: " + configProps.getProperty("AnnounceWinner"));
-**/
-	}
-	
-	public void saveProperties(Settings foosObsSettings, OBSInterface obsInterface) throws IOException {
-		System.out.println("datapath: " + obsInterface.getFilePath());
-		System.out.println("foosObsSettings: " + foosObsSettings.getDatapath());
-		String tmpDatapath = foosObsSettings.getDatapath();
-		System.out.println("foosObsSettings: " + tmpDatapath);
-		foosObsSettings.setDatapath(tmpDatapath);
-//		foosObsSettings.setDatapath(obsInterface.getFilePath());
-		foosObsSettings.setPointsToWin(foosObsSettings.getPointsToWin());
-		foosObsSettings.setMaxWin(foosObsSettings.getMaxWin());
-		foosObsSettings.setWinBy(foosObsSettings.getWinBy());
-		foosObsSettings.setGamesToWin(foosObsSettings.getGamesToWin());
-		foosObsSettings.setAutoIncrementGame(foosObsSettings.getAutoIncrementGame());
-		foosObsSettings.setAnnounceWinner(foosObsSettings.getAnnounceWinner());
-		foosObsSettings.saveToConfig(configProps);
-
-/**
-		configProps.setProperty("datapath", formattedTxtPath.getText());
-		configProps.setProperty("PointsToWin", Integer.toString(foosObsSettings.getPointsToWin()));
-		configProps.setProperty("MaxWin", Integer.toString(foosObsSettings.getMaxWin()));
-		configProps.setProperty("WinBy", Integer.toString(foosObsSettings.getWinBy()));
-		configProps.setProperty("GamesToWin", Integer.toString(foosObsSettings.getGamesToWin()));
-		configProps.setProperty("AutoIncrementGame", Integer.toString(foosObsSettings.getAutoIncrementGame()));
-		configProps.setProperty("AnnounceWinner", Integer.toString(foosObsSettings.getAnnounceWinner()));
-		OutputStream outputStream = new FileOutputStream(configFile);
-		configProps.store(outputStream, "FoosOSB settings");
-		outputStream.close();
-		System.out.println(formattedTxtPath.getText());
-**/
-	}
 
 	private void writeTournamentName() {
     	try {
