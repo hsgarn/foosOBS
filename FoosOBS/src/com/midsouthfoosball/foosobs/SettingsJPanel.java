@@ -22,11 +22,12 @@ public class SettingsJPanel extends JPanel {
 	private JTextField txtWinBy;
 	private JCheckBox chckbxAutoIncrementGame;
 	private JCheckBox chckbxAnnounceWinner;
-	private static Settings foosObsSettingsTemp;
+//	private static Settings foosObsSettingsTemp;
+	private static Settings foosObsSettings;
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
-		SettingsJPanel.foosObsSettingsTemp = foosObsSettings; //Make a temp copy to work from in case user cancels
-		
+//		SettingsJPanel.foosObsSettingsTemp = foosObsSettings; //Make a temp copy to work from in case user cancels
+		System.out.println("foosobssettings: " + foosObsSettings.getPointsToWin());
 		setLayout(new MigLayout("", "[119.00][50.00:90.00,grow][][][]", "[][][][][][][][][]"));
 		
 		JLabel lblParameter = new JLabel("Parameter");
@@ -104,7 +105,7 @@ public class SettingsJPanel extends JPanel {
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				saveSettings(settingsFrame);
+				saveSettings(foosObsSettings, settingsFrame);
 			}
 		});
 		add(btnSave, "cell 1 8");
@@ -119,8 +120,27 @@ public class SettingsJPanel extends JPanel {
 
 	}
 
-	private void saveSettings(JFrame settingsFrame) {
-//		foosObsSettings = foosObsSettingsTemp;
+	private void saveSettings(Settings foosObsSettings, JFrame settingsFrame) {
+		try {
+			foosObsSettings.setPointsToWin(Integer.parseInt(txtPointsToWin.getText()));
+			foosObsSettings.setMaxWin(Integer.parseInt(txtMaxWin.getText()));
+			foosObsSettings.setGamesToWin(Integer.parseInt(txtGamesToWin.getText()));
+			foosObsSettings.setWinBy(Integer.parseInt(txtWinBy.getText()));
+			if (chckbxAutoIncrementGame.isSelected()) {
+				foosObsSettings.setAutoIncrementGame(1);
+			} else {
+				foosObsSettings.setAutoIncrementGame(0);
+			}
+			if (chckbxAnnounceWinner.isSelected()) {
+				foosObsSettings.setAnnounceWinner(1);
+			} else {
+				foosObsSettings.setAnnounceWinner(0);
+			}
+			foosObsSettings.saveToConfig();
+		} catch (IOException ex) {
+			System.out.print("Error saving properties file: " + ex.getMessage());		
+		}
+
 		settingsFrame.dispose();
 	}
 

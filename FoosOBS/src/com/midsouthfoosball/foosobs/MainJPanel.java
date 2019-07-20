@@ -53,8 +53,9 @@ public class MainJPanel extends JPanel {
 	private JFormattedTextField formattedTxtPath;
 //	private File configFile = new File("config.properties");
 	public Properties configProps;
-	private int maxGameCount = 3, maxTimeOut = 2, maxScore = 9;
+	private int maxTimeOut = 2, maxScore = 9;
 	private int shotTimerValue = 15, passTimerValue = 10, timeOutTimerValue = 30, gameTimerValue = 90, recallTimerValue = 10;
+	private int pointsToWin, maxWin, gamesToWin, winBy;
 	private String defaultFilePath = "c:\\temp";
 	private JButton btnGameTimer;
 	private JButton btnPossessionTimer;
@@ -75,7 +76,10 @@ public class MainJPanel extends JPanel {
     	timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
 		foosObsSettings = new Settings();
-
+		pointsToWin = foosObsSettings.getPointsToWin();
+		maxWin = foosObsSettings.getMaxWin();
+		gamesToWin = foosObsSettings.getGamesToWin();
+		winBy = foosObsSettings.getWinBy();
 		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
 		String logoURL = new String("/imgs/MidsouthFoosballLogo4.png");
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource(logoURL));
@@ -955,14 +959,25 @@ public class MainJPanel extends JPanel {
 		}
 		txtGameCount1.setText(Integer.toString(num1));
 		writeGameCount1();
+		clearMatchWinner();
+		if (foosObsSettings.getAnnounceWinner()==1) {
+			if(Integer.parseInt(txtGameCount2.getText()) == foosObsSettings.getGamesToWin()) {
+				writeMatchWinner("Match Winner: " + txtTeam2.getText());
+			}
+		}
 	}
 
 	private void incrementGameCount1() {
 		int num1;
 		num1=Integer.parseInt(txtGameCount1.getText());
 		num1=num1+1;
-		if (num1>maxGameCount) {
-			num1 = maxGameCount;
+		if (num1>foosObsSettings.getGamesToWin()) {
+			num1 = foosObsSettings.getGamesToWin();
+		}
+		if (foosObsSettings.getAnnounceWinner()==1) {
+			if (num1 == foosObsSettings.getGamesToWin()) {
+				writeMatchWinner("Match Winner: " + txtTeam1.getText());
+			}
 		}
 		txtGameCount1.setText(Integer.toString(num1));
 		writeGameCount1();
@@ -975,6 +990,22 @@ public class MainJPanel extends JPanel {
 			e.printStackTrace();
 		}
     }
+	
+	private void writeMatchWinner(String theContents) {
+		try {
+			obsInterface.setContents("matchwinner.txt", theContents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void clearMatchWinner() {
+		try {
+			obsInterface.setContents("matchwinner.txt", "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private void decrementGameCount2() {
 		int num1;
@@ -985,14 +1016,24 @@ public class MainJPanel extends JPanel {
 		}
 		txtGameCount2.setText(Integer.toString(num1));
 		writeGameCount2();
+		clearMatchWinner();
+		if (foosObsSettings.getAnnounceWinner()==1) {
+			if(Integer.parseInt(txtGameCount1.getText()) == foosObsSettings.getGamesToWin()) {
+				writeMatchWinner("Match Winner: " + txtTeam1.getText());
+			}
+		}
 	}
 
 	private void incrementGameCount2() {
 		int num1;
 		num1=Integer.parseInt(txtGameCount2.getText());
 		num1=num1+1;
-		if (num1>maxGameCount) {
-			num1 = maxGameCount;
+		if (num1>foosObsSettings.getGamesToWin()) {
+			num1 = foosObsSettings.getGamesToWin();
+		}
+		if (foosObsSettings.getAnnounceWinner()==1) {
+			if (num1 == foosObsSettings.getGamesToWin()) {
+				writeMatchWinner("Match Winner: " + txtTeam2.getText());			}
 		}
 		txtGameCount2.setText(Integer.toString(num1));
 		writeGameCount2();
@@ -1071,6 +1112,7 @@ public class MainJPanel extends JPanel {
 		txtGameCount2.setText("0");
 		writeGameCount1();
 		writeGameCount2();
+		clearMatchWinner();
 	}
 
 	private void switchScore() {
@@ -1383,6 +1425,7 @@ public class MainJPanel extends JPanel {
 		timeClock.resetTimer(0);
 		lblTimerInUse.setText("Timer Reset");
 		saveAll();
+		clearMatchWinner();
 	}
 
 	private void saveAll() {
