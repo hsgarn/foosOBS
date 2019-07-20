@@ -73,14 +73,10 @@ public class MainJPanel extends JPanel {
 	 * Create the panel.
 	 **/
     public MainJPanel(JFrame f) throws IOException {
-    	timeClock = new TimeClock();
-		obsInterface = new OBSInterface();
-		foosObsSettings = new Settings();
-		pointsToWin = foosObsSettings.getPointsToWin();
-		maxWin = foosObsSettings.getMaxWin();
-		gamesToWin = foosObsSettings.getGamesToWin();
-		winBy = foosObsSettings.getWinBy();
-		setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
+
+    	initialize();
+		
+    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
 		String logoURL = new String("/imgs/MidsouthFoosballLogo4.png");
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource(logoURL));
 		
@@ -860,6 +856,18 @@ public class MainJPanel extends JPanel {
 		add(btnSettings, "cell 6 19,growx");
     }
 
+    private void initialize() throws IOException { 
+    	timeClock = new TimeClock();
+		obsInterface = new OBSInterface();
+		foosObsSettings = new Settings();
+		obsInterface.setFilePath(foosObsSettings.getDatapath());
+		pointsToWin = foosObsSettings.getPointsToWin();
+		maxWin = foosObsSettings.getMaxWin();
+		gamesToWin = foosObsSettings.getGamesToWin();
+		winBy = foosObsSettings.getWinBy();
+		clearMatchWinner();
+    }
+    
 	private void writeTournamentName() {
     	try {
     		obsInterface.setContents("tournament.txt", txtTournamentName.getText());
@@ -1062,11 +1070,23 @@ public class MainJPanel extends JPanel {
 		int num1;
 		num1=Integer.parseInt(txtScore1.getText());
 		num1=num1+1;
-		if (num1>maxScore) {
-			num1 = maxScore;
-		}
 		txtScore1.setText(Integer.toString(num1));
+		if (checkIfGameWon(num1, Integer.parseInt(txtScore2.getText()))) {
+			incrementGameCount1();
+			resetScores();
+		};
 		writeScore1();
+	}
+	private boolean checkIfGameWon(int points1, int points2) {
+		int pointsToWin = foosObsSettings.getPointsToWin();
+		int maxWin = foosObsSettings.getMaxWin();
+		int winBy = foosObsSettings.getWinBy();
+		if (foosObsSettings.getAutoIncrementGame()==1) {
+			if (points1 >= maxWin || (points1 >= pointsToWin && points1 >= points2 + winBy)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void writeScore2() {
@@ -1092,10 +1112,11 @@ public class MainJPanel extends JPanel {
 		int num1;
 		num1=Integer.parseInt(txtScore2.getText());
 		num1=num1+1;
-		if (num1>maxScore) {
-			num1 = maxScore;
-		}
 		txtScore2.setText(Integer.toString(num1));
+		if (checkIfGameWon(num1, Integer.parseInt(txtScore1.getText()))) {
+			incrementGameCount2();
+			resetScores();
+		};
 		writeScore2();
 	}
 

@@ -22,12 +22,9 @@ public class SettingsJPanel extends JPanel {
 	private JTextField txtWinBy;
 	private JCheckBox chckbxAutoIncrementGame;
 	private JCheckBox chckbxAnnounceWinner;
-//	private static Settings foosObsSettingsTemp;
-	private static Settings foosObsSettings;
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
-//		SettingsJPanel.foosObsSettingsTemp = foosObsSettings; //Make a temp copy to work from in case user cancels
-		System.out.println("foosobssettings: " + foosObsSettings.getPointsToWin());
+
 		setLayout(new MigLayout("", "[119.00][50.00:90.00,grow][][][]", "[][][][][][][][][]"));
 		
 		JLabel lblParameter = new JLabel("Parameter");
@@ -79,11 +76,6 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxAutoIncrementGame.setSelected(false);
 		}
-		chckbxAutoIncrementGame.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-			}
-		});
 		add(chckbxAutoIncrementGame, "cell 1 5");
 		
 		JLabel lblAnnounceWinner = new JLabel("Announce Winner");
@@ -95,11 +87,6 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxAnnounceWinner.setSelected(false);
 		}
-		chckbxAnnounceWinner.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
 		add(chckbxAnnounceWinner, "cell 1 6,alignx left");
 		
 		JButton btnSave = new JButton("Save");

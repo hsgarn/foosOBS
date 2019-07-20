@@ -11,8 +11,8 @@ public class OBSInterface {
 	
 	private String txtFilePath = "c:" + File.separator + "Temp";
 	
-	public String[] fileNames = {"tournament.txt", "event.txt", "team1.txt", "team2.txt", "game1.txt", "game2.txt", "score1.txt", "score2.txt",
-									"timeout1.txt", "timeout2.txt", "reset1.txt", "reset2.txt", "warn1.txt", "warn2.txt", "timeremaining.txt", "timer.txt"};
+//	public String[] fileNames = {"tournament.txt", "event.txt", "team1.txt", "team2.txt", "game1.txt", "game2.txt", "score1.txt", "score2.txt",
+//									"timeout1.txt", "timeout2.txt", "reset1.txt", "reset2.txt", "warn1.txt", "warn2.txt", "timeremaining.txt", "timer.txt", "matchwinner.txt};
 	
 	public void setFilePath(String filePath) {
 		this.txtFilePath = filePath;
