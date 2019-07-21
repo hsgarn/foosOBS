@@ -58,7 +58,7 @@ public class Settings {
 		loadFromConfig();
 	}
 	
-	public String getDatapath() {return defaultProps.getProperty("datapath");}
+	public String getDatapath() {return configProps.getProperty("datapath");}
 	public int getPointsToWin() {return pointsToWin;}
 	public int getMaxWin() {return maxWin;}
 	public int getWinBy() {return winBy;}
