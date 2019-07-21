@@ -578,10 +578,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		
-		lblTimerInUse = new JLabel("Timer Reset");
-		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTimerInUse, "cell 3 18,growx");
-		
 		JButton btnResetTimers = new JButton("Reset Timer [r]");
 		btnResetTimers.setMnemonic('r');
 		btnResetTimers.addActionListener(new ActionListener() {
@@ -638,7 +634,7 @@ public class MainJPanel extends JPanel {
 			}
 		};
 		timeClock.addTimeClockTimerListener(alAction);
-		add(lblTimerDisplay, "cell 2 14 3 4,alignx center,aligny center");
+		add(lblTimerDisplay, "cell 2 15 3 2,alignx center,aligny center");
 		
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
 		add(lblNonPossession, "cell 5 14,alignx right");
@@ -675,6 +671,10 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnTimeOutTimer, "cell 6 16,growx");
+		
+		lblTimerInUse = new JLabel("Timer Reset");
+		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblTimerInUse, "cell 3 17,growx");
 		
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 17,alignx right");
@@ -966,7 +966,7 @@ public class MainJPanel extends JPanel {
 		clearMatchWinner();
 		if (foosObsSettings.getAnnounceWinner()==1) {
 			if(Integer.parseInt(txtGameCount2.getText()) == foosObsSettings.getGamesToWin()) {
-				writeMatchWinner("Match Winner: " + txtTeam2.getText());
+				writeMatchWinner(foosObsSettings.getWinnerPrefix() + txtTeam2.getText() + foosObsSettings.getWinnerSuffix());
 			}
 		}
 	}
@@ -980,7 +980,7 @@ public class MainJPanel extends JPanel {
 		}
 		if (foosObsSettings.getAnnounceWinner()==1) {
 			if (num1 == foosObsSettings.getGamesToWin()) {
-				writeMatchWinner("Match Winner: " + txtTeam1.getText());
+				writeMatchWinner(foosObsSettings.getWinnerPrefix() + txtTeam1.getText() + foosObsSettings.getWinnerSuffix());
 			}
 		}
 		txtGameCount1.setText(Integer.toString(num1));
@@ -1008,7 +1008,7 @@ public class MainJPanel extends JPanel {
 		clearMatchWinner();
 		if (foosObsSettings.getAnnounceWinner()==1) {
 			if(Integer.parseInt(txtGameCount1.getText()) == foosObsSettings.getGamesToWin()) {
-				writeMatchWinner("Match Winner: " + txtTeam1.getText());
+				writeMatchWinner(foosObsSettings.getWinnerPrefix() + txtTeam1.getText() + foosObsSettings.getWinnerSuffix());
 			}
 		}
 	}
@@ -1022,7 +1022,7 @@ public class MainJPanel extends JPanel {
 		}
 		if (foosObsSettings.getAnnounceWinner()==1) {
 			if (num1 == foosObsSettings.getGamesToWin()) {
-				writeMatchWinner("Match Winner: " + txtTeam2.getText());			}
+				writeMatchWinner(foosObsSettings.getWinnerPrefix() + txtTeam2.getText() + foosObsSettings.getWinnerSuffix());			}
 		}
 		txtGameCount2.setText(Integer.toString(num1));
 		writeGameCount2();
