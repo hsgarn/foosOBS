@@ -1054,13 +1054,13 @@ public class MainJPanel extends JPanel {
 		num1=Integer.parseInt(txtScore1.getText());
 		num1=num1+1;
 		txtScore1.setText(Integer.toString(num1));
+		resetTimers();
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore2.getText()))) {
 			incrementGameCount1();
 			resetScores();
 		};
 		writeScore1();
 		checkMeatball(num1, Integer.parseInt(txtScore2.getText()));
-		resetTimers();
 	}
 	private boolean checkIfGameWon(int points1, int points2) {
 		int pointsToWin = foosObsSettings.getPointsToWin();
@@ -1099,13 +1099,13 @@ public class MainJPanel extends JPanel {
 		num1=Integer.parseInt(txtScore2.getText());
 		num1=num1+1;
 		txtScore2.setText(Integer.toString(num1));
+		resetTimers();
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore1.getText()))) {
 			incrementGameCount2();
 			resetScores();
 		};
 		writeScore2();
 		checkMeatball(num1, Integer.parseInt(txtScore1.getText()));
-		resetTimers();
 	}
 	
 	private void checkMeatball(int points1, int points2) {
@@ -1336,7 +1336,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTimeRemaining() {
 		try {
-			obsInterface.setContents("timeremaining.txt", lblTimerDisplay.getText());
+			obsInterface.setContents("timeremaining.txt", lblTimerDisplay.getText().trim());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1388,9 +1388,11 @@ public class MainJPanel extends JPanel {
 			nbrOfMinutes = (int) (tr / 60);
 			displaySeconds = (timeRemaining - (nbrOfMinutes * 600))/10;
 			lblTimerDisplay.setText("   " + nbrOfMinutes + ":" + String.format("%02d", displaySeconds) + "   ");
+//			lblTimerDisplay.setText(nbrOfMinutes + ":" + String.format("%02d", displaySeconds));
 		} else {
 
 		lblTimerDisplay.setText("   " + Float.toString(tr) + "   ");
+//		lblTimerDisplay.setText(Float.toString(tr));
 		}
 		if(tr == (int) tr) {
 			writeTimeRemaining();
