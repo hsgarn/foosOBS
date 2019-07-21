@@ -21,11 +21,7 @@ import java.awt.Image;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Properties;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -51,15 +47,11 @@ public class MainJPanel extends JPanel {
 	private JToggleButton tglbtnWarn1;
 	private JToggleButton tglbtnWarn2;
 	private JFormattedTextField formattedTxtPath;
-//	private File configFile = new File("config.properties");
 	public Properties configProps;
-	private int maxTimeOut = 2, maxScore = 9;
-	private int shotTimerValue = 15, passTimerValue = 10, timeOutTimerValue = 30, gameTimerValue = 90, recallTimerValue = 10;
-	private int pointsToWin, maxWin, gamesToWin, winBy;
 	private String defaultFilePath = "c:\\temp";
 	private JButton btnGameTimer;
-	private JButton btnPossessionTimer;
-	private JButton btn5RowTimer;
+	private JButton btnShotTimer;
+	private JButton btnPassTimer;
 	private JButton btnTimeOutTimer;
 	private JButton btnRecallTimer;
 	private JLabel lblTimerDisplay;
@@ -651,31 +643,31 @@ public class MainJPanel extends JPanel {
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
 		add(lblNonPossession, "cell 5 14,alignx right");
 		
-		btnPossessionTimer = new JButton(shotTimerValue + " [s]");
-		btnPossessionTimer.setMnemonic('s');
-		btnPossessionTimer.addActionListener(new ActionListener() {
+		btnShotTimer = new JButton(foosObsSettings.getShotTime() + " [s]");
+		btnShotTimer.setMnemonic('s');
+		btnShotTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				startPossessionTimer();
+				startShotTimer();
 			}
 		});
-		add(btnPossessionTimer, "cell 6 14,growx");
+		add(btnShotTimer, "cell 6 14,growx");
 		
 		JLabel lblRowPossession = new JLabel("Pass Timer (5 row)");
 		add(lblRowPossession, "cell 5 15,alignx right");
 		
-		btn5RowTimer = new JButton(passTimerValue + " [p]");
-		btn5RowTimer.setMnemonic('p');
-		btn5RowTimer.addActionListener(new ActionListener() {
+		btnPassTimer = new JButton(foosObsSettings.getPassTime() + " [p]");
+		btnPassTimer.setMnemonic('p');
+		btnPassTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				start5RowTimer();
+				startPassTimer();
 			}
 		});
-		add(btn5RowTimer, "cell 6 15,growx,aligny bottom");
+		add(btnPassTimer, "cell 6 15,growx,aligny bottom");
 		
 		JLabel lblTimeOutTimer = new JLabel("Time Out Timer");
 		add(lblTimeOutTimer, "cell 5 16,alignx right");
 		
-		btnTimeOutTimer = new JButton(timeOutTimerValue + " [o]");
+		btnTimeOutTimer = new JButton(foosObsSettings.getTimeOutTime() + " [o]");
 		btnTimeOutTimer.setMnemonic('o');
 		btnTimeOutTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -687,7 +679,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 17,alignx right");
 
-		btnGameTimer = new JButton(gameTimerValue + " [g]");
+		btnGameTimer = new JButton(foosObsSettings.getGameTime() + " [g]");
 		btnGameTimer.setMnemonic('g');
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -699,7 +691,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 18,alignx right");
 		
-		btnRecallTimer = new JButton(recallTimerValue + " [c]");
+		btnRecallTimer = new JButton(foosObsSettings.getRecallTime() + " [c]");
 		btnRecallTimer.setMnemonic('c');
 		btnRecallTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -838,7 +830,7 @@ public class MainJPanel extends JPanel {
 				try {
 					settingsFrame.setAlwaysOnTop(true);
 					p = new SettingsJPanel(foosObsSettings, settingsFrame);
-					p.setPreferredSize(new Dimension(350, 225));
+					p.setPreferredSize(new Dimension(470, 290));
 
 					settingsFrame.getContentPane().add(p);
 					settingsFrame.pack();
@@ -861,11 +853,15 @@ public class MainJPanel extends JPanel {
 		obsInterface = new OBSInterface();
 		foosObsSettings = new Settings();
 		obsInterface.setFilePath(foosObsSettings.getDatapath());
-		pointsToWin = foosObsSettings.getPointsToWin();
-		maxWin = foosObsSettings.getMaxWin();
-		gamesToWin = foosObsSettings.getGamesToWin();
-		winBy = foosObsSettings.getWinBy();
 		clearMatchWinner();
+    }
+    
+    private void reloadTimerButtonTexts() {
+		btnShotTimer.setText(Integer.toString(foosObsSettings.getShotTime()) + " [s]");
+		btnPassTimer.setText(Integer.toString(foosObsSettings.getPassTime()) + " [p]");
+		btnTimeOutTimer.setText(Integer.toString(foosObsSettings.getTimeOutTime()) + " [o]");
+		btnGameTimer.setText(Integer.toString(foosObsSettings.getGameTime()) + " [g]");
+		btnRecallTimer.setText(Integer.toString(foosObsSettings.getRecallTime()) + " [c]");
     }
     
 	private void writeTournamentName() {
@@ -989,6 +985,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtGameCount1.setText(Integer.toString(num1));
 		writeGameCount1();
+		startGameTimer();
 	}
 
 	private void writeGameCount2() {
@@ -999,22 +996,6 @@ public class MainJPanel extends JPanel {
 		}
     }
 	
-	private void writeMatchWinner(String theContents) {
-		try {
-			obsInterface.setContents("matchwinner.txt", theContents);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	private void clearMatchWinner() {
-		try {
-			obsInterface.setContents("matchwinner.txt", "");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
 	private void decrementGameCount2() {
 		int num1;
 		num1=Integer.parseInt(txtGameCount2.getText());
@@ -1045,6 +1026,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtGameCount2.setText(Integer.toString(num1));
 		writeGameCount2();
+		startGameTimer();
 	}
 	
 	private void writeScore1() {
@@ -1064,6 +1046,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtScore1.setText(Integer.toString(num1));
 		writeScore1();
+		checkMeatball(num1, Integer.parseInt(txtScore2.getText()));
 	}
 
 	private void incrementScore1() {
@@ -1076,6 +1059,8 @@ public class MainJPanel extends JPanel {
 			resetScores();
 		};
 		writeScore1();
+		checkMeatball(num1, Integer.parseInt(txtScore2.getText()));
+		resetTimers();
 	}
 	private boolean checkIfGameWon(int points1, int points2) {
 		int pointsToWin = foosObsSettings.getPointsToWin();
@@ -1106,6 +1091,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtScore2.setText(Integer.toString(num1));
 		writeScore2();
+		checkMeatball(num1, Integer.parseInt(txtScore1.getText()));
 	}
 
 	private void incrementScore2() {
@@ -1118,6 +1104,55 @@ public class MainJPanel extends JPanel {
 			resetScores();
 		};
 		writeScore2();
+		checkMeatball(num1, Integer.parseInt(txtScore1.getText()));
+		resetTimers();
+	}
+	
+	private void checkMeatball(int points1, int points2) {
+		if (foosObsSettings.getAnnounceMeatball() == 1) {
+			if (points1 == points2) {
+				int meatballPoint = foosObsSettings.getPointsToWin() - 1;
+				if (foosObsSettings.getWinBy() < 2) {
+					if (points1 == meatballPoint) {
+						writeMeatball();
+						return;
+					}
+				}
+			}
+		}
+		clearMeatball();
+	}
+
+	private void writeMatchWinner(String theContents) {
+		try {
+			obsInterface.setContents("matchwinner.txt", theContents);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+    
+	private void clearMatchWinner() {
+		try {
+			obsInterface.setContents("matchwinner.txt", "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void writeMeatball() {
+		try {
+			obsInterface.setContents("meatball.txt", foosObsSettings.getMeatball());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void clearMeatball() {
+		try {
+			obsInterface.setContents("meatball.txt", "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void switchGameCount() {
@@ -1209,22 +1244,24 @@ public class MainJPanel extends JPanel {
 		int num1;
 		num1=Integer.parseInt(txtTimeOut1.getText());
 		num1=num1+1;
-		if (num1>maxTimeOut) {
-			num1 = maxTimeOut;
+		if (num1>foosObsSettings.getMaxTimeOuts()) {
+			num1 = foosObsSettings.getMaxTimeOuts();
 		}
 		txtTimeOut1.setText(Integer.toString(num1));
 		writeTimeOut1();
+		startTimeOutTimer();
 	}
 	
 	private void incrementTimeOut2() {
 		int num1;
 		num1=Integer.parseInt(txtTimeOut2.getText());
 		num1=num1+1;
-		if (num1>maxTimeOut) {
-			num1 = maxTimeOut;
+		if (num1>foosObsSettings.getMaxTimeOuts()) {
+			num1 = foosObsSettings.getMaxTimeOuts();
 		}
 		txtTimeOut2.setText(Integer.toString(num1));
 		writeTimeOut2();
+		startTimeOutTimer();
 	}
 
 	private void writeReset1() {
@@ -1294,6 +1331,7 @@ public class MainJPanel extends JPanel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+		reloadTimerButtonTexts();
 	}
 
 	private void writeTimeRemaining() {
@@ -1366,16 +1404,16 @@ public class MainJPanel extends JPanel {
 		timeClock.resetTimer(0);
 	}
 
-	private void startPossessionTimer() {
-		int count = (int) (Integer.parseInt(btnPossessionTimer.getText().substring(0,btnPossessionTimer.getText().indexOf(" "))) * 10);
+	private void startShotTimer() {
+		int count = (int) (foosObsSettings.getShotTime() * 10);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerInUse.setText("Shot Timer");
 		writeTimerInUse();
 		timeClock.resetTimer(count);
 	}
 	
-	private void start5RowTimer() {
-		int count = (int) (Integer.parseInt(btn5RowTimer.getText().substring(0,btn5RowTimer.getText().indexOf(" "))) * 10);
+	private void startPassTimer() {
+		int count = (int) (foosObsSettings.getPassTime() * 10);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerInUse.setText("Pass Timer");
 		writeTimerInUse();
@@ -1383,7 +1421,7 @@ public class MainJPanel extends JPanel {
 	}
 
 	private void startTimeOutTimer() {
-		int count = (int) (Integer.parseInt(btnTimeOutTimer.getText().substring(0,btnTimeOutTimer.getText().indexOf(" "))) * 10);
+		int count = (int) (foosObsSettings.getTimeOutTime() * 10);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerInUse.setText("Time Out Timer");
 		writeTimerInUse();
@@ -1391,7 +1429,7 @@ public class MainJPanel extends JPanel {
 	}
 	
 	private void startRecallTimer() {
-		int count = (int) (Integer.parseInt(btnRecallTimer.getText().substring(0,btnRecallTimer.getText().indexOf(" "))) * 10 * 60);
+		int count = (int) (foosObsSettings.getRecallTime() * 10 * 60);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerInUse.setText("Recall Timer");
 		writeTimerInUse();
@@ -1399,13 +1437,13 @@ public class MainJPanel extends JPanel {
 	}
 
 	private void startGameTimer() {
-		int count = (int) (Integer.parseInt(btnGameTimer.getText().substring(0,btnGameTimer.getText().indexOf(" "))) * 10);
+		int count = (int) (foosObsSettings.getGameTime() * 10);
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerInUse.setText("Game Timer");
 		writeTimerInUse();
 		timeClock.resetTimer(count);
 	}
-
+	
 	private void fetchAll() {
 		try {
 			txtTournamentName.setText(obsInterface.getContents("tournament.txt"));
@@ -1447,6 +1485,7 @@ public class MainJPanel extends JPanel {
 		lblTimerInUse.setText("Timer Reset");
 		saveAll();
 		clearMatchWinner();
+		clearMeatball();
 	}
 
 	private void saveAll() {

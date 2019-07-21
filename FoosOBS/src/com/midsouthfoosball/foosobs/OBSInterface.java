@@ -21,6 +21,7 @@ public class OBSInterface {
 	public String getFilePath() {return this.txtFilePath;} 
 
 	public void setContents(String whichFile, String theContents) throws IOException {
+//System.out.println("writing to " + txtFilePath + "/" + whichFile + ": " + theContents);
 		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + File.separator + whichFile));
 		writer.write(theContents);
 		writer.close();
