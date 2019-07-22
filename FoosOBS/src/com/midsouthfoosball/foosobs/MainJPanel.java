@@ -256,7 +256,9 @@ public class MainJPanel extends JPanel {
 		JButton btnGameCount1Minus = new JButton("-");
 		btnGameCount1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				decrementGameCount1();
+		    	if (isValidInteger(txtGameCount1.getText())) {
+		    		decrementGameCount1();
+		    	}
 			}
 		});
 		add(btnGameCount1Minus, "cell 0 7,growx");
@@ -269,14 +271,18 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-			    	writeGameCount1();
+			    	if (isValidInteger(txtGameCount1.getText())) {
+				    	writeGameCount1();			    		
+			    	}
 			    }
 			}
 		});
 		txtGameCount1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				writeGameCount1();
+		    	if (isValidInteger(txtGameCount1.getText())) {
+		    		writeGameCount1();
+		    	}
 			}
 		});
 		add(txtGameCount1, "cell 1 7,growx");
@@ -286,7 +292,9 @@ public class MainJPanel extends JPanel {
 		btnGameCount1Plus.setMnemonic('5');
 		btnGameCount1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				incrementGameCount1();
+		    	if (isValidInteger(txtGameCount1.getText())) {
+		    		incrementGameCount1();
+		    	}
 			}
 		});
 		add(btnGameCount1Plus, "cell 2 7,growx");
@@ -302,7 +310,9 @@ public class MainJPanel extends JPanel {
 		JButton btnGameCount2Minus = new JButton("-");
 		btnGameCount2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				decrementGameCount2();
+		    	if (isValidInteger(txtGameCount2.getText())) {
+		    		decrementGameCount2();
+		    	}
 			}
 		});
 		add(btnGameCount2Minus, "cell 4 7,growx");
@@ -315,14 +325,18 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-			    	writeGameCount2();
+			    	if (isValidInteger(txtGameCount2.getText())) {
+			    		writeGameCount2();
+			    	}
 		    	}
 			}
 		});
 		txtGameCount2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-		    	writeGameCount2();
+		    	if (isValidInteger(txtGameCount2.getText())) {
+		    		writeGameCount2();
+		    	}
 			}
 		});
 		add(txtGameCount2, "cell 5 7,growx");
@@ -332,7 +346,9 @@ public class MainJPanel extends JPanel {
 		btnGameCount2Plus.setMnemonic('6');
 		btnGameCount2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				incrementGameCount2();
+		    	if (isValidInteger(txtGameCount2.getText())) {
+		    		incrementGameCount2();
+		    	}
 			}
 		});
 		add(btnGameCount2Plus, "cell 6 7,growx");
@@ -346,7 +362,9 @@ public class MainJPanel extends JPanel {
 		JButton btnGameScore1Minus = new JButton("-");
 		btnGameScore1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				decrementScore1();
+		    	if (isValidInteger(txtScore1.getText())) {
+		    		decrementScore1();
+		    	}
 			}
 		});
 		add(btnGameScore1Minus, "cell 0 9,growx,aligny top");
@@ -359,14 +377,18 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-			    	writeScore1();
+			    	if (isValidInteger(txtScore1.getText())) {
+			    		writeScore1();
+			    	}
 		    	}
 			}
 		});
 		txtScore1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-		    	writeScore1();
+		    	if (isValidInteger(txtScore1.getText())) {
+		    		writeScore1();
+		    	}
 			}
 		});
 		add(txtScore1, "cell 1 9,growx");
@@ -376,7 +398,9 @@ public class MainJPanel extends JPanel {
 		btnScore1Plus.setMnemonic('1');
 		btnScore1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				incrementScore1();
+		    	if (isValidInteger(txtScore1.getText())) {
+		    		incrementScore1();
+		    	}
 			}
 		});
 		add(btnScore1Plus, "cell 2 9,growx");
@@ -392,7 +416,9 @@ public class MainJPanel extends JPanel {
 		JButton btnScore2Minus = new JButton("-");
 		btnScore2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				decrementScore2();
+		    	if (isValidInteger(txtScore2.getText())) {
+		    		decrementScore2();
+		    	}
 			}
 		});
 		add(btnScore2Minus, "cell 4 9,growx");
@@ -405,14 +431,18 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-			    	writeScore2();
+			    	if (isValidInteger(txtScore2.getText())) {
+			    		writeScore2();
+			    	}
 			    }
 			}
 		});
 		txtScore2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				writeScore2();
+		    	if (isValidInteger(txtScore2.getText())) {
+		    		writeScore2();
+		    	}
 			}
 		});
 		add(txtScore2, "cell 5 9,growx");
@@ -422,7 +452,9 @@ public class MainJPanel extends JPanel {
 		btnScore2Plus.setMnemonic('2');
 		btnScore2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				incrementScore2();
+		    	if (isValidInteger(txtScore2.getText())) {
+		    		incrementScore2();
+		    	}
 			}
 		});
 		add(btnScore2Plus, "cell 6 9,growx");
@@ -436,7 +468,9 @@ public class MainJPanel extends JPanel {
 		JButton btnTimeOut1Minus = new JButton("-");
 		btnTimeOut1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				decrementTimeOut1();
+		    	if (isValidInteger(txtTimeOut1.getText())) {
+		    		decrementTimeOut1();
+		    	}
 			}
 		});
 		add(btnTimeOut1Minus, "cell 0 11,growx");
@@ -449,14 +483,18 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-			    	writeTimeOut1();
+			    	if (isValidInteger(txtTimeOut1.getText())) {
+			    		writeTimeOut1();
+			    	}
 			    }
 			}
 		});
 		txtTimeOut1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-				writeTimeOut1();
+		    	if (isValidInteger(txtTimeOut1.getText())) {
+		    		writeTimeOut1();
+		    	}
 			}
 		});
 		add(txtTimeOut1, "cell 1 11,growx");
@@ -466,7 +504,9 @@ public class MainJPanel extends JPanel {
 		btnTimeOut1Plus.setMnemonic('9');
 		btnTimeOut1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				incrementTimeOut1();
+		    	if (isValidInteger(txtTimeOut1.getText())) {
+		    		incrementTimeOut1();
+		    	}
 			}
 		});
 		add(btnTimeOut1Plus, "cell 2 11,growx");
@@ -482,7 +522,9 @@ public class MainJPanel extends JPanel {
 		JButton btnTimeOut2Minus = new JButton("-");
 		btnTimeOut2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				decrementTimeOut2();
+		    	if (isValidInteger(txtTimeOut2.getText())) {
+		    		decrementTimeOut2();
+		    	}
 			}
 		});
 		add(btnTimeOut2Minus, "cell 4 11,growx,aligny bottom");
@@ -495,14 +537,18 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
-			    	writeTimeOut2();
+			    	if (isValidInteger(txtTimeOut2.getText())) {
+			    		writeTimeOut2();
+			    	}
 			    }
 			}
 		});
 		txtTimeOut2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
-		    	writeTimeOut2();
+		    	if (isValidInteger(txtTimeOut2.getText())) {
+		    		writeTimeOut2();
+		    	}
 			}
 		});
 		add(txtTimeOut2, "cell 5 11,growx");
@@ -512,7 +558,9 @@ public class MainJPanel extends JPanel {
 		btnTimeOut2Plus.setMnemonic('0');
 		btnTimeOut2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				incrementTimeOut2();
+		    	if (isValidInteger(txtTimeOut2.getText())) {
+		    		incrementTimeOut2();
+		    	}
 			}
 		});
 		add(btnTimeOut2Plus, "cell 6 11,growx");
@@ -856,7 +904,16 @@ public class MainJPanel extends JPanel {
 		clearMatchWinner();
     }
     
-    private void reloadTimerButtonTexts() {
+	private boolean isValidInteger(String checkString) {
+    	try {
+    		Integer.parseInt(checkString);
+    		return true;
+    	} catch (NumberFormatException e) {
+    		return false;
+    	}
+	}
+
+	private void reloadTimerButtonTexts() {
 		btnShotTimer.setText(Integer.toString(foosObsSettings.getShotTime()) + " [s]");
 		btnPassTimer.setText(Integer.toString(foosObsSettings.getPassTime()) + " [p]");
 		btnTimeOutTimer.setText(Integer.toString(foosObsSettings.getTimeOutTime()) + " [o]");

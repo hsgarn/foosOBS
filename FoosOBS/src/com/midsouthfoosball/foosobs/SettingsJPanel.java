@@ -241,33 +241,53 @@ public class SettingsJPanel extends JPanel {
 	}
 	
 	private void saveSettings(Settings foosObsSettings, JFrame settingsFrame) {
-		try {
+    	if (isValidInteger(txtPointsToWin.getText())) {
 			foosObsSettings.setPointsToWin(Integer.parseInt(txtPointsToWin.getText()));
+    	}
+    	if (isValidInteger(txtMaxWin.getText())) {
 			foosObsSettings.setMaxWin(Integer.parseInt(txtMaxWin.getText()));
-			foosObsSettings.setWinBy(Integer.parseInt(txtWinBy.getText()));
-			foosObsSettings.setGamesToWin(Integer.parseInt(txtGamesToWin.getText()));
-			foosObsSettings.setMaxTimeOuts(Integer.parseInt(txtMaxTimeOuts.getText()));
-			if (chckbxAutoIncrementGame.isSelected()) {
-				foosObsSettings.setAutoIncrementGame(1);
-			} else {
-				foosObsSettings.setAutoIncrementGame(0);
-			}
-			if (chckbxAnnounceWinner.isSelected()) {
-				foosObsSettings.setAnnounceWinner(1);
-			} else {
-				foosObsSettings.setAnnounceWinner(0);
-			}
-			if (chckbxAnnounceMeatball.isSelected()) {
-				foosObsSettings.setAnnounceMeatball(1);
-			} else {
-				foosObsSettings.setAnnounceMeatball(0);
-			}
-			foosObsSettings.setMeatball(txtMeatball.getText());
-			foosObsSettings.setShotTime(Integer.parseInt(txtShotTime.getText()));
-			foosObsSettings.setPassTime(Integer.parseInt(txtPassTime.getText()));
-			foosObsSettings.setTimeOutTime(Integer.parseInt(txtTimeOutTime.getText()));
-			foosObsSettings.setGameTime(Integer.parseInt(txtGameTime.getText()));
-			foosObsSettings.setRecallTime(Integer.parseInt(txtRecallTime.getText()));
+    	}
+    	if (isValidInteger(txtWinBy.getText())) {
+		foosObsSettings.setWinBy(Integer.parseInt(txtWinBy.getText()));
+    	}
+    	if (isValidInteger(txtGamesToWin.getText())) {
+		foosObsSettings.setGamesToWin(Integer.parseInt(txtGamesToWin.getText()));
+    	}
+    	if (isValidInteger(txtMaxTimeOuts.getText())) {
+    		foosObsSettings.setMaxTimeOuts(Integer.parseInt(txtMaxTimeOuts.getText()));
+    	}
+		if (chckbxAutoIncrementGame.isSelected()) {
+			foosObsSettings.setAutoIncrementGame(1);
+		} else {
+			foosObsSettings.setAutoIncrementGame(0);
+		}
+		if (chckbxAnnounceWinner.isSelected()) {
+			foosObsSettings.setAnnounceWinner(1);
+		} else {
+			foosObsSettings.setAnnounceWinner(0);
+		}
+		if (chckbxAnnounceMeatball.isSelected()) {
+			foosObsSettings.setAnnounceMeatball(1);
+		} else {
+			foosObsSettings.setAnnounceMeatball(0);
+		}
+		foosObsSettings.setMeatball(txtMeatball.getText());
+    	if (isValidInteger(txtShotTime.getText())) {
+    		foosObsSettings.setShotTime(Integer.parseInt(txtShotTime.getText()));
+    	}
+    	if (isValidInteger(txtPassTime.getText())) {
+    		foosObsSettings.setPassTime(Integer.parseInt(txtPassTime.getText()));
+    	}
+    	if (isValidInteger(txtTimeOutTime.getText())) {
+    		foosObsSettings.setTimeOutTime(Integer.parseInt(txtTimeOutTime.getText()));
+    	}
+    	if (isValidInteger(txtGameTime.getText())) {
+    		foosObsSettings.setGameTime(Integer.parseInt(txtGameTime.getText()));
+    	}
+    	if (isValidInteger(txtRecallTime.getText())) {
+    		foosObsSettings.setRecallTime(Integer.parseInt(txtRecallTime.getText()));
+    	}
+		try {
 			foosObsSettings.saveToConfig();
 		} catch (IOException ex) {
 			System.out.print("Error saving properties file: " + ex.getMessage());		
@@ -279,5 +299,14 @@ public class SettingsJPanel extends JPanel {
 		settingsFrame.dispose();
 	}
 
+	private boolean isValidInteger(String checkString) {
+    	try {
+    		Integer.parseInt(checkString);
+    		return true;
+    	} catch (NumberFormatException e) {
+    		return false;
+    	}
+	}
 
+	
 }
