@@ -27,6 +27,7 @@ public class Settings {
 	private int gameTime;
 	private int recallTime;
 	private String meatball;
+	private int timeOutsUsed;
 	private Properties defaultProps;
 	
 	public Properties configProps;
@@ -52,6 +53,7 @@ public class Settings {
 		defaultProps.setProperty("TimeOutTime", "30");
 		defaultProps.setProperty("GameTime", "90");
 		defaultProps.setProperty("RecallTime", "10");
+		defaultProps.setProperty("TimeOutsUsed", "1");
 
 		configProps = new Properties(defaultProps);
 		
@@ -75,6 +77,7 @@ public class Settings {
 	public int getTimeOutTime() {return timeOutTime;}
 	public int getGameTime() {return gameTime;}
 	public int getRecallTime() {return recallTime;}
+	public int getTimeOutsUsed() {return timeOutsUsed;}
 	
 	
 	public void setDatapath(String datapath) {
@@ -141,6 +144,10 @@ public class Settings {
 		this.recallTime = recallTime;
 		configProps.setProperty("RecallTime", Integer.toString(this.recallTime));
 		}
+	public void setTimeOutsUsed(int timeOutsUsed) {
+		this.timeOutsUsed = timeOutsUsed;
+		configProps.setProperty("TimeOutsUsed", Integer.toString(this.timeOutsUsed));
+	}
 	
 	public int getDefaultPointsToWin() {return Integer.parseInt(defaultProps.getProperty("PointsToWin"));}
 	public int getDefaultMaxWin() {return Integer.parseInt(defaultProps.getProperty("MaxWin"));}
@@ -158,6 +165,7 @@ public class Settings {
 	public int getDefaultTimeOutTime() {return Integer.parseInt(defaultProps.getProperty("TimeOutTime"));}
 	public int getDefaultGameTime() {return Integer.parseInt(defaultProps.getProperty("GameTime"));}
 	public int getDefaultRecallTime() {return Integer.parseInt(defaultProps.getProperty("RecallTime"));}
+	public int getDefaultTimeOutsUsed() {return Integer.parseInt(defaultProps.getProperty("TimeOutsUsed"));}
 
 	public void loadFromConfig() throws IOException {
 
@@ -182,6 +190,7 @@ public class Settings {
 		timeOutTime = Integer.parseInt(configProps.getProperty("TimeOutTime"));
 		gameTime = Integer.parseInt(configProps.getProperty("GameTime"));
 		recallTime = Integer.parseInt(configProps.getProperty("RecallTime"));
+		timeOutsUsed = Integer.parseInt(configProps.getProperty("TimeOutsUsed"));
 	}
 	
 	public void saveToConfig() throws IOException {
@@ -202,6 +211,7 @@ public class Settings {
 		configProps.setProperty("TimeOutTime", Integer.toString(this.getTimeOutTime()));
 		configProps.setProperty("GameTime", Integer.toString(this.getGameTime()));
 		configProps.setProperty("RecallTime", Integer.toString(this.getRecallTime()));
+		configProps.setProperty("TimeOutsUsed", Integer.toString(this.getTimeOutsUsed()));
 
 		OutputStream outputStream = new FileOutputStream(configFile);
 		configProps.store(outputStream, "FoosOSB settings");

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JToggleButton;
 
 public class SettingsJPanel extends JPanel {
 
@@ -33,10 +34,11 @@ public class SettingsJPanel extends JPanel {
 	private JTextField txtGameTime;
 	private JTextField txtRecallTime;
 	private JTextField txtMeatball;
+	private JToggleButton tglbtnTimeOutsUsed;
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
 
-		setLayout(new MigLayout("", "[119.00][50.00:87.00,left][78.00,grow][grow][]", "[][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[119.00][50.00:87.00,left][78.00,grow][grow][]", "[][][][][][][][][][][][][]"));
 		
 		JLabel lblParameter = new JLabel("Parameter");
 		lblParameter.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -188,7 +190,21 @@ public class SettingsJPanel extends JPanel {
 		txtMeatball.setText(foosObsSettings.getMeatball());
 		add(txtMeatball, "cell 2 9,alignx center");
 		txtMeatball.setColumns(10);
-		add(btnSave, "cell 1 11");
+		
+		JToggleButton tglbtnTimeOutsUsed = new JToggleButton("Time Outs Used");
+		tglbtnTimeOutsUsed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (Integer.toString(foosObsSettings.getDefaultTimeOutsUsed()).equals("1")) {
+					tglbtnTimeOutsUsed.setSelected(true);;
+				} else {
+					tglbtnTimeOutsUsed.setSelected(false);
+				}
+				System.out.println("togglebutton:  " + tglbtnTimeOutsUsed.isSelected());
+			}
+		});
+		tglbtnTimeOutsUsed.setSelected(true);
+		add(tglbtnTimeOutsUsed, "cell 0 10,alignx center");
+		add(btnSave, "cell 1 12");
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -196,7 +212,7 @@ public class SettingsJPanel extends JPanel {
 				cancelSettings(settingsFrame);
 			}
 		});
-		add(btnCancel, "cell 2 11,alignx center");
+		add(btnCancel, "cell 2 12,alignx center");
 		
 		JButton btnRestoreDefaults = new JButton("Restore Defaults");
 		btnRestoreDefaults.addActionListener(new ActionListener() {
@@ -205,7 +221,7 @@ public class SettingsJPanel extends JPanel {
 			}
 		});
 		btnRestoreDefaults.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(btnRestoreDefaults, "cell 3 11,alignx right");
+		add(btnRestoreDefaults, "cell 3 12,alignx right");
 
 	}
 

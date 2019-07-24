@@ -1115,6 +1115,7 @@ public class MainJPanel extends JPanel {
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore2.getText()))) {
 			incrementGameCount1();
 			resetScores();
+			resetTimeOuts();
 		};
 		writeScore1();
 		checkMeatball(num1, Integer.parseInt(txtScore2.getText()));
@@ -1160,6 +1161,7 @@ public class MainJPanel extends JPanel {
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore1.getText()))) {
 			incrementGameCount2();
 			resetScores();
+			resetTimeOuts();
 		};
 		writeScore2();
 		checkMeatball(num1, Integer.parseInt(txtScore1.getText()));
