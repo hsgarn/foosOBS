@@ -34,7 +34,7 @@ public class SettingsJPanel extends JPanel {
 	private JTextField txtGameTime;
 	private JTextField txtRecallTime;
 	private JTextField txtMeatball;
-	private JToggleButton tglbtnTimeOutsUsed;
+	private JCheckBox chckbxShowTimeOutsUsed;
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
 
@@ -162,6 +162,7 @@ public class SettingsJPanel extends JPanel {
 				saveSettings(foosObsSettings, settingsFrame);
 			}
 		});
+		add(btnSave, "cell 1 12");
 		
 		txtWinnerPrefix = new JTextField();
 		txtWinnerPrefix.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -191,20 +192,16 @@ public class SettingsJPanel extends JPanel {
 		add(txtMeatball, "cell 2 9,alignx center");
 		txtMeatball.setColumns(10);
 		
-		JToggleButton tglbtnTimeOutsUsed = new JToggleButton("Time Outs Used");
-		tglbtnTimeOutsUsed.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (Integer.toString(foosObsSettings.getDefaultTimeOutsUsed()).equals("1")) {
-					tglbtnTimeOutsUsed.setSelected(true);;
-				} else {
-					tglbtnTimeOutsUsed.setSelected(false);
-				}
-				System.out.println("togglebutton:  " + tglbtnTimeOutsUsed.isSelected());
-			}
-		});
-		tglbtnTimeOutsUsed.setSelected(true);
-		add(tglbtnTimeOutsUsed, "cell 0 10,alignx center");
-		add(btnSave, "cell 1 12");
+		JLabel lblShowTimeOutsUsed = new JLabel("Show Time Outs Used");
+		add(lblShowTimeOutsUsed, "cell 0 10,alignx right");
+		
+		chckbxShowTimeOutsUsed = new JCheckBox("");
+		if (Integer.toString(foosObsSettings.getShowTimeOutsUsed()).equals("1")) {
+			chckbxShowTimeOutsUsed.setSelected(true);
+		} else {
+			chckbxShowTimeOutsUsed.setSelected(false);
+		}
+		add(chckbxShowTimeOutsUsed, "cell 1 10");
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -222,7 +219,6 @@ public class SettingsJPanel extends JPanel {
 		});
 		btnRestoreDefaults.setHorizontalAlignment(SwingConstants.RIGHT);
 		add(btnRestoreDefaults, "cell 3 12,alignx right");
-
 	}
 
 	private void restoreDefaults(Settings foosObsSettings) {
@@ -254,6 +250,11 @@ public class SettingsJPanel extends JPanel {
 			chckbxAnnounceMeatball.setSelected(false);
 		}
 		txtMeatball.setText(foosObsSettings.getDefaultMeatball());
+		if (Integer.toString(foosObsSettings.getDefaultShowTimeOutsUsed()).equals("1")) {
+			chckbxShowTimeOutsUsed.setSelected(true);
+		} else {
+			chckbxShowTimeOutsUsed.setSelected(false);
+		}
 	}
 	
 	private void saveSettings(Settings foosObsSettings, JFrame settingsFrame) {
@@ -303,6 +304,11 @@ public class SettingsJPanel extends JPanel {
     	if (isValidInteger(txtRecallTime.getText())) {
     		foosObsSettings.setRecallTime(Integer.parseInt(txtRecallTime.getText()));
     	}
+		if (chckbxShowTimeOutsUsed.isSelected()) {
+			foosObsSettings.setShowTimeOutsUsed(1);
+		} else {
+			foosObsSettings.setShowTimeOutsUsed(0);
+		}
 		try {
 			foosObsSettings.saveToConfig();
 		} catch (IOException ex) {
