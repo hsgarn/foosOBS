@@ -68,7 +68,7 @@ public class MainJPanel extends JPanel {
 
     	initialize();
 		
-    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][]"));
+    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][][][][]"));
 		String logoURL = new String("/imgs/MidsouthFoosballLogo4.png");
 		ImageIcon imageIcon = new ImageIcon(getClass().getResource(logoURL));
 		
@@ -86,10 +86,10 @@ public class MainJPanel extends JPanel {
 		add(lblLogo2, "cell 6 0 1 4");
 		
 		JLabel lblTournamentName = new JLabel("Tournament:");
-		add(lblTournamentName, "flowx,cell 1 0,alignx center");
+		add(lblTournamentName, "flowx,cell 1 1,alignx center,aligny bottom");
 		
-		JLabel lblEvent = new JLabel("Event:");
-		add(lblEvent, "cell 5 0,alignx center");
+		JSeparator separator = new JSeparator();
+		add(separator, "flowx,cell 3 1");
 		
 		txtTournamentName = new JTextField();
 		txtTournamentName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -108,8 +108,11 @@ public class MainJPanel extends JPanel {
 				writeTournamentName();
 			}
 		});
+		
+		JLabel lblEvent = new JLabel("Event:");
+		add(lblEvent, "cell 5 1,alignx center,aligny bottom");
 		txtTournamentName.setText("High Pockets Monday Night");
-		add(txtTournamentName, "flowy,cell 1 1,growx");
+		add(txtTournamentName, "flowy,cell 1 4,growx");
 		txtTournamentName.setColumns(10);
 		
 		JButton btnTournamentNameClear = new JButton("X");
@@ -118,10 +121,19 @@ public class MainJPanel extends JPanel {
 				clearTournamentName();
 			}
 		});
-		add(btnTournamentNameClear, "cell 2 1,alignx left");
+		add(btnTournamentNameClear, "cell 2 4,alignx left");
 		
-		JSeparator separator = new JSeparator();
-		add(separator, "flowx,cell 3 1");
+		JButton btnEventClear = new JButton("X");
+		btnEventClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearEventName();
+			}
+		});
+		
+		lblTimerInUse = new JLabel("Timer Reset");
+		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblTimerInUse, "cell 3 4,growx");
+		add(btnEventClear, "cell 4 4,alignx right");
 		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -141,25 +153,17 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		txtEventName.setText("DYP #1");
-		add(txtEventName, "flowx,cell 5 1,growx");
+		add(txtEventName, "flowx,cell 5 4,growx");
 		txtEventName.setColumns(10);
 		
-		JButton btnEventClear = new JButton("X");
-		btnEventClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				clearEventName();
-			}
-		});
-		add(btnEventClear, "cell 4 1,alignx right");
-		
 		JLabel lblTeam1 = new JLabel("Team 1:");
-		add(lblTeam1, "cell 1 3,alignx center");
+		add(lblTeam1, "cell 1 6,alignx center");
 		
 		JLabel lblTeam2 = new JLabel("Team 2:");
-		add(lblTeam2, "cell 5 3,alignx center");
+		add(lblTeam2, "cell 5 6,alignx center");
 		
 		JLabel lblName1 = new JLabel("Name");
-		add(lblName1, "cell 0 4,alignx right");
+		add(lblName1, "cell 0 7,alignx right");
 		
 		txtTeam1 = new JTextField();
 		txtTeam1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -178,7 +182,7 @@ public class MainJPanel extends JPanel {
 		    	writeTeam1Name();
 			}
 		});
-		add(txtTeam1, "cell 1 4,growx");
+		add(txtTeam1, "cell 1 7,growx");
 		txtTeam1.setColumns(10);
 		
 		JButton btnTeam1Clear = new JButton("X");
@@ -187,7 +191,7 @@ public class MainJPanel extends JPanel {
 				clearTeam1Name();
 			}
 		});
-		add(btnTeam1Clear, "cell 2 4,alignx left,aligny bottom");
+		add(btnTeam1Clear, "cell 2 7,alignx left,aligny bottom");
 		
 		JButton btnTeamSwitch = new JButton("<-> [e]");
 		btnTeamSwitch.setMnemonic('e');
@@ -196,7 +200,7 @@ public class MainJPanel extends JPanel {
 				switchTeamNames();
 			}
 		});
-		add(btnTeamSwitch, "cell 3 4,alignx center");
+		add(btnTeamSwitch, "cell 3 7,alignx center");
 		
 		txtTeam2 = new JTextField();
 		txtTeam2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -222,8 +226,8 @@ public class MainJPanel extends JPanel {
 		    	clearTeam2Name();
 			}
 		});
-		add(btnTeam2Clear, "cell 4 4,alignx right");
-		add(txtTeam2, "flowx,cell 5 4,growx");
+		add(btnTeam2Clear, "cell 4 7,alignx right");
+		add(txtTeam2, "flowx,cell 5 7,growx");
 		txtTeam2.setColumns(10);
 		
 		JButton btnTeam1NameSwitch = new JButton("<-> [t]");
@@ -235,8 +239,8 @@ public class MainJPanel extends JPanel {
 		});
 		
 		JLabel lblName2 = new JLabel("Name");
-		add(lblName2, "cell 6 4,alignx left");
-		add(btnTeam1NameSwitch, "cell 1 5,alignx center");
+		add(lblName2, "cell 6 7,alignx left");
+		add(btnTeam1NameSwitch, "cell 1 8,alignx center");
 		
 		JButton btnTeam2NameSwitch = new JButton("<-> [m]");
 		btnTeam2NameSwitch.setMnemonic('m');
@@ -245,13 +249,13 @@ public class MainJPanel extends JPanel {
 				switchTeam2Names();
 			}
 		});
-		add(btnTeam2NameSwitch, "cell 5 5,alignx center");
+		add(btnTeam2NameSwitch, "cell 5 8,alignx center");
 		
 		JLabel lblGameCount1 = new JLabel("Game Count");
-		add(lblGameCount1, "cell 1 6,alignx center");
+		add(lblGameCount1, "cell 1 9,alignx center");
 		
 		JLabel lblGameCount2 = new JLabel("Game Count");
-		add(lblGameCount2, "cell 5 6,alignx center");
+		add(lblGameCount2, "cell 5 9,alignx center");
 		
 		JButton btnGameCount1Minus = new JButton("-");
 		btnGameCount1Minus.addActionListener(new ActionListener() {
@@ -261,7 +265,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount1Minus, "cell 0 7,growx");
+		add(btnGameCount1Minus, "cell 0 10,growx");
 		
 		txtGameCount1 = new JTextField();
 		txtGameCount1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -285,7 +289,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(txtGameCount1, "cell 1 7,growx");
+		add(txtGameCount1, "cell 1 10,growx");
 		txtGameCount1.setColumns(10);
 		
 		JButton btnGameCount1Plus = new JButton("+ [5]");
@@ -297,7 +301,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount1Plus, "cell 2 7,growx");
+		add(btnGameCount1Plus, "cell 2 10,growx");
 		
 		JButton btnGameCountSwitch = new JButton("<->");
 		btnGameCountSwitch.addActionListener(new ActionListener() {
@@ -305,7 +309,7 @@ public class MainJPanel extends JPanel {
 				switchGameCount();
 			}
 		});
-		add(btnGameCountSwitch, "cell 3 7,growx");
+		add(btnGameCountSwitch, "cell 3 10,growx");
 		
 		JButton btnGameCount2Minus = new JButton("-");
 		btnGameCount2Minus.addActionListener(new ActionListener() {
@@ -315,7 +319,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount2Minus, "cell 4 7,growx");
+		add(btnGameCount2Minus, "cell 4 10,growx");
 		
 		txtGameCount2 = new JTextField();
 		txtGameCount2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -339,7 +343,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(txtGameCount2, "cell 5 7,growx");
+		add(txtGameCount2, "cell 5 10,growx");
 		txtGameCount2.setColumns(10);
 		
 		JButton btnGameCount2Plus = new JButton("+ [6]");
@@ -351,13 +355,13 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount2Plus, "cell 6 7,growx");
+		add(btnGameCount2Plus, "cell 6 10,growx");
 		
 		JLabel lblScore1 = new JLabel("Score");
-		add(lblScore1, "cell 1 8,alignx center");
+		add(lblScore1, "cell 1 11,alignx center");
 		
 		JLabel lblScore = new JLabel("Score");
-		add(lblScore, "cell 5 8,alignx center");
+		add(lblScore, "cell 5 11,alignx center");
 		
 		JButton btnGameScore1Minus = new JButton("-");
 		btnGameScore1Minus.addActionListener(new ActionListener() {
@@ -367,7 +371,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameScore1Minus, "cell 0 9,growx,aligny top");
+		add(btnGameScore1Minus, "cell 0 12,growx,aligny top");
 		
 		txtScore1 = new JTextField();
 		txtScore1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -391,7 +395,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(txtScore1, "cell 1 9,growx");
+		add(txtScore1, "cell 1 12,growx");
 		txtScore1.setColumns(10);
 		
 		JButton btnScore1Plus = new JButton("+ [1]");
@@ -403,7 +407,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore1Plus, "cell 2 9,growx");
+		add(btnScore1Plus, "cell 2 12,growx");
 		
 		JButton btnScoreSwitch = new JButton("<->");
 		btnScoreSwitch.addActionListener(new ActionListener() {
@@ -411,7 +415,7 @@ public class MainJPanel extends JPanel {
 				switchScore();
 			}
 		});
-		add(btnScoreSwitch, "cell 3 9,growx");
+		add(btnScoreSwitch, "cell 3 12,growx");
 		
 		JButton btnScore2Minus = new JButton("-");
 		btnScore2Minus.addActionListener(new ActionListener() {
@@ -421,7 +425,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore2Minus, "cell 4 9,growx");
+		add(btnScore2Minus, "cell 4 12,growx");
 		
 		txtScore2 = new JTextField();
 		txtScore2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -445,7 +449,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(txtScore2, "cell 5 9,growx");
+		add(txtScore2, "cell 5 12,growx");
 		txtScore2.setColumns(10);
 		
 		JButton btnScore2Plus = new JButton("+ [2]");
@@ -457,15 +461,15 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore2Plus, "cell 6 9,growx");
+		add(btnScore2Plus, "cell 6 12,growx");
 		
 		JLabel lblTimeOut1 = new JLabel("TimeOut");
-		add(lblTimeOut1, "cell 1 10,alignx center");
+		add(lblTimeOut1, "cell 1 13,alignx center");
 		
 		JLabel lblTimeout = new JLabel("TimeOut");
-		add(lblTimeout, "cell 5 10,alignx center");
+		add(lblTimeout, "cell 5 13,alignx center");
 		
-		JButton btnTimeOut1Minus = new JButton("-");
+		JButton btnTimeOut1Minus = new JButton("Add back TO");
 		btnTimeOut1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		    	if (isValidInteger(txtTimeOut1.getText())) {
@@ -473,7 +477,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut1Minus, "cell 0 11,growx");
+		add(btnTimeOut1Minus, "cell 0 14,growx");
 		
 		txtTimeOut1 = new JTextField();
 		txtTimeOut1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -497,10 +501,10 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(txtTimeOut1, "cell 1 11,growx");
+		add(txtTimeOut1, "cell 1 14,growx");
 		txtTimeOut1.setColumns(10);
 		
-		JButton btnTimeOut1Plus = new JButton("+ [9]");
+		JButton btnTimeOut1Plus = new JButton("Call TO [9]");
 		btnTimeOut1Plus.setMnemonic('9');
 		btnTimeOut1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -509,7 +513,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut1Plus, "cell 2 11,growx");
+		add(btnTimeOut1Plus, "cell 2 14,growx");
 		
 		JButton btnTimeOutSwitch = new JButton("<->");
 		btnTimeOutSwitch.addActionListener(new ActionListener() {
@@ -517,9 +521,9 @@ public class MainJPanel extends JPanel {
 				switchTimeOut();
 			}
 		});
-		add(btnTimeOutSwitch, "cell 3 11,growx");
+		add(btnTimeOutSwitch, "cell 3 14,growx");
 		
-		JButton btnTimeOut2Minus = new JButton("-");
+		JButton btnTimeOut2Minus = new JButton("Add back TO");
 		btnTimeOut2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtTimeOut2.getText())) {
@@ -527,7 +531,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut2Minus, "cell 4 11,growx,aligny bottom");
+		add(btnTimeOut2Minus, "cell 4 14,growx,aligny bottom");
 		
 		txtTimeOut2 = new JTextField();
 		txtTimeOut2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -551,10 +555,10 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(txtTimeOut2, "cell 5 11,growx");
+		add(txtTimeOut2, "cell 5 14,growx");
 		txtTimeOut2.setColumns(10);
 		
-		JButton btnTimeOut2Plus = new JButton("+ [0]");
+		JButton btnTimeOut2Plus = new JButton("Call TO [0]");
 		btnTimeOut2Plus.setMnemonic('0');
 		btnTimeOut2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -563,7 +567,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut2Plus, "cell 6 11,growx");
+		add(btnTimeOut2Plus, "cell 6 14,growx");
 		
 		tglbtnReset1 = new JToggleButton("Reset [z]");
 		tglbtnReset1.setMnemonic('z');
@@ -572,7 +576,7 @@ public class MainJPanel extends JPanel {
 				writeReset1();
 			}
 		});
-		add(tglbtnReset1, "cell 0 12,growx");
+		add(tglbtnReset1, "cell 0 15,growx");
 		
 		tglbtnWarn1 = new JToggleButton(" Warn [x]");
 		tglbtnWarn1.setMnemonic('x');
@@ -581,7 +585,7 @@ public class MainJPanel extends JPanel {
 				writeWarn1();
 			}
 		});
-		add(tglbtnWarn1, "cell 2 12,growx");
+		add(tglbtnWarn1, "cell 2 15,growx");
 		
 		tglbtnReset2 = new JToggleButton("Reset [,]");
 		tglbtnReset2.setMnemonic(',');
@@ -590,7 +594,7 @@ public class MainJPanel extends JPanel {
 				writeReset2();
 			}
 		});
-		add(tglbtnReset2, "cell 4 12,growx");
+		add(tglbtnReset2, "cell 4 15,growx");
 		
 		tglbtnWarn2 = new JToggleButton(" Warn [.]");
 		tglbtnWarn2.setMnemonic('.');
@@ -599,7 +603,7 @@ public class MainJPanel extends JPanel {
 				writeWarn2();
 			}
 		});
-		add(tglbtnWarn2, "cell 6 12,growx");
+		add(tglbtnWarn2, "cell 6 15,growx");
 
 		JButton btnResetSwitch = new JButton("<->");
 		btnResetSwitch.addActionListener(new ActionListener() {
@@ -607,7 +611,7 @@ public class MainJPanel extends JPanel {
 				switchResetWarn();
 			}
 		});
-		add(btnResetSwitch, "cell 3 12,growx");
+		add(btnResetSwitch, "cell 3 15,growx");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts [7]");
 		btnResetGameCounts.setMnemonic('7');
@@ -616,7 +620,7 @@ public class MainJPanel extends JPanel {
 				resetGameCounts();
 			}
 		});
-		add(btnResetGameCounts, "cell 1 13,growx");
+		add(btnResetGameCounts, "cell 1 16,growx");
 		
 		JButton btnResetScores = new JButton("Reset Scores [3]");
 		btnResetScores.setMnemonic('3');
@@ -633,8 +637,8 @@ public class MainJPanel extends JPanel {
 				resetTimers();
 		}
 		});
-		add(btnResetTimers, "cell 5 13,growx,aligny bottom");
-		add(btnResetScores, "cell 1 14,growx");
+		add(btnResetTimers, "cell 5 16,growx,aligny bottom");
+		add(btnResetScores, "cell 1 17,growx");
 		
 		JButton btnResetTimeOuts = new JButton("Reset Time Outs [-]");
 		btnResetTimeOuts.setMnemonic('-');
@@ -643,7 +647,7 @@ public class MainJPanel extends JPanel {
 				resetTimeOuts();
 			}
 		});
-		add(btnResetTimeOuts, "cell 1 15,growx");
+		add(btnResetTimeOuts, "cell 1 18,growx");
 		
 		JButton btnResetResetWarn = new JButton("Reset Reset/Warn");
 		btnResetResetWarn.addActionListener(new ActionListener() {
@@ -651,7 +655,7 @@ public class MainJPanel extends JPanel {
 				resetResetWarns();
 			}
 		});
-		add(btnResetResetWarn, "cell 1 16,growx");
+		add(btnResetResetWarn, "cell 1 19,growx");
 		
 		JButton btnResetAll = new JButton("Reset All [a]");
 		btnResetAll.setMnemonic('a');
@@ -660,7 +664,7 @@ public class MainJPanel extends JPanel {
 				resetAll();
 			}
 		});
-		add(btnResetAll, "cell 1 17,growx");
+		add(btnResetAll, "cell 1 20,growx");
 		
 		JButton btnAllSwitch = new JButton("<---------------------[w]--------------------->");
 		btnAllSwitch.setMnemonic('w');
@@ -669,23 +673,16 @@ public class MainJPanel extends JPanel {
 				switchAll();
 			}
 		});
-		add(btnAllSwitch, "cell 2 13 3 1,growx");
-		
-		lblTimerDisplay = new JLabel(" 0.0 ");
-		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTimerDisplay.setOpaque(true);
-		lblTimerDisplay.setBackground(Color.GREEN);
-		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
+		add(btnAllSwitch, "cell 2 16 3 1,growx");
 		ActionListener alAction = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				updateTimerDisplay();
 			}
 		};
 		timeClock.addTimeClockTimerListener(alAction);
-		add(lblTimerDisplay, "cell 2 15 3 2,alignx center,aligny center");
 		
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
-		add(lblNonPossession, "cell 5 14,alignx right");
+		add(lblNonPossession, "cell 5 17,alignx right");
 		
 		btnShotTimer = new JButton(foosObsSettings.getShotTime() + " [s]");
 		btnShotTimer.setMnemonic('s');
@@ -694,10 +691,10 @@ public class MainJPanel extends JPanel {
 				startShotTimer();
 			}
 		});
-		add(btnShotTimer, "cell 6 14,growx");
+		add(btnShotTimer, "cell 6 17,growx");
 		
 		JLabel lblRowPossession = new JLabel("Pass Timer (5 row)");
-		add(lblRowPossession, "cell 5 15,alignx right");
+		add(lblRowPossession, "cell 5 18,alignx right");
 		
 		btnPassTimer = new JButton(foosObsSettings.getPassTime() + " [p]");
 		btnPassTimer.setMnemonic('p');
@@ -706,10 +703,10 @@ public class MainJPanel extends JPanel {
 				startPassTimer();
 			}
 		});
-		add(btnPassTimer, "cell 6 15,growx,aligny bottom");
+		add(btnPassTimer, "cell 6 18,growx,aligny bottom");
 		
 		JLabel lblTimeOutTimer = new JLabel("Time Out Timer");
-		add(lblTimeOutTimer, "cell 5 16,alignx right");
+		add(lblTimeOutTimer, "cell 5 19,alignx right");
 		
 		btnTimeOutTimer = new JButton(foosObsSettings.getTimeOutTime() + " [o]");
 		btnTimeOutTimer.setMnemonic('o');
@@ -718,14 +715,18 @@ public class MainJPanel extends JPanel {
 				startTimeOutTimer();
 			}
 		});
-		add(btnTimeOutTimer, "cell 6 16,growx");
+		add(btnTimeOutTimer, "cell 6 19,growx");
 		
-		lblTimerInUse = new JLabel("Timer Reset");
-		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTimerInUse, "cell 3 17,growx");
+				JButton btnClearAll = new JButton("Clear All");
+				btnClearAll.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						clearAll();
+					}
+				});
+				add(btnClearAll, "cell 3 20,growx");
 		
 		JLabel lblGameTimer = new JLabel("Game Timer");
-		add(lblGameTimer, "cell 5 17,alignx right");
+		add(lblGameTimer, "cell 5 20,alignx right");
 
 		btnGameTimer = new JButton(foosObsSettings.getGameTime() + " [g]");
 		btnGameTimer.setMnemonic('g');
@@ -734,10 +735,10 @@ public class MainJPanel extends JPanel {
 				startGameTimer();
 			}
 		});
-		add(btnGameTimer, "cell 6 17,growx");
+		add(btnGameTimer, "cell 6 20,growx");
 
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
-		add(lblRecallTimer, "cell 5 18,alignx right");
+		add(lblRecallTimer, "cell 5 21,alignx right");
 		
 		btnRecallTimer = new JButton(foosObsSettings.getRecallTime() + " [c]");
 		btnRecallTimer.setMnemonic('c');
@@ -746,7 +747,7 @@ public class MainJPanel extends JPanel {
 				startRecallTimer();
 			}
 		});
-		add(btnRecallTimer, "cell 6 18,growx");
+		add(btnRecallTimer, "cell 6 21,growx");
 		
 		formattedTxtPath = new JFormattedTextField(defaultFilePath);
 		formattedTxtPath.setText(foosObsSettings.getDatapath());
@@ -810,8 +811,8 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnSelectPath, "cell 0 19,growx");
-		add(formattedTxtPath, "cell 1 19,growx");
+		add(btnSelectPath, "cell 0 22,growx");
+		add(formattedTxtPath, "cell 1 22,growx");
 		
 		JButton btnFetch = new JButton("Fetch Data");
 		btnFetch.addActionListener(new ActionListener() {
@@ -819,7 +820,7 @@ public class MainJPanel extends JPanel {
 				fetchAll();
 			}
 		});
-		add(btnFetch, "cell 3 19,growx");
+		add(btnFetch, "cell 3 22,growx");
 		
 		JButton btnSetPath = new JButton("Set Path");
 		btnSetPath.addActionListener(new ActionListener() {
@@ -840,15 +841,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnSetPath, "cell 2 19,growx");
-
-		JButton btnClearAll = new JButton("Clear All");
-		btnClearAll.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				clearAll();
-			}
-		});
-		add(btnClearAll, "cell 3 0,growx");
+		add(btnSetPath, "cell 2 22,growx");
 		
 		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
 		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
@@ -858,7 +851,7 @@ public class MainJPanel extends JPanel {
 		});
 		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
-		add(chckbxAlwaysOnTop, "cell 5 19,alignx right");
+		add(chckbxAlwaysOnTop, "cell 5 22,alignx right");
 		
 		JButton btnSaveAll = new JButton("Save All");
 		btnSaveAll.addActionListener(new ActionListener() {
@@ -866,7 +859,7 @@ public class MainJPanel extends JPanel {
 				saveAll();
 			}
 		});
-		add(btnSaveAll, "cell 4 19,growx");
+		add(btnSaveAll, "cell 4 22,growx");
 		
 		JButton btnSettings = new JButton("Settings");
 		btnSettings.addActionListener(new ActionListener() {
@@ -893,7 +886,14 @@ public class MainJPanel extends JPanel {
 		btnSettings.setForeground(Color.BLACK);
 		btnSettings.setBackground(new Color(0, 255, 255));
 		btnSettings.setBounds(92, 100, 125, 23);
-		add(btnSettings, "cell 6 19,growx");
+		add(btnSettings, "cell 6 22,growx");
+		
+		lblTimerDisplay = new JLabel(" 0.0 ");
+		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTimerDisplay.setOpaque(true);
+		lblTimerDisplay.setBackground(Color.GREEN);
+		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
+		add(lblTimerDisplay, "cell 2 1 3 1,alignx center,aligny center");
     }
 
     private void initialize() throws IOException { 
@@ -1103,7 +1103,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtScore1.setText(Integer.toString(num1));
 		writeScore1();
-		checkMeatball(num1, Integer.parseInt(txtScore2.getText()));
+		checkMeatball(num1, Integer.parseInt(txtScore2.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 
 	private void incrementScore1() {
@@ -1118,7 +1118,7 @@ public class MainJPanel extends JPanel {
 			resetTimeOuts();
 		};
 		writeScore1();
-		checkMeatball(num1, Integer.parseInt(txtScore2.getText()));
+		checkMeatball(num1, Integer.parseInt(txtScore2.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 	private boolean checkIfGameWon(int points1, int points2) {
 		int pointsToWin = foosObsSettings.getPointsToWin();
@@ -1149,7 +1149,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtScore2.setText(Integer.toString(num1));
 		writeScore2();
-		checkMeatball(num1, Integer.parseInt(txtScore1.getText()));
+		checkMeatball(num1, Integer.parseInt(txtScore1.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 
 	private void incrementScore2() {
@@ -1164,17 +1164,22 @@ public class MainJPanel extends JPanel {
 			resetTimeOuts();
 		};
 		writeScore2();
-		checkMeatball(num1, Integer.parseInt(txtScore1.getText()));
+		checkMeatball(num1, Integer.parseInt(txtScore1.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 	
-	private void checkMeatball(int points1, int points2) {
+	private void checkMeatball(int points1, int points2, int gameCount1, int gameCount2) {
+		System.out.println("points1: " + points1 + "points2: " + points2 + "GC1: " + gameCount1 + "GC2: " + gameCount2);
 		if (foosObsSettings.getAnnounceMeatball() == 1) {
 			if (points1 == points2) {
 				int meatballPoint = foosObsSettings.getPointsToWin() - 1;
 				if (foosObsSettings.getWinBy() < 2) {
 					if (points1 == meatballPoint) {
-						writeMeatball();
-						return;
+						if (gameCount1 == gameCount2) {
+							if (gameCount1 == foosObsSettings.getGamesToWin()-1) {
+								writeMeatball();
+								return;
+							}
+						}
 					}
 				}
 			}
@@ -1264,9 +1269,16 @@ public class MainJPanel extends JPanel {
 	private void decrementTimeOut1() {
 		int num1;
 		num1=Integer.parseInt(txtTimeOut1.getText());
-		num1=num1-1;
-		if (num1<0) {
-			num1 = 0;
+		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+			num1=num1+1;
+			if (num1>foosObsSettings.getMaxTimeOuts()) {
+				num1 = foosObsSettings.getMaxTimeOuts();
+			}
+		} else {
+			num1=num1-1;
+			if (num1<0) {
+				num1 = 0;
+			}
 		}
 		txtTimeOut1.setText(Integer.toString(num1));
 		try {
@@ -1279,9 +1291,16 @@ public class MainJPanel extends JPanel {
 	private void decrementTimeOut2() {
 		int num1;
 		num1=Integer.parseInt(txtTimeOut2.getText());
-		num1=num1-1;
-		if (num1<0) {
-			num1 = 0;
+		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+			num1=num1+1;
+			if (num1>foosObsSettings.getMaxTimeOuts()) {
+				num1 = foosObsSettings.getMaxTimeOuts();
+			}
+		} else {
+			num1=num1-1;
+			if (num1<0) {
+				num1 = 0;
+			}
 		}
 		txtTimeOut2.setText(Integer.toString(num1));
 		try {
@@ -1302,9 +1321,16 @@ public class MainJPanel extends JPanel {
 	private void incrementTimeOut1() {
 		int num1;
 		num1=Integer.parseInt(txtTimeOut1.getText());
-		num1=num1+1;
-		if (num1>foosObsSettings.getMaxTimeOuts()) {
-			num1 = foosObsSettings.getMaxTimeOuts();
+		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+			num1=num1-1;
+			if (num1<0) {
+				num1 = 0;
+			}
+		} else {
+			num1=num1+1;
+			if (num1>foosObsSettings.getMaxTimeOuts()) {
+				num1 = foosObsSettings.getMaxTimeOuts();
+			}
 		}
 		txtTimeOut1.setText(Integer.toString(num1));
 		writeTimeOut1();
@@ -1314,9 +1340,16 @@ public class MainJPanel extends JPanel {
 	private void incrementTimeOut2() {
 		int num1;
 		num1=Integer.parseInt(txtTimeOut2.getText());
-		num1=num1+1;
-		if (num1>foosObsSettings.getMaxTimeOuts()) {
-			num1 = foosObsSettings.getMaxTimeOuts();
+		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+			num1=num1-1;
+			if (num1<0) {
+				num1 = 0;
+			}
+		} else {
+			num1=num1+1;
+			if (num1>foosObsSettings.getMaxTimeOuts()) {
+				num1 = foosObsSettings.getMaxTimeOuts();
+			}
 		}
 		txtTimeOut2.setText(Integer.toString(num1));
 		writeTimeOut2();
@@ -1402,8 +1435,13 @@ public class MainJPanel extends JPanel {
 	}
 	
 	private void resetTimeOuts() {
-		txtTimeOut1.setText("0");
-		txtTimeOut2.setText("0");
+		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+			txtTimeOut1.setText(Integer.toString(foosObsSettings.getMaxTimeOuts()));
+			txtTimeOut2.setText(Integer.toString(foosObsSettings.getMaxTimeOuts()));
+		} else {
+			txtTimeOut1.setText("0");
+			txtTimeOut2.setText("0");
+		}
 		writeTimeOut1();
 		writeTimeOut2();
 	}
