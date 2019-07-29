@@ -8,12 +8,13 @@ import net.miginfocom.swing.MigLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
-import javax.swing.JToggleButton;
 
 public class SettingsJPanel extends JPanel {
 
@@ -162,7 +163,36 @@ public class SettingsJPanel extends JPanel {
 				saveSettings(foosObsSettings, settingsFrame);
 			}
 		});
-		add(btnSave, "cell 1 12");
+		add(btnSave, "cell 1 12,alignx center");
+		
+		JButton btnFiles = new JButton("Files...");
+		btnFiles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame fileNamesFrame = new JFrame("Foos OBS File Names ");
+				fileNamesFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				
+				FileNamesJPanel fnjp;
+				try {
+					fileNamesFrame.setAlwaysOnTop(true);
+					fnjp = new FileNamesJPanel(foosObsSettings, fileNamesFrame);
+					fnjp.setPreferredSize(new Dimension(500, 350));
+
+					fileNamesFrame.getContentPane().add(fnjp);
+					fileNamesFrame.pack();
+					fileNamesFrame.setVisible(true);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnFiles.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnFiles.setForeground(Color.BLACK);
+		btnFiles.setBackground(new Color(0, 255, 255));
+		btnFiles.setBounds(92, 100, 125, 23);
+		add(btnFiles, "cell 0 12,alignx center");
+
+		
 		
 		txtWinnerPrefix = new JTextField();
 		txtWinnerPrefix.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -218,7 +248,7 @@ public class SettingsJPanel extends JPanel {
 			}
 		});
 		btnRestoreDefaults.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(btnRestoreDefaults, "cell 3 12,alignx right");
+		add(btnRestoreDefaults, "cell 3 12,alignx center");
 	}
 
 	private void restoreDefaults(Settings foosObsSettings) {
