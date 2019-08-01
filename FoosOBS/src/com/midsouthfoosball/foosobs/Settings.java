@@ -28,6 +28,23 @@ public class Settings {
 	private int recallTime;
 	private String meatball;
 	private int showTimeOutsUsed;
+	private String team1FileName;
+	private String tournamentFileName;
+	private String team2FileName;
+	private String eventFileName;
+	private String gameCount1FileName;
+	private String timeRemainingFileName;
+	private String gameCount2FileName;
+	private String timerFileName;
+	private String score1FileName;
+	private String matchWinnerFileName;
+	private String score2FileName;
+	private String timeOut1FileName;
+	private String timeOut2FileName;
+	private String reset1FileName;
+	private String reset2FileName;
+	private String warn1FileName;
+	private String warn2FileName;
 	private Properties defaultProps;
 	
 	public Properties configProps;
@@ -54,7 +71,24 @@ public class Settings {
 		defaultProps.setProperty("GameTime", "90");
 		defaultProps.setProperty("RecallTime", "10");
 		defaultProps.setProperty("ShowTimeOutsUsed", "1");
-
+		defaultProps.setProperty("Team1FileName", "team1.txt");
+		defaultProps.setProperty("TournamentFileName", "tournament.txt");
+		defaultProps.setProperty("Team2FileName", "team2.txt");
+		defaultProps.setProperty("EventFileName", "event.txt");
+		defaultProps.setProperty("GameCount1FileName", "gamecount1.txt");
+		defaultProps.setProperty("TimeRemainingFileName", "timeremaining.txt");
+		defaultProps.setProperty("GameCount2FileName", "gamecount2.txt");
+		defaultProps.setProperty("TimerFileName", "timerinuse.txt");
+		defaultProps.setProperty("Score1FileName", "score1.txt");
+		defaultProps.setProperty("MatchWinnerFileName", "matchwinner.txt");
+		defaultProps.setProperty("Score2FileName", "score2.txt");
+		defaultProps.setProperty("TimeOut1FileName", "timeout1.txt");
+		defaultProps.setProperty("TimeOut2FileName", "timeout2.txt");
+		defaultProps.setProperty("Reset1FileName", "reset1.txt");
+		defaultProps.setProperty("Reset2FileName", "reset2.txt");
+		defaultProps.setProperty("Warn1FileName", "warn1.txt");
+		defaultProps.setProperty("Warn2FileName", "warn2.txt");
+		
 		configProps = new Properties(defaultProps);
 		
 		loadFromConfig();
@@ -78,7 +112,23 @@ public class Settings {
 	public int getGameTime() {return gameTime;}
 	public int getRecallTime() {return recallTime;}
 	public int getShowTimeOutsUsed() {return showTimeOutsUsed;}
-	
+	public String getTeam1FileName() {return team1FileName;}
+	public String getTournamentFileName() {return tournamentFileName;}
+	public String getTeam2FileName() {return team2FileName;}
+	public String getEventFileName() {return eventFileName;}
+	public String getGameCount1FileName() {return gameCount1FileName;}
+	public String getTimeRemainingFileName() {return timeRemainingFileName;}
+	public String getGameCount2FileName() {return gameCount2FileName;}
+	public String getTimerFileName() {return timerFileName;}
+	public String getScore1FileName() {return score1FileName;}
+	public String getMatchWinnerFileName() {return matchWinnerFileName;}
+	public String getScore2FileName() {return score2FileName;}
+	public String getTimeOut1FileName() {return timeOut1FileName;}
+	public String getTimeOut2FileName() {return timeOut2FileName;}
+	public String getReset1FileName() {return reset1FileName;}
+	public String getReset2FileName() {return reset2FileName;}
+	public String getWarn1FileName() {return warn1FileName;}
+	public String getWarn2FileName() {return warn2FileName;}
 	
 	public void setDatapath(String datapath) {
 		this.datapath = datapath;
@@ -116,12 +166,16 @@ public class Settings {
 		this.announceMeatball = announceMeatball;
 		configProps.setProperty("AnnounceMeatball", Integer.toString(this.announceMeatball));
 		}
-	public void setWinnerSufffix(String winnerSuffix) {
+	public void setWinnerPrefix(String winnerPrefix) {
+		this.winnerPrefix = winnerPrefix;
+		configProps.setProperty("WinnerPrefix", this.winnerPrefix);
+	}
+	public void setWinnerSuffix(String winnerSuffix) {
 		this.winnerSuffix = winnerSuffix;
 		configProps.setProperty("WinnerSuffix", this.winnerSuffix);
 	}
 	public void setMeatball(String meatball) {
-		this.meatball= meatball;
+		this.meatball = meatball;
 		configProps.setProperty("Meatball", this.meatball);
 	}
 	public void setShotTime(int shotTime) {
@@ -148,6 +202,74 @@ public class Settings {
 		this.showTimeOutsUsed = showTimeOutsUsed;
 		configProps.setProperty("ShowTimeOutsUsed", Integer.toString(this.showTimeOutsUsed));
 	}
+	public void setTeam1FileName(String team1FileName) {
+		this.team1FileName = team1FileName;
+		configProps.setProperty("Team1FileName", this.team1FileName);
+	}
+	public void setTournamentFileName(String tournamentFileName) {
+		this.tournamentFileName = tournamentFileName;
+		configProps.setProperty("TournamentFileName", this.tournamentFileName);
+	}
+	public void setTeam2FileName(String team2FileName) {
+		this.team2FileName = team2FileName;
+		configProps.setProperty("Team2FileName", this.team2FileName);
+	}
+	public void setEventFileName(String eventFileName) {
+		this.eventFileName = eventFileName;
+		configProps.setProperty("EventFileName", this.eventFileName);
+	}
+	public void setGameCount1FileName(String gameCount1FileName) {
+		this.gameCount1FileName = gameCount1FileName;
+		configProps.setProperty("GameCount1FileName", this.gameCount1FileName);
+	}
+	public void setTimeRemainingFileName(String timeRemainingFileName) {
+		this.timeRemainingFileName = timeRemainingFileName;
+		configProps.setProperty("TimeRemainingFileName", this.timeRemainingFileName);
+	}
+	public void setGameCount2FileName(String gameCount2FileName) {
+		this.gameCount2FileName = gameCount2FileName;
+		configProps.setProperty("GameCount2FileName", this.gameCount2FileName);
+	}
+	public void setTimerFileName(String timerFileName) {
+		this.timerFileName = timerFileName;
+		configProps.setProperty("TimerFileName", this.timerFileName);
+	}
+	public void setScore1FileName(String score1FileName) {
+		this.score1FileName = score1FileName;
+		configProps.setProperty("Score1FileName", this.score1FileName);
+	}
+	public void setMatchWinnerFileName(String matchWinnerFileName) {
+		this.matchWinnerFileName = matchWinnerFileName;
+		configProps.setProperty("MatchWinnerFileName", this.matchWinnerFileName);
+	}
+	public void setScore2FileName(String score2FileName) {
+		this.score2FileName = score2FileName;
+		configProps.setProperty("Score2FileName", this.score2FileName);
+	}
+	public void setTimeOut1FileName(String timeOut1FileName) {
+		this.timeOut1FileName = timeOut1FileName;
+		configProps.setProperty("TimeOut1FileName", this.timeOut1FileName);
+	}
+	public void setTimeOut2FileName(String timeOut2FileName) {
+		this.timeOut2FileName = timeOut2FileName;
+		configProps.setProperty("TimeOut2FileName", this.timeOut2FileName);
+	}
+	public void setReset1FileName(String reset1FileName) {
+		this.reset1FileName = reset1FileName;
+		configProps.setProperty("Reset1FileName", this.reset1FileName);
+	}
+	public void setReset2FileName(String reset2FileName) {
+		this.reset2FileName = reset2FileName;
+		configProps.setProperty("Reset2FileName", this.reset2FileName);
+	}
+	public void setWarn1FileName(String warn1FileName) {
+		this.warn1FileName = warn1FileName;
+		configProps.setProperty("Warn1FileName", this.warn1FileName);
+	}
+	public void setWarn2FileName(String warn2FileName) {
+		this.warn2FileName = warn2FileName;
+		configProps.setProperty("Warn2FileName", this.warn2FileName);
+	}
 	
 	public int getDefaultPointsToWin() {return Integer.parseInt(defaultProps.getProperty("PointsToWin"));}
 	public int getDefaultMaxWin() {return Integer.parseInt(defaultProps.getProperty("MaxWin"));}
@@ -166,7 +288,24 @@ public class Settings {
 	public int getDefaultGameTime() {return Integer.parseInt(defaultProps.getProperty("GameTime"));}
 	public int getDefaultRecallTime() {return Integer.parseInt(defaultProps.getProperty("RecallTime"));}
 	public int getDefaultShowTimeOutsUsed() {return Integer.parseInt(defaultProps.getProperty("ShowTimeOutsUsed"));}
-
+	public String getDefaultTeam1FileName() {return defaultProps.getProperty("Team1FileName");}
+	public String getDefaultTournamentFileName() {return defaultProps.getProperty("TournamentFileName");}
+	public String getDefaultTeam2FileName() {return defaultProps.getProperty("Team2FileName");}
+	public String getDefaultEventFileName() {return defaultProps.getProperty("EventFileName");}
+	public String getDefaultGameCount1FileName() {return defaultProps.getProperty("GameCount1FileName");}
+	public String getDefaultTimeRemainingFileName() {return defaultProps.getProperty("TimeRemainingFileName");}
+	public String getDefaultGameCount2FileName() {return defaultProps.getProperty("GameCount2FileName");}
+	public String getDefaultTimerFileName() {return defaultProps.getProperty("TimerFileName");}
+	public String getDefaultScore1FileName() {return defaultProps.getProperty("Score1FileName");}
+	public String getDefaultMatchWinnerFileName() {return defaultProps.getProperty("MatchWinnerFileName");}
+	public String getDefaultScore2FileName() {return defaultProps.getProperty("Score2FileName");}
+	public String getDefaultTimeOut1FileName() {return defaultProps.getProperty("TimeOut1FileName");}
+	public String getDefaultTimeOut2FileName() {return defaultProps.getProperty("TimeOut2FileName");}
+	public String getDefaultReset1FileName() {return defaultProps.getProperty("Reset1FileName");}
+	public String getDefaultReset2FileName() {return defaultProps.getProperty("Reset2FileName");}
+	public String getDefaultWarn1FileName() {return defaultProps.getProperty("Warn1FileName");}
+	public String getDefaultWarn2FileName() {return defaultProps.getProperty("Warn2FileName");}
+	
 	public void loadFromConfig() throws IOException {
 
 		InputStream inputStream = new FileInputStream(configFile);
@@ -191,6 +330,23 @@ public class Settings {
 		gameTime = Integer.parseInt(configProps.getProperty("GameTime"));
 		recallTime = Integer.parseInt(configProps.getProperty("RecallTime"));
 		showTimeOutsUsed = Integer.parseInt(configProps.getProperty("ShowTimeOutsUsed"));
+		team1FileName = configProps.getProperty("Team1FileName");
+		tournamentFileName = configProps.getProperty("TournamentFileName");
+		team2FileName = configProps.getProperty("Team2FileName");
+		eventFileName = configProps.getProperty("EventFileName");
+		gameCount1FileName = configProps.getProperty("GameCount1FileName");
+		timeRemainingFileName = configProps.getProperty("TimeRemainingFileName");
+		gameCount2FileName = configProps.getProperty("GameCount2FileName");
+		timerFileName = configProps.getProperty("TimerFileName");
+		score1FileName = configProps.getProperty("Score1FileName");
+		matchWinnerFileName = configProps.getProperty("MatchWinnerFileName");
+		score2FileName = configProps.getProperty("Score2FileName");
+		timeOut1FileName = configProps.getProperty("TimeOut1FileName");
+		timeOut2FileName = configProps.getProperty("TimeOut2FileName");
+		reset1FileName = configProps.getProperty("Reset1FileName");
+		reset2FileName = configProps.getProperty("Reset2FileName");
+		warn1FileName = configProps.getProperty("Warn1FileName");
+		warn2FileName = configProps.getProperty("Warn2FileName");
 	}
 	
 	public void saveToConfig() throws IOException {
@@ -212,6 +368,23 @@ public class Settings {
 		configProps.setProperty("GameTime", Integer.toString(this.getGameTime()));
 		configProps.setProperty("RecallTime", Integer.toString(this.getRecallTime()));
 		configProps.setProperty("ShowTimeOutsUsed", Integer.toString(this.getShowTimeOutsUsed()));
+		configProps.setProperty("Team1FileName", this.getTeam1FileName());
+		configProps.setProperty("TournamentFileName", this.getTournamentFileName());
+		configProps.setProperty("Team2FileName", this.getTeam2FileName());
+		configProps.setProperty("EventFileName", this.getEventFileName());
+		configProps.setProperty("GameCount1FileName", this.getGameCount1FileName());
+		configProps.setProperty("TimeRemainingFileName", this.getTimeRemainingFileName());
+		configProps.setProperty("GameCount2FileName", this.getGameCount2FileName());
+		configProps.setProperty("TimerFileName", this.getTimerFileName());
+		configProps.setProperty("Score1FileName", this.getScore1FileName());
+		configProps.setProperty("MatchWinnerFileName", this.getMatchWinnerFileName());
+		configProps.setProperty("Score2FileName", this.getScore2FileName());
+		configProps.setProperty("TimeOut1FileName", this.getTimeOut1FileName());
+		configProps.setProperty("TimeOut2FileName", this.getTimeOut2FileName());
+		configProps.setProperty("Reset1FileName", this.getReset1FileName());
+		configProps.setProperty("Reset2FileName", this.getReset2FileName());
+		configProps.setProperty("Warn1FileName", this.getWarn1FileName());
+		configProps.setProperty("Warn2FileName", this.getWarn2FileName());
 
 		OutputStream outputStream = new FileOutputStream(configFile);
 		configProps.store(outputStream, "FoosOSB settings");

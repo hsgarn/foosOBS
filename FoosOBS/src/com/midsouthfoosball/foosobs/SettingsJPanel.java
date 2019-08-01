@@ -192,8 +192,6 @@ public class SettingsJPanel extends JPanel {
 		btnFiles.setBounds(92, 100, 125, 23);
 		add(btnFiles, "cell 0 12,alignx center");
 
-		
-		
 		txtWinnerPrefix = new JTextField();
 		txtWinnerPrefix.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtWinnerPrefix.setText(foosObsSettings.getWinnerPrefix());
@@ -319,6 +317,8 @@ public class SettingsJPanel extends JPanel {
 			foosObsSettings.setAnnounceMeatball(0);
 		}
 		foosObsSettings.setMeatball(txtMeatball.getText());
+		foosObsSettings.setWinnerPrefix(txtWinnerPrefix.getText());
+		foosObsSettings.setWinnerSuffix(txtWinnerSuffix.getText());
     	if (isValidInteger(txtShotTime.getText())) {
     		foosObsSettings.setShotTime(Integer.parseInt(txtShotTime.getText()));
     	}

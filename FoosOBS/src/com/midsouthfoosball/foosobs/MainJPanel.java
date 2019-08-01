@@ -1168,7 +1168,6 @@ public class MainJPanel extends JPanel {
 	}
 	
 	private void checkMeatball(int points1, int points2, int gameCount1, int gameCount2) {
-		System.out.println("points1: " + points1 + "points2: " + points2 + "GC1: " + gameCount1 + "GC2: " + gameCount2);
 		if (foosObsSettings.getAnnounceMeatball() == 1) {
 			if (points1 == points2) {
 				int meatballPoint = foosObsSettings.getPointsToWin() - 1;
