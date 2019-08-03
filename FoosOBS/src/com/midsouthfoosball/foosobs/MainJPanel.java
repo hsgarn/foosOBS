@@ -894,6 +894,12 @@ public class MainJPanel extends JPanel {
 		lblTimerDisplay.setBackground(Color.GREEN);
 		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
 		add(lblTimerDisplay, "cell 2 1 3 1,alignx center,aligny center");
+		
+		postInitialize();
+    }
+
+    private void postInitialize() {
+		fetchAll();
     }
 
     private void initialize() throws IOException { 
@@ -923,7 +929,7 @@ public class MainJPanel extends JPanel {
     
 	private void writeTournamentName() {
     	try {
-    		obsInterface.setContents("tournament.txt", txtTournamentName.getText());
+    		obsInterface.setContents(foosObsSettings.getTournamentFileName(), txtTournamentName.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -936,7 +942,7 @@ public class MainJPanel extends JPanel {
 
     private void writeEventName() {
 		try {
-    		obsInterface.setContents("event.txt", txtEventName.getText());
+    		obsInterface.setContents(foosObsSettings.getEventFileName(), txtEventName.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -949,7 +955,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTeam1Name() {
 		try {
-			obsInterface.setContents("team1.txt", txtTeam1.getText());
+			obsInterface.setContents(foosObsSettings.getTeam1FileName(), txtTeam1.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -962,7 +968,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTeam2Name() {
 		try {
-			obsInterface.setContents("team2.txt", txtTeam2.getText());
+			obsInterface.setContents(foosObsSettings.getTeam2FileName(), txtTeam2.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1005,7 +1011,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeGameCount1() {
     	try {
-    		obsInterface.setContents("gamecount1.txt", txtGameCount1.getText());
+    		obsInterface.setContents(foosObsSettings.getGameCount1FileName(), txtGameCount1.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1047,7 +1053,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeGameCount2() {
     	try {
-    		obsInterface.setContents("gamecount2.txt", txtGameCount2.getText());
+    		obsInterface.setContents(foosObsSettings.getGameCount2FileName(), txtGameCount2.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1088,7 +1094,7 @@ public class MainJPanel extends JPanel {
 	
 	private void writeScore1() {
 		try {
-			obsInterface.setContents("score1.txt", txtScore1.getText());
+			obsInterface.setContents(foosObsSettings.getScore1FileName(), txtScore1.getText());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1134,7 +1140,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeScore2() {
 		try {
-			obsInterface.setContents("score2.txt", txtScore2.getText());
+			obsInterface.setContents(foosObsSettings.getScore2FileName(), txtScore2.getText());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1188,7 +1194,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeMatchWinner(String theContents) {
 		try {
-			obsInterface.setContents("matchwinner.txt", theContents);
+			obsInterface.setContents(foosObsSettings.getMatchWinnerFileName(), theContents);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1196,7 +1202,7 @@ public class MainJPanel extends JPanel {
     
 	private void clearMatchWinner() {
 		try {
-			obsInterface.setContents("matchwinner.txt", "");
+			obsInterface.setContents(foosObsSettings.getMatchWinnerFileName(), "");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1204,7 +1210,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeMeatball() {
 		try {
-			obsInterface.setContents("meatball.txt", foosObsSettings.getMeatball());
+			obsInterface.setContents(foosObsSettings.getMeatballFileName(), foosObsSettings.getMeatball());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1212,7 +1218,7 @@ public class MainJPanel extends JPanel {
 
 	private void clearMeatball() {
 		try {
-			obsInterface.setContents("meatball.txt", "");
+			obsInterface.setContents(foosObsSettings.getMeatballFileName(), "");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1251,7 +1257,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTimeOut1() {
     	try {
-    		obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+    		obsInterface.setContents(foosObsSettings.getTimeOut1FileName(), txtTimeOut1.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1259,7 +1265,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTimeOut2() {
     	try {
-    		obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+    		obsInterface.setContents(foosObsSettings.getTimeOut2FileName(), txtTimeOut2.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1281,7 +1287,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtTimeOut1.setText(Integer.toString(num1));
 		try {
-			obsInterface.setContents("timeout1.txt", txtTimeOut1.getText());
+			obsInterface.setContents(foosObsSettings.getTimeOut1FileName(), txtTimeOut1.getText());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1303,7 +1309,7 @@ public class MainJPanel extends JPanel {
 		}
 		txtTimeOut2.setText(Integer.toString(num1));
 		try {
-			obsInterface.setContents("timeout2.txt", txtTimeOut2.getText());
+			obsInterface.setContents(foosObsSettings.getTimeOut2FileName(), txtTimeOut2.getText());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1358,9 +1364,9 @@ public class MainJPanel extends JPanel {
 	private void writeReset1() {
 		try {
 			if(tglbtnReset1.isSelected()) {
-				obsInterface.setContents("reset1.txt", "RESET");
+				obsInterface.setContents(foosObsSettings.getReset1FileName(), "RESET");
 			} else {
-				obsInterface.setContents("reset1.txt", "");
+				obsInterface.setContents(foosObsSettings.getReset1FileName(), "");
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -1370,9 +1376,9 @@ public class MainJPanel extends JPanel {
 	private void writeReset2() {
 		try {
 			if(tglbtnReset2.isSelected()) {
-				obsInterface.setContents("reset2.txt", "RESET");
+				obsInterface.setContents(foosObsSettings.getReset2FileName(), "RESET");
 			} else {
-				obsInterface.setContents("reset2.txt", "");
+				obsInterface.setContents(foosObsSettings.getReset2FileName(), "");
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -1382,9 +1388,9 @@ public class MainJPanel extends JPanel {
 	private void writeWarn1() {
 		try {
 			if(tglbtnWarn1.isSelected()) {
-				obsInterface.setContents("warn1.txt", "WARNING");
+				obsInterface.setContents(foosObsSettings.getWarn1FileName(), "WARNING");
 			} else {
-				obsInterface.setContents("warn1.txt", "");
+				obsInterface.setContents(foosObsSettings.getWarn1FileName(), "");
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -1394,9 +1400,9 @@ public class MainJPanel extends JPanel {
 	private void writeWarn2() {
 		try {
 			if(tglbtnWarn2.isSelected()) {
-				obsInterface.setContents("warn2.txt", "WARNING");
+				obsInterface.setContents(foosObsSettings.getWarn2FileName(), "WARNING");
 			} else {
-				obsInterface.setContents("warn2.txt", "");
+				obsInterface.setContents(foosObsSettings.getWarn2FileName(), "");
 			}
 		} catch (IOException e1) {
 			e1.printStackTrace();
@@ -1418,7 +1424,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTimerInUse() {
 		try {
-			obsInterface.setContents("timerinuse.txt", lblTimerInUse.getText());
+			obsInterface.setContents(foosObsSettings.getTimerInUseFileName(), lblTimerInUse.getText());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1427,7 +1433,7 @@ public class MainJPanel extends JPanel {
 
 	private void writeTimeRemaining() {
 		try {
-			obsInterface.setContents("timeremaining.txt", lblTimerDisplay.getText().trim());
+			obsInterface.setContents(foosObsSettings.getTimeRemainingFileName(), lblTimerDisplay.getText().trim());
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1544,20 +1550,20 @@ public class MainJPanel extends JPanel {
 	
 	private void fetchAll() {
 		try {
-			txtTournamentName.setText(obsInterface.getContents("tournament.txt"));
-			txtEventName.setText(obsInterface.getContents("event.txt"));
-			txtTeam1.setText(obsInterface.getContents("team1.txt"));
-			txtTeam2.setText(obsInterface.getContents("team2.txt"));
-			txtGameCount1.setText(obsInterface.getContents("gamecount1.txt"));
-			txtGameCount2.setText(obsInterface.getContents("gamecount2.txt"));
-			txtScore1.setText(obsInterface.getContents("score1.txt"));
-			txtScore2.setText(obsInterface.getContents("score2.txt"));
-			txtTimeOut1.setText(obsInterface.getContents("timeout1.txt"));
-			txtTimeOut2.setText(obsInterface.getContents("timeout2.txt"));
-			tglbtnReset1.setSelected(obsInterface.getContents("reset1.txt")!=null);
-			tglbtnReset2.setSelected(obsInterface.getContents("reset2.txt")!=null);
-			tglbtnWarn1.setSelected(obsInterface.getContents("warn1.txt")!=null);
-			tglbtnWarn2.setSelected(obsInterface.getContents("warn2.txt")!=null);
+			txtTournamentName.setText(obsInterface.getContents(foosObsSettings.getTournamentFileName()));
+			txtEventName.setText(obsInterface.getContents(foosObsSettings.getEventFileName()));
+			txtTeam1.setText(obsInterface.getContents(foosObsSettings.getTeam1FileName()));
+			txtTeam2.setText(obsInterface.getContents(foosObsSettings.getTeam2FileName()));
+			txtGameCount1.setText(obsInterface.getContents(foosObsSettings.getGameCount1FileName()));
+			txtGameCount2.setText(obsInterface.getContents(foosObsSettings.getGameCount2FileName()));
+			txtScore1.setText(obsInterface.getContents(foosObsSettings.getScore1FileName()));
+			txtScore2.setText(obsInterface.getContents(foosObsSettings.getScore2FileName()));
+			txtTimeOut1.setText(obsInterface.getContents(foosObsSettings.getTimeOut1FileName()));
+			txtTimeOut2.setText(obsInterface.getContents(foosObsSettings.getTimeOut2FileName()));
+			tglbtnReset1.setSelected(obsInterface.getContents(foosObsSettings.getReset1FileName())!=null);
+			tglbtnReset2.setSelected(obsInterface.getContents(foosObsSettings.getReset2FileName())!=null);
+			tglbtnWarn1.setSelected(obsInterface.getContents(foosObsSettings.getWarn1FileName())!=null);
+			tglbtnWarn2.setSelected(obsInterface.getContents(foosObsSettings.getWarn2FileName())!=null);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}

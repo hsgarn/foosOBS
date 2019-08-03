@@ -35,9 +35,10 @@ public class Settings {
 	private String gameCount1FileName;
 	private String timeRemainingFileName;
 	private String gameCount2FileName;
-	private String timerFileName;
+	private String timerInUseFileName;
 	private String score1FileName;
 	private String matchWinnerFileName;
+	private String meatballFileName;
 	private String score2FileName;
 	private String timeOut1FileName;
 	private String timeOut2FileName;
@@ -78,9 +79,10 @@ public class Settings {
 		defaultProps.setProperty("GameCount1FileName", "gamecount1.txt");
 		defaultProps.setProperty("TimeRemainingFileName", "timeremaining.txt");
 		defaultProps.setProperty("GameCount2FileName", "gamecount2.txt");
-		defaultProps.setProperty("TimerFileName", "timerinuse.txt");
+		defaultProps.setProperty("TimerInUseFileName", "timerinuse.txt");
 		defaultProps.setProperty("Score1FileName", "score1.txt");
 		defaultProps.setProperty("MatchWinnerFileName", "matchwinner.txt");
+		defaultProps.setProperty("MeatballFileName",  "meatball.txt");
 		defaultProps.setProperty("Score2FileName", "score2.txt");
 		defaultProps.setProperty("TimeOut1FileName", "timeout1.txt");
 		defaultProps.setProperty("TimeOut2FileName", "timeout2.txt");
@@ -119,9 +121,10 @@ public class Settings {
 	public String getGameCount1FileName() {return gameCount1FileName;}
 	public String getTimeRemainingFileName() {return timeRemainingFileName;}
 	public String getGameCount2FileName() {return gameCount2FileName;}
-	public String getTimerFileName() {return timerFileName;}
+	public String getTimerInUseFileName() {return timerInUseFileName;}
 	public String getScore1FileName() {return score1FileName;}
 	public String getMatchWinnerFileName() {return matchWinnerFileName;}
+	public String getMeatballFileName() {return meatballFileName;}
 	public String getScore2FileName() {return score2FileName;}
 	public String getTimeOut1FileName() {return timeOut1FileName;}
 	public String getTimeOut2FileName() {return timeOut2FileName;}
@@ -230,9 +233,9 @@ public class Settings {
 		this.gameCount2FileName = gameCount2FileName;
 		configProps.setProperty("GameCount2FileName", this.gameCount2FileName);
 	}
-	public void setTimerFileName(String timerFileName) {
-		this.timerFileName = timerFileName;
-		configProps.setProperty("TimerFileName", this.timerFileName);
+	public void setTimerInUseFileName(String timerInUseFileName) {
+		this.timerInUseFileName = timerInUseFileName;
+		configProps.setProperty("TimerInUseFileName", this.timerInUseFileName);
 	}
 	public void setScore1FileName(String score1FileName) {
 		this.score1FileName = score1FileName;
@@ -241,6 +244,10 @@ public class Settings {
 	public void setMatchWinnerFileName(String matchWinnerFileName) {
 		this.matchWinnerFileName = matchWinnerFileName;
 		configProps.setProperty("MatchWinnerFileName", this.matchWinnerFileName);
+	}
+	public void setMeatballFileName(String meatballFileName) {
+		this.meatballFileName = meatballFileName;
+		configProps.setProperty("MeatballFileName", this.meatballFileName);
 	}
 	public void setScore2FileName(String score2FileName) {
 		this.score2FileName = score2FileName;
@@ -295,9 +302,10 @@ public class Settings {
 	public String getDefaultGameCount1FileName() {return defaultProps.getProperty("GameCount1FileName");}
 	public String getDefaultTimeRemainingFileName() {return defaultProps.getProperty("TimeRemainingFileName");}
 	public String getDefaultGameCount2FileName() {return defaultProps.getProperty("GameCount2FileName");}
-	public String getDefaultTimerFileName() {return defaultProps.getProperty("TimerFileName");}
+	public String getDefaultTimerInUseFileName() {return defaultProps.getProperty("TimerInUseFileName");}
 	public String getDefaultScore1FileName() {return defaultProps.getProperty("Score1FileName");}
 	public String getDefaultMatchWinnerFileName() {return defaultProps.getProperty("MatchWinnerFileName");}
+	public String getDefaultMeatballFileName() {return defaultProps.getProperty("MeatballFileName");}
 	public String getDefaultScore2FileName() {return defaultProps.getProperty("Score2FileName");}
 	public String getDefaultTimeOut1FileName() {return defaultProps.getProperty("TimeOut1FileName");}
 	public String getDefaultTimeOut2FileName() {return defaultProps.getProperty("TimeOut2FileName");}
@@ -337,9 +345,10 @@ public class Settings {
 		gameCount1FileName = configProps.getProperty("GameCount1FileName");
 		timeRemainingFileName = configProps.getProperty("TimeRemainingFileName");
 		gameCount2FileName = configProps.getProperty("GameCount2FileName");
-		timerFileName = configProps.getProperty("TimerFileName");
+		timerInUseFileName = configProps.getProperty("TimerInUseFileName");
 		score1FileName = configProps.getProperty("Score1FileName");
 		matchWinnerFileName = configProps.getProperty("MatchWinnerFileName");
+		meatballFileName = configProps.getProperty("MeatballFileName");
 		score2FileName = configProps.getProperty("Score2FileName");
 		timeOut1FileName = configProps.getProperty("TimeOut1FileName");
 		timeOut2FileName = configProps.getProperty("TimeOut2FileName");
@@ -375,9 +384,10 @@ public class Settings {
 		configProps.setProperty("GameCount1FileName", this.getGameCount1FileName());
 		configProps.setProperty("TimeRemainingFileName", this.getTimeRemainingFileName());
 		configProps.setProperty("GameCount2FileName", this.getGameCount2FileName());
-		configProps.setProperty("TimerFileName", this.getTimerFileName());
+		configProps.setProperty("TimerInUseFileName", this.getTimerInUseFileName());
 		configProps.setProperty("Score1FileName", this.getScore1FileName());
 		configProps.setProperty("MatchWinnerFileName", this.getMatchWinnerFileName());
+		configProps.setProperty("MeatballFileName", this.getMeatballFileName());
 		configProps.setProperty("Score2FileName", this.getScore2FileName());
 		configProps.setProperty("TimeOut1FileName", this.getTimeOut1FileName());
 		configProps.setProperty("TimeOut2FileName", this.getTimeOut2FileName());

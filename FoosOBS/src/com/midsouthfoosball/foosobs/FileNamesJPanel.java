@@ -20,7 +20,6 @@ public class FileNamesJPanel extends JPanel {
 	private JTextField txtTeam2FileName;
 	private JTextField txtGameCount1FileName;
 	private JTextField txtGameCount2FileName;
-
 	private JTextField txtScore1FileName;
 	private JTextField txtScore2FileName;
 	private JTextField txtTimeOut1FileName;
@@ -30,8 +29,9 @@ public class FileNamesJPanel extends JPanel {
 	private JTextField txtWarn1FileName;
 	private JTextField txtWarn2FileName;
 	private JTextField txtTimeRemainingFileName;
-	private JTextField txtTimerFileName;
+	private JTextField txtTimerInUseFileName;
 	private JTextField txtMatchWinnerFileName;
+	private JTextField txtMeatballFileName;
 
 	/**
 	 * Create the frame.
@@ -39,7 +39,7 @@ public class FileNamesJPanel extends JPanel {
 	public FileNamesJPanel(Settings foosObsSettings, JFrame fileNamesFrame) throws IOException {
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 853, 489);
-		setLayout(new MigLayout("", "[][][151.00][15.00][][][]", "[][][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[][][151.00][15.00][][grow][]", "[][][][][][][][][][][][][][][]"));
 		
 		JLabel lblFileName = new JLabel("File Name");
 		add(lblFileName, "cell 2 0,alignx left");
@@ -106,10 +106,10 @@ public class FileNamesJPanel extends JPanel {
 		JLabel lblTimerFileName = new JLabel("Timer:");
 		add(lblTimerFileName, "cell 4 4,alignx trailing");
 		
-		txtTimerFileName = new JTextField();
-		txtTimerFileName.setText(foosObsSettings.getTimerFileName());
-		add(txtTimerFileName, "cell 5 4,alignx left");
-		txtTimerFileName.setColumns(10);
+		txtTimerInUseFileName = new JTextField();
+		txtTimerInUseFileName.setText(foosObsSettings.getTimerInUseFileName());
+		add(txtTimerInUseFileName, "cell 5 4,alignx left");
+		txtTimerInUseFileName.setColumns(10);
 
 		JLabel lblScore1FileName = new JLabel("Score 1:");
 		add(lblScore1FileName, "cell 1 5,alignx trailing");
@@ -134,6 +134,14 @@ public class FileNamesJPanel extends JPanel {
 		txtScore2FileName.setText(foosObsSettings.getScore2FileName());
 		add(txtScore2FileName, "cell 2 6,alignx left");
 		txtScore2FileName.setColumns(10);
+		
+		JLabel lblMeatball = new JLabel("Meatball:");
+		add(lblMeatball, "cell 4 6,alignx trailing");
+		
+		txtMeatballFileName = new JTextField();
+		txtMeatballFileName.setText(foosObsSettings.getMeatballFileName());
+		add(txtMeatballFileName, "cell 5 6,alignx left");
+		txtMeatballFileName.setColumns(10);
 		
 		JLabel lblTimeOut1FileName = new JLabel("Time Out 1:");
 		add(lblTimeOut1FileName, "cell 1 7,alignx trailing");
@@ -216,9 +224,10 @@ public class FileNamesJPanel extends JPanel {
 		txtGameCount1FileName.setText(foosObsSettings.getDefaultGameCount1FileName());
 		txtTimeRemainingFileName.setText(foosObsSettings.getDefaultTimeRemainingFileName());
 		txtGameCount2FileName.setText(foosObsSettings.getDefaultGameCount2FileName());
-		txtTimerFileName.setText(foosObsSettings.getDefaultTimerFileName());
+		txtTimerInUseFileName.setText(foosObsSettings.getDefaultTimerInUseFileName());
 		txtScore1FileName.setText(foosObsSettings.getDefaultScore1FileName());
 		txtMatchWinnerFileName.setText(foosObsSettings.getDefaultMatchWinnerFileName());
+		txtMeatballFileName.setText(foosObsSettings.getDefaultMeatballFileName());
 		txtScore2FileName.setText(foosObsSettings.getDefaultScore2FileName());
 		txtTimeOut1FileName.setText(foosObsSettings.getDefaultTimeOut1FileName());
 		txtTimeOut2FileName.setText(foosObsSettings.getDefaultTimeOut2FileName());
@@ -236,9 +245,10 @@ public class FileNamesJPanel extends JPanel {
 		foosObsSettings.setGameCount1FileName(txtGameCount1FileName.getText());
 		foosObsSettings.setTimeRemainingFileName(txtTimeRemainingFileName.getText());
 		foosObsSettings.setGameCount2FileName(txtGameCount2FileName.getText());
-		foosObsSettings.setTimerFileName(txtTimerFileName.getText());
+		foosObsSettings.setTimerInUseFileName(txtTimerInUseFileName.getText());
 		foosObsSettings.setScore1FileName(txtScore1FileName.getText());
 		foosObsSettings.setMatchWinnerFileName(txtMatchWinnerFileName.getText());
+		foosObsSettings.setMeatballFileName(txtMeatballFileName.getText());
 		foosObsSettings.setScore2FileName(txtScore2FileName.getText());
 		foosObsSettings.setTimeOut1FileName(txtTimeOut1FileName.getText());
 		foosObsSettings.setTimeOut2FileName(txtTimeOut2FileName.getText());
