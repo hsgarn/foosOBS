@@ -684,7 +684,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblNonPossession = new JLabel("Shot Timer (2 & 3 row)");
 		add(lblNonPossession, "cell 5 17,alignx right");
 		
-		btnShotTimer = new JButton(foosObsSettings.getShotTime() + " [s]");
+		btnShotTimer = new JButton("Start [s]");
 		btnShotTimer.setMnemonic('s');
 		btnShotTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -696,7 +696,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblRowPossession = new JLabel("Pass Timer (5 row)");
 		add(lblRowPossession, "cell 5 18,alignx right");
 		
-		btnPassTimer = new JButton(foosObsSettings.getPassTime() + " [p]");
+		btnPassTimer = new JButton("Start [p]");
 		btnPassTimer.setMnemonic('p');
 		btnPassTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -708,7 +708,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblTimeOutTimer = new JLabel("Time Out Timer");
 		add(lblTimeOutTimer, "cell 5 19,alignx right");
 		
-		btnTimeOutTimer = new JButton(foosObsSettings.getTimeOutTime() + " [o]");
+		btnTimeOutTimer = new JButton("Start [o]");
 		btnTimeOutTimer.setMnemonic('o');
 		btnTimeOutTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -728,7 +728,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 20,alignx right");
 
-		btnGameTimer = new JButton(foosObsSettings.getGameTime() + " [g]");
+		btnGameTimer = new JButton("Start [g]");
 		btnGameTimer.setMnemonic('g');
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -740,7 +740,7 @@ public class MainJPanel extends JPanel {
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 21,alignx right");
 		
-		btnRecallTimer = new JButton(foosObsSettings.getRecallTime() + " [c]");
+		btnRecallTimer = new JButton("Start [c]");
 		btnRecallTimer.setMnemonic('c');
 		btnRecallTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -919,14 +919,6 @@ public class MainJPanel extends JPanel {
     	}
 	}
 
-	private void reloadTimerButtonTexts() {
-		btnShotTimer.setText(Integer.toString(foosObsSettings.getShotTime()) + " [s]");
-		btnPassTimer.setText(Integer.toString(foosObsSettings.getPassTime()) + " [p]");
-		btnTimeOutTimer.setText(Integer.toString(foosObsSettings.getTimeOutTime()) + " [o]");
-		btnGameTimer.setText(Integer.toString(foosObsSettings.getGameTime()) + " [g]");
-		btnRecallTimer.setText(Integer.toString(foosObsSettings.getRecallTime()) + " [c]");
-    }
-    
 	private void writeTournamentName() {
     	try {
     		obsInterface.setContents(foosObsSettings.getTournamentFileName(), txtTournamentName.getText());
@@ -1428,7 +1420,6 @@ public class MainJPanel extends JPanel {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		reloadTimerButtonTexts();
 	}
 
 	private void writeTimeRemaining() {
