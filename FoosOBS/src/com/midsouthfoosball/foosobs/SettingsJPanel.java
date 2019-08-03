@@ -39,7 +39,7 @@ public class SettingsJPanel extends JPanel {
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
 
-		setLayout(new MigLayout("", "[119.00][50.00:87.00,left][78.00,grow][grow][]", "[][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[119.00][50.00:87.00,left][78.00,grow][grow][]", "[][][][][][][][][][][][][][]"));
 		
 		JLabel lblParameter = new JLabel("Parameter");
 		lblParameter.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -157,14 +157,6 @@ public class SettingsJPanel extends JPanel {
 		}
 		add(chckbxAnnounceWinner, "cell 1 8,alignx left");
 		
-		JButton btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				saveSettings(foosObsSettings, settingsFrame);
-			}
-		});
-		add(btnSave, "cell 1 12,alignx center");
-		
 		JButton btnFiles = new JButton("Files...");
 		btnFiles.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -188,9 +180,9 @@ public class SettingsJPanel extends JPanel {
 		});
 		btnFiles.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnFiles.setForeground(Color.BLACK);
-		btnFiles.setBackground(new Color(0, 255, 255));
+		btnFiles.setBackground(Color.CYAN);
 		btnFiles.setBounds(92, 100, 125, 23);
-		add(btnFiles, "cell 0 12,alignx center");
+		add(btnFiles, "cell 0 12,growx");
 
 		txtWinnerPrefix = new JTextField();
 		txtWinnerPrefix.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -231,13 +223,47 @@ public class SettingsJPanel extends JPanel {
 		}
 		add(chckbxShowTimeOutsUsed, "cell 1 10");
 		
+		JButton btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				saveSettings(foosObsSettings, settingsFrame);
+			}
+		});
+		
+		JButton btnHotKeys = new JButton("Hot Keys...");
+		btnHotKeys.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame hotKeysFrame = new JFrame("Foos OBS Hot Keys ");
+				hotKeysFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				
+				HotKeysJPanel hkjp;
+				try {
+					hotKeysFrame.setAlwaysOnTop(true);
+					hkjp = new HotKeysJPanel(foosObsSettings, hotKeysFrame);
+					hkjp.setPreferredSize(new Dimension(800, 410));
+
+					hotKeysFrame.getContentPane().add(hkjp);
+					hotKeysFrame.pack();
+					hotKeysFrame.setVisible(true);
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnHotKeys.setForeground(Color.BLACK);
+		btnHotKeys.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnHotKeys.setBackground(Color.CYAN);
+		add(btnHotKeys, "cell 0 13,growx");
+		add(btnSave, "cell 1 13,alignx center");
+		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cancelSettings(settingsFrame);
 			}
 		});
-		add(btnCancel, "cell 2 12,alignx center");
+		add(btnCancel, "cell 2 13,alignx center");
 		
 		JButton btnRestoreDefaults = new JButton("Restore Defaults");
 		btnRestoreDefaults.addActionListener(new ActionListener() {
@@ -246,7 +272,7 @@ public class SettingsJPanel extends JPanel {
 			}
 		});
 		btnRestoreDefaults.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(btnRestoreDefaults, "cell 3 12,alignx center");
+		add(btnRestoreDefaults, "cell 3 13,alignx center");
 	}
 
 	private void restoreDefaults(Settings foosObsSettings) {
