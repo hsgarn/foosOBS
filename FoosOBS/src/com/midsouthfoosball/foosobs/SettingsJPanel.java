@@ -49,6 +49,14 @@ public class SettingsJPanel extends JPanel {
 		lblValue.setFont(new Font("Tahoma", Font.BOLD, 14));
 		add(lblValue, "cell 1 0,alignx left");
 		
+		JLabel label = new JLabel("Parameter");
+		label.setFont(new Font("Tahoma", Font.BOLD, 14));
+		add(label, "cell 2 0,alignx right");
+		
+		JLabel label_1 = new JLabel("Value");
+		label_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		add(label_1, "cell 3 0");
+		
 		JLabel lblPointsToWin = new JLabel("Points to Win");
 		add(lblPointsToWin, "flowx,cell 0 1,alignx right");
 		

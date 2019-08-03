@@ -22,11 +22,15 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainJPanel extends JPanel {
 
@@ -56,6 +60,7 @@ public class MainJPanel extends JPanel {
 	private JButton btnRecallTimer;
 	private JLabel lblTimerDisplay;
 	private JLabel lblTimerInUse;
+	private URI logoURI;
 	TimeClock timeClock;
 	ActionListener alAction;
 	OBSInterface obsInterface;
@@ -76,11 +81,31 @@ public class MainJPanel extends JPanel {
 		Image newimg = image.getScaledInstance(100, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		imageIcon = new ImageIcon(newimg);  // transform it back
 		JLabel lblLogo = new JLabel(imageIcon);
+		lblLogo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+				java.awt.Desktop.getDesktop().browse(logoURI);
+				} catch (IOException ex) {
+					System.out.print("Error calling URI: " + ex.getMessage());		
+				}
+			}
+		});
 		lblLogo.setBackground(Color.BLACK);
 		lblLogo.setOpaque(true);
 		add(lblLogo, "cell 0 0 1 4");
 	
 		JLabel lblLogo2 = new JLabel(imageIcon);
+		lblLogo2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				try {
+				java.awt.Desktop.getDesktop().browse(logoURI);
+				} catch (IOException ex) {
+					System.out.print("Error calling URI: " + ex.getMessage());		
+				}
+			}
+		});
 		lblLogo2.setBackground(Color.BLACK);
 		lblLogo2.setOpaque(true);
 		add(lblLogo2, "cell 6 0 1 4");
@@ -115,7 +140,12 @@ public class MainJPanel extends JPanel {
 		add(txtTournamentName, "flowy,cell 1 4,growx");
 		txtTournamentName.setColumns(10);
 		
-		JButton btnTournamentNameClear = new JButton("X");
+		JButton btnTournamentNameClear = new JButton("Clear");
+		if(foosObsSettings.getTournamentNameClearHotKey().isEmpty()) {
+			btnTournamentNameClear.setMnemonic(-1);
+		} else {
+			btnTournamentNameClear.setMnemonic(foosObsSettings.getTournamentNameClearHotKey().charAt(0));
+		};
 		btnTournamentNameClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearTournamentName();
@@ -123,7 +153,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnTournamentNameClear, "cell 2 4,alignx left");
 		
-		JButton btnEventClear = new JButton("X");
+		JButton btnEventClear = new JButton("Clear");
+		if(foosObsSettings.getEventClearHotKey().isEmpty()) {
+			btnEventClear.setMnemonic(-1);
+		} else {
+			btnEventClear.setMnemonic(foosObsSettings.getEventClearHotKey().charAt(0));
+		};
 		btnEventClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearEventName();
@@ -156,14 +191,11 @@ public class MainJPanel extends JPanel {
 		add(txtEventName, "flowx,cell 5 4,growx");
 		txtEventName.setColumns(10);
 		
-		JLabel lblTeam1 = new JLabel("Team 1:");
+		JLabel lblTeam1 = new JLabel("Team 1 Name(s):");
 		add(lblTeam1, "cell 1 6,alignx center");
 		
-		JLabel lblTeam2 = new JLabel("Team 2:");
+		JLabel lblTeam2 = new JLabel("Team 2 Name(s):");
 		add(lblTeam2, "cell 5 6,alignx center");
-		
-		JLabel lblName1 = new JLabel("Name");
-		add(lblName1, "cell 0 7,alignx right");
 		
 		txtTeam1 = new JTextField();
 		txtTeam1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -182,10 +214,23 @@ public class MainJPanel extends JPanel {
 		    	writeTeam1Name();
 			}
 		});
+		
+		JButton btnTeam1NameSwitch = new JButton("<-Switch->");
+		btnTeam1NameSwitch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				switchTeam1Names();
+			}
+		});
+		add(btnTeam1NameSwitch, "cell 0 7,alignx right");
 		add(txtTeam1, "cell 1 7,growx");
 		txtTeam1.setColumns(10);
 		
-		JButton btnTeam1Clear = new JButton("X");
+		JButton btnTeam1Clear = new JButton("Clear");
+		if(foosObsSettings.getTeam1ClearHotKey().isEmpty()) {
+			btnTeam1Clear.setMnemonic(-1);
+		} else {
+			btnTeam1Clear.setMnemonic(foosObsSettings.getTeam1ClearHotKey().charAt(0));
+		};
 		btnTeam1Clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearTeam1Name();
@@ -193,8 +238,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnTeam1Clear, "cell 2 7,alignx left,aligny bottom");
 		
-		JButton btnTeamSwitch = new JButton("<->");
-		btnTeamSwitch.setMnemonic('e');
+		JButton btnTeamSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getTeamSwitchHotKey().isEmpty()) {
+			btnTeamSwitch.setMnemonic(-1);
+		} else {
+			btnTeamSwitch.setMnemonic(foosObsSettings.getTeamSwitchHotKey().charAt(0));
+		};
 		btnTeamSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchTeamNames();
@@ -220,7 +269,12 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		
-		JButton btnTeam2Clear = new JButton("X");
+		JButton btnTeam2Clear = new JButton("Clear");
+		if(foosObsSettings.getTeam2ClearHotKey().isEmpty()) {
+			btnTeam2Clear.setMnemonic(-1);
+		} else {
+			btnTeam2Clear.setMnemonic(foosObsSettings.getTeam2ClearHotKey().charAt(0));
+		};
 		btnTeam2Clear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	clearTeam2Name();
@@ -229,27 +283,24 @@ public class MainJPanel extends JPanel {
 		add(btnTeam2Clear, "cell 4 7,alignx right");
 		add(txtTeam2, "flowx,cell 5 7,growx");
 		txtTeam2.setColumns(10);
+		if(foosObsSettings.getTeam1NameSwitchHotKey().isEmpty()) {
+			btnTeam1NameSwitch.setMnemonic(-1);
+		} else {
+			btnTeam1NameSwitch.setMnemonic(foosObsSettings.getTeam1NameSwitchHotKey().charAt(0));
+		};
 		
-		JButton btnTeam1NameSwitch = new JButton("<->");
-		btnTeam1NameSwitch.setMnemonic('t');
-		btnTeam1NameSwitch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchTeam1Names();
-			}
-		});
-		
-		JLabel lblName2 = new JLabel("Name");
-		add(lblName2, "cell 6 7,alignx left");
-		add(btnTeam1NameSwitch, "cell 1 8,alignx center");
-		
-		JButton btnTeam2NameSwitch = new JButton("<->");
-		btnTeam2NameSwitch.setMnemonic('m');
+		JButton btnTeam2NameSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getTeam2NameSwitchHotKey().isEmpty()) {
+			btnTeam2NameSwitch.setMnemonic(-1);
+		} else {
+			btnTeam2NameSwitch.setMnemonic(foosObsSettings.getTeam2NameSwitchHotKey().charAt(0));
+		};
 		btnTeam2NameSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchTeam2Names();
 			}
 		});
-		add(btnTeam2NameSwitch, "cell 5 8,alignx center");
+		add(btnTeam2NameSwitch, "cell 6 7,alignx left");
 		
 		JLabel lblGameCount1 = new JLabel("Game Count");
 		add(lblGameCount1, "cell 1 9,alignx center");
@@ -258,6 +309,11 @@ public class MainJPanel extends JPanel {
 		add(lblGameCount2, "cell 5 9,alignx center");
 		
 		JButton btnGameCount1Minus = new JButton("-");
+		if(foosObsSettings.getGameCount1MinusHotKey().isEmpty()) {
+			btnGameCount1Minus.setMnemonic(-1);
+		} else {
+			btnGameCount1Minus.setMnemonic(foosObsSettings.getGameCount1MinusHotKey().charAt(0));
+		};
 		btnGameCount1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		    	if (isValidInteger(txtGameCount1.getText())) {
@@ -293,7 +349,11 @@ public class MainJPanel extends JPanel {
 		txtGameCount1.setColumns(10);
 		
 		JButton btnGameCount1Plus = new JButton("+");
-		btnGameCount1Plus.setMnemonic('5');
+		if(foosObsSettings.getGameCount1PlusHotKey().isEmpty()) {
+			btnGameCount1Plus.setMnemonic(-1);
+		} else {
+			btnGameCount1Plus.setMnemonic(foosObsSettings.getGameCount1PlusHotKey().charAt(0));
+		};
 		btnGameCount1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtGameCount1.getText())) {
@@ -303,7 +363,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnGameCount1Plus, "cell 2 10,growx");
 		
-		JButton btnGameCountSwitch = new JButton("<->");
+		JButton btnGameCountSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getGameCountSwitchHotKey().isEmpty()) {
+			btnGameCountSwitch.setMnemonic(-1);
+		} else {
+			btnGameCountSwitch.setMnemonic(foosObsSettings.getGameCountSwitchHotKey().charAt(0));
+		};
 		btnGameCountSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchGameCount();
@@ -312,6 +377,11 @@ public class MainJPanel extends JPanel {
 		add(btnGameCountSwitch, "cell 3 10,growx");
 		
 		JButton btnGameCount2Minus = new JButton("-");
+		if(foosObsSettings.getGameCount2MinusHotKey().isEmpty()) {
+			btnGameCount2Minus.setMnemonic(-1);
+		} else {
+			btnGameCount2Minus.setMnemonic(foosObsSettings.getGameCount2MinusHotKey().charAt(0));
+		};
 		btnGameCount2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtGameCount2.getText())) {
@@ -347,7 +417,11 @@ public class MainJPanel extends JPanel {
 		txtGameCount2.setColumns(10);
 		
 		JButton btnGameCount2Plus = new JButton("+");
-		btnGameCount2Plus.setMnemonic('6');
+		if(foosObsSettings.getGameCount2PlusHotKey().isEmpty()) {
+			btnGameCount2Plus.setMnemonic(-1);
+		} else {
+			btnGameCount2Plus.setMnemonic(foosObsSettings.getGameCount2PlusHotKey().charAt(0));
+		};
 		btnGameCount2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtGameCount2.getText())) {
@@ -364,6 +438,11 @@ public class MainJPanel extends JPanel {
 		add(lblScore, "cell 5 11,alignx center");
 		
 		JButton btnScore1Minus = new JButton("-");
+		if(foosObsSettings.getScore1MinusHotKey().isEmpty()) {
+			btnScore1Minus.setMnemonic(-1);
+		} else {
+			btnScore1Minus.setMnemonic(foosObsSettings.getScore1MinusHotKey().charAt(0));
+		};
 		btnScore1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtScore1.getText())) {
@@ -399,7 +478,11 @@ public class MainJPanel extends JPanel {
 		txtScore1.setColumns(10);
 		
 		JButton btnScore1Plus = new JButton("+");
-		btnScore1Plus.setMnemonic('1');
+		if(foosObsSettings.getScore1PlusHotKey().isEmpty()) {
+			btnScore1Plus.setMnemonic(-1);
+		} else {
+			btnScore1Plus.setMnemonic(foosObsSettings.getScore1PlusHotKey().charAt(0));
+		};
 		btnScore1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtScore1.getText())) {
@@ -409,7 +492,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnScore1Plus, "cell 2 12,growx");
 		
-		JButton btnScoreSwitch = new JButton("<->");
+		JButton btnScoreSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getScoreSwitchHotKey().isEmpty()) {
+			btnScoreSwitch.setMnemonic(-1);
+		} else {
+			btnScoreSwitch.setMnemonic(foosObsSettings.getScoreSwitchHotKey().charAt(0));
+		};
 		btnScoreSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchScore();
@@ -418,6 +506,11 @@ public class MainJPanel extends JPanel {
 		add(btnScoreSwitch, "cell 3 12,growx");
 		
 		JButton btnScore2Minus = new JButton("-");
+		if(foosObsSettings.getScore2MinusHotKey().isEmpty()) {
+			btnScore2Minus.setMnemonic(-1);
+		} else {
+			btnScore2Minus.setMnemonic(foosObsSettings.getScore2MinusHotKey().charAt(0));
+		};
 		btnScore2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtScore2.getText())) {
@@ -453,7 +546,11 @@ public class MainJPanel extends JPanel {
 		txtScore2.setColumns(10);
 		
 		JButton btnScore2Plus = new JButton("+");
-		btnScore2Plus.setMnemonic('2');
+		if(foosObsSettings.getScore2PlusHotKey().isEmpty()) {
+			btnScore2Plus.setMnemonic(-1);
+		} else {
+			btnScore2Plus.setMnemonic(foosObsSettings.getScore2PlusHotKey().charAt(0));
+		};
 		btnScore2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtScore2.getText())) {
@@ -469,7 +566,12 @@ public class MainJPanel extends JPanel {
 		JLabel lblTimeout = new JLabel("TimeOut");
 		add(lblTimeout, "cell 5 13,alignx center");
 		
-		JButton btnTimeOut1Minus = new JButton("Give back TO");
+		JButton btnTimeOut1Minus = new JButton("Return TO");
+		if(foosObsSettings.getTimeOut1MinusHotKey().isEmpty()) {
+			btnTimeOut1Minus.setMnemonic(-1);
+		} else {
+			btnTimeOut1Minus.setMnemonic(foosObsSettings.getTimeOut1MinusHotKey().charAt(0));
+		};
 		btnTimeOut1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 		    	if (isValidInteger(txtTimeOut1.getText())) {
@@ -505,7 +607,11 @@ public class MainJPanel extends JPanel {
 		txtTimeOut1.setColumns(10);
 		
 		JButton btnTimeOut1Plus = new JButton("Use TO");
-		btnTimeOut1Plus.setMnemonic('9');
+		if(foosObsSettings.getTimeOut1PlusHotKey().isEmpty()) {
+			btnTimeOut1Plus.setMnemonic(-1);
+		} else {
+			btnTimeOut1Plus.setMnemonic(foosObsSettings.getTimeOut1PlusHotKey().charAt(0));
+		};
 		btnTimeOut1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtTimeOut1.getText())) {
@@ -515,7 +621,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnTimeOut1Plus, "cell 2 14,growx");
 		
-		JButton btnTimeOutSwitch = new JButton("<->");
+		JButton btnTimeOutSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getTimeOutSwitchHotKey().isEmpty()) {
+			btnTimeOutSwitch.setMnemonic(-1);
+		} else {
+			btnTimeOutSwitch.setMnemonic(foosObsSettings.getTimeOutSwitchHotKey().charAt(0));
+		};
 		btnTimeOutSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchTimeOut();
@@ -523,7 +634,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnTimeOutSwitch, "cell 3 14,growx");
 		
-		JButton btnTimeOut2Minus = new JButton("Give back TO");
+		JButton btnTimeOut2Minus = new JButton("Return TO");
+		if(foosObsSettings.getTimeOut2MinusHotKey().isEmpty()) {
+			btnTimeOut2Minus.setMnemonic(-1);
+		} else {
+			btnTimeOut2Minus.setMnemonic(foosObsSettings.getTimeOut2MinusHotKey().charAt(0));
+		};
 		btnTimeOut2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtTimeOut2.getText())) {
@@ -559,7 +675,11 @@ public class MainJPanel extends JPanel {
 		txtTimeOut2.setColumns(10);
 		
 		JButton btnTimeOut2Plus = new JButton("Use TO");
-		btnTimeOut2Plus.setMnemonic('0');
+		if(foosObsSettings.getTimeOut2PlusHotKey().isEmpty()) {
+			btnTimeOut2Plus.setMnemonic(-1);
+		} else {
+			btnTimeOut2Plus.setMnemonic(foosObsSettings.getTimeOut2PlusHotKey().charAt(0));
+		};
 		btnTimeOut2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 		    	if (isValidInteger(txtTimeOut2.getText())) {
@@ -570,7 +690,6 @@ public class MainJPanel extends JPanel {
 		add(btnTimeOut2Plus, "cell 6 14,growx");
 		
 		tglbtnReset1 = new JToggleButton("Reset");
-		tglbtnReset1.setMnemonic('z');
 		tglbtnReset1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				writeReset1();
@@ -579,7 +698,6 @@ public class MainJPanel extends JPanel {
 		add(tglbtnReset1, "cell 0 15,growx");
 		
 		tglbtnWarn1 = new JToggleButton(" Warn");
-		tglbtnWarn1.setMnemonic('x');
 		tglbtnWarn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				writeWarn1();
@@ -588,7 +706,6 @@ public class MainJPanel extends JPanel {
 		add(tglbtnWarn1, "cell 2 15,growx");
 		
 		tglbtnReset2 = new JToggleButton("Reset");
-		tglbtnReset2.setMnemonic(',');
 		tglbtnReset2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				writeReset2();
@@ -597,7 +714,6 @@ public class MainJPanel extends JPanel {
 		add(tglbtnReset2, "cell 4 15,growx");
 		
 		tglbtnWarn2 = new JToggleButton(" Warn");
-		tglbtnWarn2.setMnemonic('.');
 		tglbtnWarn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				writeWarn2();
@@ -605,7 +721,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(tglbtnWarn2, "cell 6 15,growx");
 
-		JButton btnResetSwitch = new JButton("<->");
+		JButton btnResetSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getResetSwitchHotKey().isEmpty()) {
+			btnResetSwitch.setMnemonic(-1);
+		} else {
+			btnResetSwitch.setMnemonic(foosObsSettings.getResetSwitchHotKey().charAt(0));
+		};
 		btnResetSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				switchResetWarn();
@@ -614,7 +735,11 @@ public class MainJPanel extends JPanel {
 		add(btnResetSwitch, "cell 3 15,growx");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts");
-		btnResetGameCounts.setMnemonic('7');
+		if(foosObsSettings.getResetGameCountsHotKey().isEmpty()) {
+			btnResetGameCounts.setMnemonic(-1);
+		} else {
+			btnResetGameCounts.setMnemonic(foosObsSettings.getResetGameCountsHotKey().charAt(0));
+		};
 		btnResetGameCounts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetGameCounts();
@@ -623,7 +748,11 @@ public class MainJPanel extends JPanel {
 		add(btnResetGameCounts, "cell 1 16,growx");
 		
 		JButton btnResetScores = new JButton("Reset Scores");
-		btnResetScores.setMnemonic('3');
+		if(foosObsSettings.getResetScoresHotKey().isEmpty()) {
+			btnResetScores.setMnemonic(-1);
+		} else {
+			btnResetScores.setMnemonic(foosObsSettings.getResetScoresHotKey().charAt(0));
+		};
 		btnResetScores.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetScores();
@@ -631,7 +760,11 @@ public class MainJPanel extends JPanel {
 		});
 		
 		JButton btnResetTimers = new JButton("Reset Timer");
-		btnResetTimers.setMnemonic('r');
+		if(foosObsSettings.getResetTimersHotKey().isEmpty()) {
+			btnResetTimers.setMnemonic(-1);
+		} else {
+			btnResetTimers.setMnemonic(foosObsSettings.getResetTimersHotKey().charAt(0));
+		};
 		btnResetTimers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetTimers();
@@ -641,7 +774,11 @@ public class MainJPanel extends JPanel {
 		add(btnResetScores, "cell 1 17,growx");
 		
 		JButton btnResetTimeOuts = new JButton("Reset Time Outs");
-		btnResetTimeOuts.setMnemonic('-');
+		if(foosObsSettings.getResetTimeOutsHotKey().isEmpty()) {
+			btnResetTimeOuts.setMnemonic(-1);
+		} else {
+			btnResetTimeOuts.setMnemonic(foosObsSettings.getResetTimeOutsHotKey().charAt(0));
+		};
 		btnResetTimeOuts.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetTimeOuts();
@@ -650,6 +787,11 @@ public class MainJPanel extends JPanel {
 		add(btnResetTimeOuts, "cell 1 18,growx");
 		
 		JButton btnResetResetWarn = new JButton("Reset Reset/Warn");
+		if(foosObsSettings.getResetResetWarnHotKey().isEmpty()) {
+			btnResetResetWarn.setMnemonic(-1);
+		} else {
+			btnResetResetWarn.setMnemonic(foosObsSettings.getResetResetWarnHotKey().charAt(0));
+		};
 		btnResetResetWarn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				resetResetWarns();
@@ -658,7 +800,11 @@ public class MainJPanel extends JPanel {
 		add(btnResetResetWarn, "cell 1 19,growx");
 		
 		JButton btnResetAll = new JButton("Reset All");
-		btnResetAll.setMnemonic('a');
+		if(foosObsSettings.getResetAllHotKey().isEmpty()) {
+			btnResetAll.setMnemonic(-1);
+		} else {
+			btnResetAll.setMnemonic(foosObsSettings.getResetAllHotKey().charAt(0));
+		};
 		btnResetAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				resetAll();
@@ -666,8 +812,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnResetAll, "cell 1 20,growx");
 		
-		JButton btnAllSwitch = new JButton("<--------------------------------------------->");
-		btnAllSwitch.setMnemonic('w');
+		JButton btnAllSwitch = new JButton("<-Switch Sides->");
+		if(foosObsSettings.getAllSwitchHotKey().isEmpty()) {
+			btnAllSwitch.setMnemonic(-1);
+		} else {
+			btnAllSwitch.setMnemonic(foosObsSettings.getAllSwitchHotKey().charAt(0));
+		};
 		btnAllSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchAll();
@@ -685,7 +835,6 @@ public class MainJPanel extends JPanel {
 		add(lblShotTimer, "cell 5 17,alignx right");
 		
 		btnShotTimer = new JButton("Start");
-		btnShotTimer.setMnemonic('s');
 		btnShotTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startShotTimer();
@@ -697,7 +846,6 @@ public class MainJPanel extends JPanel {
 		add(lblPassTimer, "cell 5 18,alignx right");
 		
 		btnPassTimer = new JButton("Start");
-		btnPassTimer.setMnemonic('p');
 		btnPassTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startPassTimer();
@@ -709,7 +857,6 @@ public class MainJPanel extends JPanel {
 		add(lblTimeOutTimer, "cell 5 19,alignx right");
 		
 		btnTimeOutTimer = new JButton("Start");
-		btnTimeOutTimer.setMnemonic('o');
 		btnTimeOutTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startTimeOutTimer();
@@ -718,6 +865,11 @@ public class MainJPanel extends JPanel {
 		add(btnTimeOutTimer, "cell 6 19,growx");
 		
 				JButton btnClearAll = new JButton("Clear All");
+		if(foosObsSettings.getClearAllHotKey().isEmpty()) {
+			btnClearAll.setMnemonic(-1);
+		} else {
+			btnClearAll.setMnemonic(foosObsSettings.getClearAllHotKey().charAt(0));
+		};
 				btnClearAll.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						clearAll();
@@ -729,7 +881,6 @@ public class MainJPanel extends JPanel {
 		add(lblGameTimer, "cell 5 20,alignx right");
 
 		btnGameTimer = new JButton("Start");
-		btnGameTimer.setMnemonic('g');
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startGameTimer();
@@ -741,7 +892,6 @@ public class MainJPanel extends JPanel {
 		add(lblRecallTimer, "cell 5 21,alignx right");
 		
 		btnRecallTimer = new JButton("Start");
-		btnRecallTimer.setMnemonic('c');
 		btnRecallTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startRecallTimer();
@@ -780,6 +930,11 @@ public class MainJPanel extends JPanel {
 		});
 		
 		JButton btnSelectPath = new JButton("Select Path");
+		if(foosObsSettings.getSelectPathHotKey().isEmpty()) {
+			btnSelectPath.setMnemonic(-1);
+		} else {
+			btnSelectPath.setMnemonic(foosObsSettings.getSelectPathHotKey().charAt(0));
+		};
 		btnSelectPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				final JFileChooser chooser = new JFileChooser();
@@ -815,6 +970,11 @@ public class MainJPanel extends JPanel {
 		add(formattedTxtPath, "cell 1 22,growx");
 		
 		JButton btnFetchData = new JButton("Fetch Data");
+		if(foosObsSettings.getFetchDataHotKey().isEmpty()) {
+			btnFetchData.setMnemonic(-1);
+		} else {
+			btnFetchData.setMnemonic(foosObsSettings.getFetchDataHotKey().charAt(0));
+		};
 		btnFetchData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				fetchAll();
@@ -823,6 +983,11 @@ public class MainJPanel extends JPanel {
 		add(btnFetchData, "cell 3 22,growx");
 		
 		JButton btnSetPath = new JButton("Set Path");
+		if(foosObsSettings.getSetPathHotKey().isEmpty()) {
+			btnSetPath.setMnemonic(-1);
+		} else {
+			btnSetPath.setMnemonic(foosObsSettings.getSetPathHotKey().charAt(0));
+		};
 		btnSetPath.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String directoryName = formattedTxtPath.getText();
@@ -843,17 +1008,12 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnSetPath, "cell 2 22,growx");
 		
-		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
-		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent evt) {
-				f.setAlwaysOnTop(chckbxAlwaysOnTop.isSelected());
-			}
-		});
-		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
-		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
-		add(chckbxAlwaysOnTop, "cell 5 22,alignx right");
-		
 		JButton btnSaveAll = new JButton("Save All");
+		if(foosObsSettings.getSaveAllHotKey().isEmpty()) {
+			btnSaveAll.setMnemonic(-1);
+		} else {
+			btnSaveAll.setMnemonic(foosObsSettings.getSaveAllHotKey().charAt(0));
+		};
 		btnSaveAll.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				saveAll();
@@ -862,6 +1022,11 @@ public class MainJPanel extends JPanel {
 		add(btnSaveAll, "cell 4 22,growx");
 		
 		JButton btnSettings = new JButton("Settings");
+		if(foosObsSettings.getSettingsHotKey().isEmpty()) {
+			btnSettings.setMnemonic(-1);
+		} else {
+			btnSettings.setMnemonic(foosObsSettings.getSettingsHotKey().charAt(0));
+		};
 		btnSettings.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame settingsFrame = new JFrame("Foos OBS Settings");
@@ -882,6 +1047,16 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
+		
+		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
+		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				f.setAlwaysOnTop(chckbxAlwaysOnTop.isSelected());
+			}
+		});
+		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
+		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
+		add(chckbxAlwaysOnTop, "cell 5 22,alignx right");
 		btnSettings.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnSettings.setForeground(Color.BLACK);
 		btnSettings.setBackground(new Color(0, 255, 255));
@@ -902,7 +1077,12 @@ public class MainJPanel extends JPanel {
 		fetchAll();
     }
 
-    private void initialize() throws IOException { 
+    private void initialize() throws IOException {
+    	try {
+    	logoURI = new URI("https://www.facebook.com/midsouthfoosball");
+    	} catch (URISyntaxException ex) {
+			System.out.print("Error in URI Syntax: " + ex.getMessage());		
+		}
     	timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
 		foosObsSettings = new Settings();
