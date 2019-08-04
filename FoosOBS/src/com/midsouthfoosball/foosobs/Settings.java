@@ -28,6 +28,8 @@ public class Settings {
 	private int recallTime;
 	private String meatball;
 	private int showTimeOutsUsed;
+	private String logoImageURL;
+	private String logoLinkURI;
 
 	private String team1FileName;
 	private String tournamentFileName;
@@ -119,6 +121,8 @@ public class Settings {
 		defaultProps.setProperty("GameTime", "90");
 		defaultProps.setProperty("RecallTime", "10");
 		defaultProps.setProperty("ShowTimeOutsUsed", "1");
+		defaultProps.setProperty("LogoImageURL", "/imgs/MidsouthFoosballLogo4.png");
+		defaultProps.setProperty("LogoLinkURI", "https://www.facebook.com/midsouthfoosball");
 
 		defaultProps.setProperty("Team1FileName", "team1.txt");
 		defaultProps.setProperty("TournamentFileName", "tournament.txt");
@@ -178,14 +182,13 @@ public class Settings {
 		defaultProps.setProperty("TimeOutTimerHotKey", "o");
 		defaultProps.setProperty("GameTimerHotKey", "g");
 		defaultProps.setProperty("RecallTimerHotKey", "c");
-		defaultProps.setProperty("ResetTmersHotKey", "r");
+		defaultProps.setProperty("ResetTimersHotKey", "r");
 		defaultProps.setProperty("SelectPathHotKey", "");
 		defaultProps.setProperty("SetPathHotKey", "");
 		defaultProps.setProperty("FetchDataHotKey", "");
 		defaultProps.setProperty("SaveAllHotKey", "");
 		defaultProps.setProperty("SettingsHotKey", "");
 
-		
 		configProps = new Properties(defaultProps);
 		
 		loadFromConfig();
@@ -209,6 +212,8 @@ public class Settings {
 	public int getGameTime() {return gameTime;}
 	public int getRecallTime() {return recallTime;}
 	public int getShowTimeOutsUsed() {return showTimeOutsUsed;}
+	public String getLogoImageURL() {return logoImageURL;}
+	public String getLogoLinkURI() {return logoLinkURI;}
 
 	public String getTeam1FileName() {return team1FileName;}
 	public String getTournamentFileName() {return tournamentFileName;}
@@ -346,6 +351,14 @@ public class Settings {
 	public void setShowTimeOutsUsed(int showTimeOutsUsed) {
 		this.showTimeOutsUsed = showTimeOutsUsed;
 		configProps.setProperty("ShowTimeOutsUsed", Integer.toString(this.showTimeOutsUsed));
+	}
+	public void setLogoImageURL(String logoImageURL) {
+		this.logoImageURL = logoImageURL;
+		configProps.setProperty("LogoImageURL", this.logoImageURL);
+	}
+	public void setLogoLinkURI(String logoLinkURI) {
+		this.logoLinkURI = logoLinkURI;
+		configProps.setProperty("LogoLinkURI", this.logoLinkURI);
 	}
 
 	public void setTeam1FileName(String team1FileName) {
@@ -619,7 +632,9 @@ public class Settings {
 	public int getDefaultGameTime() {return Integer.parseInt(defaultProps.getProperty("GameTime"));}
 	public int getDefaultRecallTime() {return Integer.parseInt(defaultProps.getProperty("RecallTime"));}
 	public int getDefaultShowTimeOutsUsed() {return Integer.parseInt(defaultProps.getProperty("ShowTimeOutsUsed"));}
-
+	public String getDefaultLogoImageURL() {return defaultProps.getProperty("LogoImageURL");}
+	public String getDefaultLogoLinkURI() {return defaultProps.getProperty("LogoLinkURI");}
+	
 	public String getDefaultTeam1FileName() {return defaultProps.getProperty("Team1FileName");}
 	public String getDefaultTournamentFileName() {return defaultProps.getProperty("TournamentFileName");}
 	public String getDefaultTeam2FileName() {return defaultProps.getProperty("Team2FileName");}
@@ -709,6 +724,14 @@ public class Settings {
 		gameTime = Integer.parseInt(configProps.getProperty("GameTime"));
 		recallTime = Integer.parseInt(configProps.getProperty("RecallTime"));
 		showTimeOutsUsed = Integer.parseInt(configProps.getProperty("ShowTimeOutsUsed"));
+		logoImageURL = configProps.getProperty("LogoImageURL");
+		if (logoImageURL.isEmpty()) {
+			logoImageURL = this.getDefaultLogoImageURL();
+		};
+		logoLinkURI = configProps.getProperty("LogoLinkURI");
+		if (logoLinkURI.isEmpty()) {
+			logoLinkURI = this.getDefaultLogoLinkURI();
+		};
 
 		team1FileName = configProps.getProperty("Team1FileName");
 		tournamentFileName = configProps.getProperty("TournamentFileName");
@@ -795,6 +818,8 @@ public class Settings {
 		configProps.setProperty("GameTime", Integer.toString(this.getGameTime()));
 		configProps.setProperty("RecallTime", Integer.toString(this.getRecallTime()));
 		configProps.setProperty("ShowTimeOutsUsed", Integer.toString(this.getShowTimeOutsUsed()));
+//		configProps.setProperty("LogoImageURL", this.getLogoImageURL());
+//		configProps.setProperty("LogoLinkURI", this.getLogoLinkURI());
 
 		configProps.setProperty("Team1FileName", this.getTeam1FileName());
 		configProps.setProperty("TournamentFileName", this.getTournamentFileName());

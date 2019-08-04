@@ -60,7 +60,8 @@ public class MainJPanel extends JPanel {
 	private JButton btnRecallTimer;
 	private JLabel lblTimerDisplay;
 	private JLabel lblTimerInUse;
-	private URI logoURI;
+	private URI logoLinkURI;
+	private ImageIcon imageIcon;
 	TimeClock timeClock;
 	ActionListener alAction;
 	OBSInterface obsInterface;
@@ -72,11 +73,8 @@ public class MainJPanel extends JPanel {
     public MainJPanel(JFrame f) throws IOException {
 
     	initialize();
-		
     	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][][][][]"));
-		String logoURL = new String("/imgs/MidsouthFoosballLogo4.png");
-		ImageIcon imageIcon = new ImageIcon(getClass().getResource(logoURL));
-		
+    	
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
 		imageIcon = new ImageIcon(newimg);  // transform it back
@@ -85,7 +83,7 @@ public class MainJPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-				java.awt.Desktop.getDesktop().browse(logoURI);
+				java.awt.Desktop.getDesktop().browse(logoLinkURI);
 				} catch (IOException ex) {
 					System.out.print("Error calling URI: " + ex.getMessage());		
 				}
@@ -100,7 +98,7 @@ public class MainJPanel extends JPanel {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				try {
-				java.awt.Desktop.getDesktop().browse(logoURI);
+				java.awt.Desktop.getDesktop().browse(logoLinkURI);
 				} catch (IOException ex) {
 					System.out.print("Error calling URI: " + ex.getMessage());		
 				}
@@ -216,6 +214,11 @@ public class MainJPanel extends JPanel {
 		});
 		
 		JButton btnTeam1NameSwitch = new JButton("<-Switch->");
+		if(foosObsSettings.getTeam1NameSwitchHotKey().isEmpty()) {
+			btnTeam1NameSwitch.setMnemonic(-1);
+		} else {
+			btnTeam1NameSwitch.setMnemonic(foosObsSettings.getTeam1NameSwitchHotKey().charAt(0));
+		};
 		btnTeam1NameSwitch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				switchTeam1Names();
@@ -283,11 +286,6 @@ public class MainJPanel extends JPanel {
 		add(btnTeam2Clear, "cell 4 7,alignx right");
 		add(txtTeam2, "flowx,cell 5 7,growx");
 		txtTeam2.setColumns(10);
-		if(foosObsSettings.getTeam1NameSwitchHotKey().isEmpty()) {
-			btnTeam1NameSwitch.setMnemonic(-1);
-		} else {
-			btnTeam1NameSwitch.setMnemonic(foosObsSettings.getTeam1NameSwitchHotKey().charAt(0));
-		};
 		
 		JButton btnTeam2NameSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getTeam2NameSwitchHotKey().isEmpty()) {
@@ -835,6 +833,11 @@ public class MainJPanel extends JPanel {
 		add(lblShotTimer, "cell 5 17,alignx right");
 		
 		btnShotTimer = new JButton("Start");
+		if(foosObsSettings.getShotTimerHotKey().isEmpty()) {
+			btnShotTimer.setMnemonic(-1);
+		} else {
+			btnShotTimer.setMnemonic(foosObsSettings.getShotTimerHotKey().charAt(0));
+		};
 		btnShotTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startShotTimer();
@@ -846,6 +849,11 @@ public class MainJPanel extends JPanel {
 		add(lblPassTimer, "cell 5 18,alignx right");
 		
 		btnPassTimer = new JButton("Start");
+		if(foosObsSettings.getPassTimerHotKey().isEmpty()) {
+			btnPassTimer.setMnemonic(-1);
+		} else {
+			btnPassTimer.setMnemonic(foosObsSettings.getPassTimerHotKey().charAt(0));
+		};
 		btnPassTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startPassTimer();
@@ -857,6 +865,11 @@ public class MainJPanel extends JPanel {
 		add(lblTimeOutTimer, "cell 5 19,alignx right");
 		
 		btnTimeOutTimer = new JButton("Start");
+		if(foosObsSettings.getTimeOutTimerHotKey().isEmpty()) {
+			btnTimeOutTimer.setMnemonic(-1);
+		} else {
+			btnTimeOutTimer.setMnemonic(foosObsSettings.getTimeOutTimerHotKey().charAt(0));
+		};
 		btnTimeOutTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startTimeOutTimer();
@@ -864,23 +877,28 @@ public class MainJPanel extends JPanel {
 		});
 		add(btnTimeOutTimer, "cell 6 19,growx");
 		
-				JButton btnClearAll = new JButton("Clear All");
+		JButton btnClearAll = new JButton("Clear All");
 		if(foosObsSettings.getClearAllHotKey().isEmpty()) {
 			btnClearAll.setMnemonic(-1);
 		} else {
 			btnClearAll.setMnemonic(foosObsSettings.getClearAllHotKey().charAt(0));
 		};
-				btnClearAll.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						clearAll();
-					}
-				});
-				add(btnClearAll, "cell 3 20,growx");
+		btnClearAll.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				clearAll();
+			}
+		});
+		add(btnClearAll, "cell 3 20,growx");
 		
 		JLabel lblGameTimer = new JLabel("Game Timer");
 		add(lblGameTimer, "cell 5 20,alignx right");
 
 		btnGameTimer = new JButton("Start");
+		if(foosObsSettings.getGameTimerHotKey().isEmpty()) {
+			btnGameTimer.setMnemonic(-1);
+		} else {
+			btnGameTimer.setMnemonic(foosObsSettings.getGameTimerHotKey().charAt(0));
+		};
 		btnGameTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startGameTimer();
@@ -892,6 +910,11 @@ public class MainJPanel extends JPanel {
 		add(lblRecallTimer, "cell 5 21,alignx right");
 		
 		btnRecallTimer = new JButton("Start");
+		if(foosObsSettings.getRecallTimerHotKey().isEmpty()) {
+			btnRecallTimer.setMnemonic(-1);
+		} else {
+			btnRecallTimer.setMnemonic(foosObsSettings.getRecallTimerHotKey().charAt(0));
+		};
 		btnRecallTimer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				startRecallTimer();
@@ -1078,15 +1101,23 @@ public class MainJPanel extends JPanel {
     }
 
     private void initialize() throws IOException {
-    	try {
-    	logoURI = new URI("https://www.facebook.com/midsouthfoosball");
-    	} catch (URISyntaxException ex) {
-			System.out.print("Error in URI Syntax: " + ex.getMessage());		
-		}
     	timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
 		foosObsSettings = new Settings();
 		obsInterface.setFilePath(foosObsSettings.getDatapath());
+    	try {
+    	logoLinkURI = new URI(foosObsSettings.getLogoLinkURI());
+    	} catch (URISyntaxException ex) {
+			System.out.print("Error in URI Syntax: " + ex.getMessage());		
+		}
+		ImageIcon defaultLogoImageIcon = new ImageIcon(getClass().getResource(foosObsSettings.getDefaultLogoImageURL()));
+		ImageIcon settingsLogoImageIcon = new ImageIcon(foosObsSettings.getLogoImageURL());
+		if (foosObsSettings.getDefaultLogoImageURL().equals(settingsLogoImageIcon.toString())) {
+			imageIcon = defaultLogoImageIcon;
+		} else {
+			imageIcon = settingsLogoImageIcon;
+		}
+	
 		clearMatchWinner();
     }
     
