@@ -132,11 +132,12 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		
-		JLabel lblEvent = new JLabel("Event:");
-		add(lblEvent, "cell 5 1,alignx center,aligny bottom");
 		txtTournamentName.setText("High Pockets Monday Night");
 		add(txtTournamentName, "flowy,cell 1 4,growx");
 		txtTournamentName.setColumns(10);
+
+		JLabel lblEvent = new JLabel("Event:");
+		add(lblEvent, "cell 5 1,alignx center,aligny bottom");
 		
 		JButton btnTournamentNameClear = new JButton("Clear");
 		if(foosObsSettings.getTournamentNameClearHotKey().isEmpty()) {
@@ -162,11 +163,11 @@ public class MainJPanel extends JPanel {
 				clearEventName();
 			}
 		});
+		add(btnEventClear, "cell 4 4,alignx right");
 		
 		lblTimerInUse = new JLabel("Timer Reset");
 		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblTimerInUse, "cell 3 4,growx");
-		add(btnEventClear, "cell 4 4,alignx right");
 		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -212,6 +213,8 @@ public class MainJPanel extends JPanel {
 		    	writeTeam1Name();
 			}
 		});
+		add(txtTeam1, "cell 1 7,growx");
+		txtTeam1.setColumns(10);
 		
 		JButton btnTeam1NameSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getTeam1NameSwitchHotKey().isEmpty()) {
@@ -225,8 +228,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnTeam1NameSwitch, "cell 0 7,alignx right");
-		add(txtTeam1, "cell 1 7,growx");
-		txtTeam1.setColumns(10);
 		
 		JButton btnTeam1Clear = new JButton("Clear");
 		if(foosObsSettings.getTeam1ClearHotKey().isEmpty()) {
@@ -271,6 +272,8 @@ public class MainJPanel extends JPanel {
 		    	writeTeam2Name();
 			}
 		});
+		add(txtTeam2, "flowx,cell 5 7,growx");
+		txtTeam2.setColumns(10);
 		
 		JButton btnTeam2Clear = new JButton("Clear");
 		if(foosObsSettings.getTeam2ClearHotKey().isEmpty()) {
@@ -284,8 +287,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnTeam2Clear, "cell 4 7,alignx right");
-		add(txtTeam2, "flowx,cell 5 7,growx");
-		txtTeam2.setColumns(10);
 		
 		JButton btnTeam2NameSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getTeam2NameSwitchHotKey().isEmpty()) {
@@ -756,6 +757,7 @@ public class MainJPanel extends JPanel {
 				resetScores();
 			}
 		});
+		add(btnResetScores, "cell 1 17,growx");
 		
 		JButton btnResetTimers = new JButton("Reset Timer");
 		if(foosObsSettings.getResetTimersHotKey().isEmpty()) {
@@ -769,7 +771,6 @@ public class MainJPanel extends JPanel {
 		}
 		});
 		add(btnResetTimers, "cell 5 16,growx,aligny bottom");
-		add(btnResetScores, "cell 1 17,growx");
 		
 		JButton btnResetTimeOuts = new JButton("Reset Time Outs");
 		if(foosObsSettings.getResetTimeOutsHotKey().isEmpty()) {
@@ -822,6 +823,7 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnAllSwitch, "cell 2 16 3 1,growx");
+
 		ActionListener alAction = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
 				updateTimerDisplay();
@@ -951,6 +953,7 @@ public class MainJPanel extends JPanel {
 			    }
 			}
 		});
+		add(formattedTxtPath, "cell 1 22,growx");
 		
 		JButton btnSelectPath = new JButton("Select Path");
 		if(foosObsSettings.getSelectPathHotKey().isEmpty()) {
@@ -990,7 +993,6 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnSelectPath, "cell 0 22,growx");
-		add(formattedTxtPath, "cell 1 22,growx");
 		
 		JButton btnFetchData = new JButton("Fetch Data");
 		if(foosObsSettings.getFetchDataHotKey().isEmpty()) {
@@ -1070,6 +1072,11 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
+		btnSettings.setFont(new Font("Tahoma", Font.BOLD, 15));
+		btnSettings.setForeground(Color.BLACK);
+		btnSettings.setBackground(new Color(0, 255, 255));
+		btnSettings.setBounds(92, 100, 125, 23);
+		add(btnSettings, "cell 6 22,growx");
 		
 		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
 		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
@@ -1080,11 +1087,6 @@ public class MainJPanel extends JPanel {
 		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
 		add(chckbxAlwaysOnTop, "cell 5 22,alignx right");
-		btnSettings.setFont(new Font("Tahoma", Font.BOLD, 15));
-		btnSettings.setForeground(Color.BLACK);
-		btnSettings.setBackground(new Color(0, 255, 255));
-		btnSettings.setBounds(92, 100, 125, 23);
-		add(btnSettings, "cell 6 22,growx");
 		
 		lblTimerDisplay = new JLabel(" 0.0 ");
 		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
@@ -1179,7 +1181,7 @@ public class MainJPanel extends JPanel {
 
 	private void clearTeam2Name() {
 		txtTeam2.setText(null);
-		writeTeam1Name();
+		writeTeam2Name();
 	}
 
 	private void switchTeamNames() {
