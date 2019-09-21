@@ -62,7 +62,7 @@ public class FrameIntro {
 				try {
 					f.setAlwaysOnTop(true);
 					p = new MainJPanel(f);
-					p.setPreferredSize(new Dimension(850, 570));
+					p.setPreferredSize(new Dimension(850, 600));
 
 					f.getContentPane().add(p);
 					f.pack();

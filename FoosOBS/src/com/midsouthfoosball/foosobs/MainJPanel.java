@@ -31,6 +31,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.UIManager;
 
 public class MainJPanel extends JPanel {
 
@@ -67,13 +68,14 @@ public class MainJPanel extends JPanel {
 	OBSInterface obsInterface;
 	Settings foosObsSettings;
 	JFrame f;
+	private JTextField txtLastScored;
 	/**
 	 * Create the panel.
 	 **/
     public MainJPanel(JFrame f) throws IOException {
 
     	initialize();
-    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][][][][]"));
+    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][grow][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][][][][]"));
     	
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
@@ -131,6 +133,12 @@ public class MainJPanel extends JPanel {
 				writeTournamentName();
 			}
 		});
+		
+		txtLastScored = new JTextField();
+		txtLastScored.setFont(UIManager.getFont("TextArea.font"));
+		txtLastScored.setText("    Last Scored    ");
+		add(txtLastScored, "cell 3 2,alignx center");
+		txtLastScored.setColumns(10);
 		
 		txtTournamentName.setText("High Pockets Monday Night");
 		add(txtTournamentName, "flowy,cell 1 4,growx");
@@ -452,6 +460,7 @@ public class MainJPanel extends JPanel {
 		add(btnScore1Minus, "cell 0 12,growx,aligny top");
 		
 		txtScore1 = new JTextField();
+		txtScore1.setBackground(Color.WHITE);
 		txtScore1.setHorizontalAlignment(SwingConstants.CENTER);
 		txtScore1.setText("0");
 		txtScore1.addKeyListener(new KeyAdapter() {
@@ -1313,6 +1322,7 @@ public class MainJPanel extends JPanel {
 			num1 = 0;
 		}
 		txtScore1.setText(Integer.toString(num1));
+		txtLastScored.setText("    Last Scored    ");
 		writeScore1();
 		checkMeatball(num1, Integer.parseInt(txtScore2.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
@@ -1322,6 +1332,7 @@ public class MainJPanel extends JPanel {
 		num1=Integer.parseInt(txtScore1.getText());
 		num1=num1+1;
 		txtScore1.setText(Integer.toString(num1));
+		txtLastScored.setText("<-- Last Scored");
 		resetTimers();
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore2.getText()))) {
 			incrementGameCount1();
@@ -1359,6 +1370,7 @@ public class MainJPanel extends JPanel {
 			num1 = 0;
 		}
 		txtScore2.setText(Integer.toString(num1));
+		txtLastScored.setText("    Last Scored    ");
 		writeScore2();
 		checkMeatball(num1, Integer.parseInt(txtScore1.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
@@ -1368,6 +1380,7 @@ public class MainJPanel extends JPanel {
 		num1=Integer.parseInt(txtScore2.getText());
 		num1=num1+1;
 		txtScore2.setText(Integer.toString(num1));
+		txtLastScored.setText("    Last Scored -->");
 		resetTimers();
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore1.getText()))) {
 			incrementGameCount2();
@@ -1456,6 +1469,7 @@ public class MainJPanel extends JPanel {
 	private void resetScores() {
 		txtScore1.setText("0");
 		txtScore2.setText("0");
+		txtLastScored.setText("    Last Scored    ");
 		writeScore1();
 		writeScore2();
 	}
