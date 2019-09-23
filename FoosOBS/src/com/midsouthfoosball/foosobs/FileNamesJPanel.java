@@ -32,6 +32,7 @@ public class FileNamesJPanel extends JPanel {
 	private JTextField txtTimerInUseFileName;
 	private JTextField txtMatchWinnerFileName;
 	private JTextField txtMeatballFileName;
+	private JTextField txtLastScoredFileName;
 
 	/**
 	 * Create the frame.
@@ -151,6 +152,14 @@ public class FileNamesJPanel extends JPanel {
 		add(txtTimeOut1FileName, "cell 2 7,alignx left");
 		txtTimeOut1FileName.setColumns(10);
 		
+		JLabel lblLastScored = new JLabel("Last Scored:");
+		add(lblLastScored, "cell 4 7,alignx trailing");
+		
+		txtLastScoredFileName = new JTextField();
+		txtLastScoredFileName.setText(foosObsSettings.getLastScoredFileName());
+		add(txtLastScoredFileName, "cell 5 7,alignx left");
+		txtLastScoredFileName.setColumns(10);
+		
 		JLabel lblTimeOut2FileName = new JLabel("Time Out 2:");
 		add(lblTimeOut2FileName, "cell 1 8,alignx trailing");
 		
@@ -235,6 +244,7 @@ public class FileNamesJPanel extends JPanel {
 		txtReset2FileName.setText(foosObsSettings.getDefaultReset2FileName());
 		txtWarn1FileName.setText(foosObsSettings.getDefaultWarn1FileName());
 		txtWarn2FileName.setText(foosObsSettings.getDefaultWarn2FileName());
+		txtLastScoredFileName.setText(foosObsSettings.getDefaultLastScoredFileName());
 	}
 	
 	private void saveSettings(Settings foosObsSettings, JFrame fileNamesFrame) {
@@ -256,6 +266,7 @@ public class FileNamesJPanel extends JPanel {
 		foosObsSettings.setReset2FileName(txtReset2FileName.getText());
 		foosObsSettings.setWarn1FileName(txtWarn1FileName.getText());
 		foosObsSettings.setWarn2FileName(txtWarn2FileName.getText());
+		foosObsSettings.setLastScoredFileName(txtLastScoredFileName.getText());
 		try {
 			foosObsSettings.saveToConfig();
 		} catch (IOException ex) {

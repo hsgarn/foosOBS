@@ -1657,6 +1657,24 @@ public class MainJPanel extends JPanel {
 		}
 	}
 	
+	private void writeLastScored() {
+    	try {
+    		obsInterface.setContents(foosObsSettings.getLastScoredFileName(), txtLastScored.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void switchLastScored() {
+		if (txtLastScored.getText() == "<-- Last Scored") {
+			txtLastScored.setText("    Last Scored -->");
+			System.out.println("<--");
+		} else if (txtLastScored.getText() == "    Last Scored -->") {
+			txtLastScored.setText("<-- Last Scored");
+			System.out.println("-->");		}
+		writeLastScored();
+	}
+
 	private void resetTimeOuts() {
 		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
 			txtTimeOut1.setText(Integer.toString(foosObsSettings.getMaxTimeOuts()));
@@ -1680,11 +1698,17 @@ public class MainJPanel extends JPanel {
 		writeWarn2();
 	}
 	
+	private void resetLastScored() {
+		txtLastScored.setText(null);
+		writeLastScored();
+	}
+	
 	private void resetAll() {
 		resetGameCounts();
 		resetScores();
 		resetTimeOuts();
 		resetResetWarns();
+		resetLastScored();
 	}
 
 	private void switchAll() {
@@ -1693,6 +1717,7 @@ public class MainJPanel extends JPanel {
 		switchScore();
 		switchTimeOut();
 		switchResetWarn();
+		switchLastScored();
 	}
 
 	private void updateTimerDisplay() {
@@ -1782,6 +1807,7 @@ public class MainJPanel extends JPanel {
 			tglbtnReset2.setSelected(obsInterface.getContents(foosObsSettings.getReset2FileName())!=null);
 			tglbtnWarn1.setSelected(obsInterface.getContents(foosObsSettings.getWarn1FileName())!=null);
 			tglbtnWarn2.setSelected(obsInterface.getContents(foosObsSettings.getWarn2FileName())!=null);
+			txtLastScored.setText(obsInterface.getContents(foosObsSettings.getLastScoredFileName()));
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
@@ -1805,6 +1831,7 @@ public class MainJPanel extends JPanel {
 		lblTimerDisplay.setBackground(Color.GREEN);
 		timeClock.resetTimer(0);
 		lblTimerInUse.setText("Timer Reset");
+		txtLastScored.setText(null);
 		saveAll();
 		clearMatchWinner();
 		clearMeatball();
@@ -1827,6 +1854,7 @@ public class MainJPanel extends JPanel {
 		writeWarn1();
 		writeWarn2();
 		writeTimerInUse();
+		writeLastScored();
 	}
 
 }

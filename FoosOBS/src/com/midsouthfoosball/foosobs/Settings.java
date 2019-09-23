@@ -49,6 +49,7 @@ public class Settings {
 	private String reset2FileName;
 	private String warn1FileName;
 	private String warn2FileName;
+	private String lastScoredFileName;
 
 	private String tournamentNameClearHotKey;
 	private String eventClearHotKey;
@@ -142,6 +143,7 @@ public class Settings {
 		defaultProps.setProperty("Reset2FileName", "reset2.txt");
 		defaultProps.setProperty("Warn1FileName", "warn1.txt");
 		defaultProps.setProperty("Warn2FileName", "warn2.txt");
+		defaultProps.setProperty("LastScoredFileName","lastscored.txt");
 		
 		defaultProps.setProperty("TournamentNameClearHotKey", "");
 		defaultProps.setProperty("EventClearHotKey", "");
@@ -233,6 +235,7 @@ public class Settings {
 	public String getReset2FileName() {return reset2FileName;}
 	public String getWarn1FileName() {return warn1FileName;}
 	public String getWarn2FileName() {return warn2FileName;}
+	public String getLastScoredFileName() {return lastScoredFileName;}
 
 	public String getTournamentNameClearHotKey() {return tournamentNameClearHotKey;}
 	public String getEventClearHotKey() {return eventClearHotKey;}
@@ -432,6 +435,10 @@ public class Settings {
 	public void setWarn2FileName(String warn2FileName) {
 		this.warn2FileName = warn2FileName;
 		configProps.setProperty("Warn2FileName", this.warn2FileName);
+	}
+	public void setLastScoredFileName(String lastScoredFileName) {
+		this.lastScoredFileName = lastScoredFileName;
+		configProps.setProperty("LastScoredFileName", this.lastScoredFileName);
 	}
 	
 	public void setTournamentNameClearHotKey(String tournamentNameClearHotKey) {
@@ -653,6 +660,7 @@ public class Settings {
 	public String getDefaultReset2FileName() {return defaultProps.getProperty("Reset2FileName");}
 	public String getDefaultWarn1FileName() {return defaultProps.getProperty("Warn1FileName");}
 	public String getDefaultWarn2FileName() {return defaultProps.getProperty("Warn2FileName");}
+	public String getDefaultLastScoredFileName() {return defaultProps.getProperty("LastScoredFileName");}
 
 	public String getDefaultTournamentNameClearHotKey() {return defaultProps.getProperty("TournamentNameClearHotKey");}
 	public String getDefaultEventClearHotKey() {return defaultProps.getProperty("EventClearHotKey");}
@@ -751,6 +759,7 @@ public class Settings {
 		reset2FileName = configProps.getProperty("Reset2FileName");
 		warn1FileName = configProps.getProperty("Warn1FileName");
 		warn2FileName = configProps.getProperty("Warn2FileName");
+		lastScoredFileName = configProps.getProperty("LastScoredFileName");
 		
 		tournamentNameClearHotKey = configProps.getProperty("TournamentNameClearHotKey");
 		eventClearHotKey = configProps.getProperty("EventClearHotKey");
@@ -839,6 +848,7 @@ public class Settings {
 		configProps.setProperty("Reset2FileName", this.getReset2FileName());
 		configProps.setProperty("Warn1FileName", this.getWarn1FileName());
 		configProps.setProperty("Warn2FileName", this.getWarn2FileName());
+		configProps.setProperty("LastScoredFileName", this.getLastScoredFileName());
 
 		configProps.setProperty("TournamentNameClearHotKey", this.getTournamentNameClearHotKey());
 		configProps.setProperty("EventClearHotKey", this.getEventClearHotKey());
