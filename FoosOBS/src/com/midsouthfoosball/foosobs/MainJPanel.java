@@ -916,6 +916,26 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnGameTimer, "cell 6 20,growx");
+		
+		JButton btnTimerWindow = new JButton("Timer Window");
+		btnTimerWindow.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
+				timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				
+				TimerWindowJPanel twjp;
+				timerWindowFrame.setAlwaysOnTop(true);
+				twjp = new TimerWindowJPanel();
+				twjp.setPreferredSize(new Dimension(200, 100));
+
+				timerWindowFrame.getContentPane().add(twjp);
+				timerWindowFrame.pack();
+				timerWindowFrame.setVisible(true);
+
+			}
+		});
+		add(btnTimerWindow, "cell 0 21");
 
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 21,alignx right");
@@ -1666,12 +1686,11 @@ public class MainJPanel extends JPanel {
 	}
 	
 	private void switchLastScored() {
-		if (txtLastScored.getText() == "<-- Last Scored") {
+		if (txtLastScored.getText().equals("<-- Last Scored")) {
 			txtLastScored.setText("    Last Scored -->");
-			System.out.println("<--");
-		} else if (txtLastScored.getText() == "    Last Scored -->") {
+		} else if (txtLastScored.getText().equals("    Last Scored -->")) {
 			txtLastScored.setText("<-- Last Scored");
-			System.out.println("-->");		}
+		}
 		writeLastScored();
 	}
 
