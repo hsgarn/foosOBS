@@ -69,6 +69,7 @@ public class MainJPanel extends JPanel {
 	Settings foosObsSettings;
 	JFrame f;
 	private JTextField txtLastScored;
+	private static TimerWindowJPanel twjp;
 	/**
 	 * Create the panel.
 	 **/
@@ -920,19 +921,22 @@ public class MainJPanel extends JPanel {
 		JButton btnTimerWindow = new JButton("Timer Window");
 		btnTimerWindow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+/*				
 				JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
 				timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
 				TimerWindowJPanel twjp;
-				timerWindowFrame.setAlwaysOnTop(true);
-				twjp = new TimerWindowJPanel();
+//				timerWindowFrame.setAlwaysOnTop(true);
+				if (lblTimerDisplay == null) {
+					System.out.println("lblTimerDisplay is null");
+				}
+				twjp = new TimerWindowJPanel(lblTimerDisplay.getText().trim());
 				twjp.setPreferredSize(new Dimension(200, 100));
 
 				timerWindowFrame.getContentPane().add(twjp);
 				timerWindowFrame.pack();
 				timerWindowFrame.setVisible(true);
-
+*/
 			}
 		});
 		add(btnTimerWindow, "cell 0 21");
@@ -1125,6 +1129,23 @@ public class MainJPanel extends JPanel {
 		add(lblTimerDisplay, "cell 2 1 3 1,alignx center,aligny center");
 		
 		postInitialize();
+
+		JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
+		timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		TimerWindowJPanel twjp;
+//		timerWindowFrame.setAlwaysOnTop(true);
+		if (lblTimerDisplay == null) {
+			System.out.println("lblTimerDisplay is null");
+		}
+		twjp = new TimerWindowJPanel(lblTimerDisplay.getText().trim());
+		twjp.setPreferredSize(new Dimension(200, 100));
+
+		timerWindowFrame.getContentPane().add(twjp);
+		timerWindowFrame.pack();
+		timerWindowFrame.setVisible(true);
+    
+    
     }
 
     private void postInitialize() {
@@ -1677,6 +1698,14 @@ public class MainJPanel extends JPanel {
 		}
 	}
 	
+	private void updateTimerWindow(TimerWindowJPanel theTwjp) {
+		if (theTwjp == null) {
+			System.out.println("theTwjp is null");
+		} else {
+			theTwjp.setTimerWindow(lblTimerDisplay.getText().trim());
+		}
+	}
+	
 	private void writeLastScored() {
     	try {
     		obsInterface.setContents(foosObsSettings.getLastScoredFileName(), txtLastScored.getText());
@@ -1760,6 +1789,11 @@ public class MainJPanel extends JPanel {
 		}
 		if(tr == (int) tr) {
 			writeTimeRemaining();
+			if (twjp == null) {
+				System.out.println("twjp is null");
+			} else {
+				updateTimerWindow(twjp);
+			}
 		};
 	}
 	
