@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.Properties;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -70,6 +71,9 @@ public class MainJPanel extends JPanel {
 	JFrame f;
 	private JTextField txtLastScored;
 	private static TimerWindowJPanel twjp;
+	private int displayWidth = 9;
+	private int prefixWidth;
+	private int suffixWidth = 3;
 	/**
 	 * Create the panel.
 	 **/
@@ -921,22 +925,20 @@ public class MainJPanel extends JPanel {
 		JButton btnTimerWindow = new JButton("Timer Window");
 		btnTimerWindow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-/*				
+				
 				JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
 				timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
-				TimerWindowJPanel twjp;
 //				timerWindowFrame.setAlwaysOnTop(true);
 				if (lblTimerDisplay == null) {
 					System.out.println("lblTimerDisplay is null");
 				}
-				twjp = new TimerWindowJPanel(lblTimerDisplay.getText().trim());
-				twjp.setPreferredSize(new Dimension(200, 100));
+				twjp = new TimerWindowJPanel(lblTimerDisplay.getText().trim(), lblTimerDisplay.getBackground());
+				twjp.setPreferredSize(new Dimension(256, 70));
 
 				timerWindowFrame.getContentPane().add(twjp);
 				timerWindowFrame.pack();
 				timerWindowFrame.setVisible(true);
-*/
 			}
 		});
 		add(btnTimerWindow, "cell 0 21");
@@ -1125,27 +1127,13 @@ public class MainJPanel extends JPanel {
 		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTimerDisplay.setOpaque(true);
 		lblTimerDisplay.setBackground(Color.GREEN);
-		lblTimerDisplay.setFont(new Font("Times New Roman", Font.BOLD, 50));
+		lblTimerDisplay.setFont(new Font("Consolas", Font.BOLD, 50));
 		add(lblTimerDisplay, "cell 2 1 3 1,alignx center,aligny center");
-		
+		if (twjp != null) {
+			twjp.setTimerWindowColor(Color.GREEN);
+		}
 		postInitialize();
 
-		JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
-		timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		TimerWindowJPanel twjp;
-//		timerWindowFrame.setAlwaysOnTop(true);
-		if (lblTimerDisplay == null) {
-			System.out.println("lblTimerDisplay is null");
-		}
-		twjp = new TimerWindowJPanel(lblTimerDisplay.getText().trim());
-		twjp.setPreferredSize(new Dimension(200, 100));
-
-		timerWindowFrame.getContentPane().add(twjp);
-		timerWindowFrame.pack();
-		timerWindowFrame.setVisible(true);
-    
-    
     }
 
     private void postInitialize() {
@@ -1698,11 +1686,10 @@ public class MainJPanel extends JPanel {
 		}
 	}
 	
-	private void updateTimerWindow(TimerWindowJPanel theTwjp) {
-		if (theTwjp == null) {
-			System.out.println("theTwjp is null");
-		} else {
-			theTwjp.setTimerWindow(lblTimerDisplay.getText().trim());
+	private void updateTimerWindow() {
+		if (twjp != null) {
+			twjp.setTimerWindowText(lblTimerDisplay.getText().trim());
+			twjp.setTimerWindowColor(lblTimerDisplay.getBackground());
 		}
 	}
 	
@@ -1775,26 +1762,44 @@ public class MainJPanel extends JPanel {
 		int displaySeconds = 0;
 		if(timeRemaining <= 0 && nbrOfSeconds != 0) {
 			lblTimerDisplay.setBackground(Color.RED);
+			if (twjp != null) {
+				twjp.setTimerWindowColor(Color.RED);
+			}
 		}
 		float tr = (float) timeRemaining / 10f;
 		if(Float.compare(tr, 60f) > 0) {
 			nbrOfMinutes = (int) (tr / 60);
 			displaySeconds = (timeRemaining - (nbrOfMinutes * 600))/10;
-			lblTimerDisplay.setText("   " + nbrOfMinutes + ":" + String.format("%02d", displaySeconds) + "   ");
-//			lblTimerDisplay.setText(nbrOfMinutes + ":" + String.format("%02d", displaySeconds));
+
+			String timeLeft = new String(nbrOfMinutes + ":" + String.format("%02d", displaySeconds));
+			prefixWidth = displayWidth - timeLeft.length() - suffixWidth;
+			char[] c1 = new char[prefixWidth];
+		    Arrays.fill(c1, ' ');
+		    char[] c2 = new char[suffixWidth];
+		    Arrays.fill(c2, ' ');
+			lblTimerDisplay.setText(String.valueOf(c1) + timeLeft + String.valueOf(c2));
+			
 		} else {
 
-		lblTimerDisplay.setText("   " + Float.toString(tr) + "   ");
-//		lblTimerDisplay.setText(Float.toString(tr));
+
+			String timeLeft = new String(Float.toString(tr));
+			prefixWidth = displayWidth - timeLeft.length() - suffixWidth;
+			char[] c1 = new char[prefixWidth];
+		    Arrays.fill(c1, ' ');
+		    char[] c2 = new char[suffixWidth];
+		    Arrays.fill(c2, ' ');
+			lblTimerDisplay.setText(String.valueOf(c1) + timeLeft + String.valueOf(c2));
+			
+			
+//		lblTimerDisplay.setText("   " + Float.toString(tr) + "   ");
 		}
 		if(tr == (int) tr) {
 			writeTimeRemaining();
-			if (twjp == null) {
-				System.out.println("twjp is null");
-			} else {
-				updateTimerWindow(twjp);
-			}
 		};
+			if (twjp != null) {
+//				updateTimerWindow(twjp);
+				updateTimerWindow();
+			};
 	}
 	
 	private void resetTimers() {
