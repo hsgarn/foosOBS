@@ -140,6 +140,7 @@ public class MainJPanel extends JPanel {
 		});
 		
 		txtLastScored = new JTextField();
+		txtLastScored.setEditable(false);
 		txtLastScored.setFont(UIManager.getFont("TextArea.font"));
 		txtLastScored.setText("    Last Scored    ");
 		add(txtLastScored, "cell 3 2,alignx center");
@@ -1351,7 +1352,7 @@ public class MainJPanel extends JPanel {
 			num1 = 0;
 		}
 		txtScore1.setText(Integer.toString(num1));
-		txtLastScored.setText("    Last Scored    ");
+		resetLastScored();
 		writeScore1();
 		checkMeatball(num1, Integer.parseInt(txtScore2.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
@@ -1399,7 +1400,7 @@ public class MainJPanel extends JPanel {
 			num1 = 0;
 		}
 		txtScore2.setText(Integer.toString(num1));
-		txtLastScored.setText("    Last Scored    ");
+		resetLastScored();
 		writeScore2();
 		checkMeatball(num1, Integer.parseInt(txtScore1.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
@@ -1498,7 +1499,7 @@ public class MainJPanel extends JPanel {
 	private void resetScores() {
 		txtScore1.setText("0");
 		txtScore2.setText("0");
-		txtLastScored.setText("    Last Scored    ");
+		resetLastScored();
 		writeScore1();
 		writeScore2();
 	}
@@ -1734,7 +1735,7 @@ public class MainJPanel extends JPanel {
 	}
 	
 	private void resetLastScored() {
-		txtLastScored.setText(null);
+		txtLastScored.setText("   Last Scored    ");
 		writeLastScored();
 	}
 	
@@ -1889,7 +1890,7 @@ public class MainJPanel extends JPanel {
 		lblTimerDisplay.setBackground(Color.GREEN);
 		timeClock.resetTimer(0);
 		lblTimerInUse.setText("Timer Reset");
-		txtLastScored.setText(null);
+		resetLastScored();
 		saveAll();
 		clearMatchWinner();
 		clearMeatball();

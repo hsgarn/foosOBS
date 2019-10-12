@@ -33,7 +33,7 @@ public class TimerWindowJPanel extends JPanel {
 		lblTimerDisplay.setFont(new Font("Consolas", Font.BOLD, 50));
 		lblTimerDisplay.setOpaque(true);
 		lblTimerDisplay.setBackground(backgroundColor);
-		add(lblTimerDisplay, "cell 0 0,alignx center");
+		add(lblTimerDisplay, "cell 0 0,alignx center,aligny baseline");
 
 	}
 	
