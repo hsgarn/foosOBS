@@ -113,7 +113,7 @@ public class MainJPanel extends JPanel {
 		});
 		lblLogo2.setBackground(Color.BLACK);
 		lblLogo2.setOpaque(true);
-		add(lblLogo2, "cell 6 0 1 4");
+		add(lblLogo2, "flowx,cell 6 0 1 4");
 		
 		JLabel lblTournamentName = new JLabel("Tournament:");
 		add(lblTournamentName, "flowx,cell 1 1,alignx center,aligny bottom");
@@ -203,6 +203,9 @@ public class MainJPanel extends JPanel {
 		txtEventName.setText("DYP #1");
 		add(txtEventName, "flowx,cell 5 4,growx");
 		txtEventName.setColumns(10);
+		
+		JButton btnAbout = new JButton("About");
+		add(btnAbout, "cell 6 4,growx,aligny top");
 		
 		JLabel lblTeam1 = new JLabel("Team 1 Name(s):");
 		add(lblTeam1, "cell 1 6,alignx center");
@@ -1097,7 +1100,7 @@ public class MainJPanel extends JPanel {
 				try {
 					settingsFrame.setAlwaysOnTop(true);
 					p = new SettingsJPanel(foosObsSettings, settingsFrame);
-					p.setPreferredSize(new Dimension(470, 330));
+					p.setPreferredSize(new Dimension(550, 380));
 
 					settingsFrame.getContentPane().add(p);
 					settingsFrame.pack();
@@ -1363,6 +1366,7 @@ public class MainJPanel extends JPanel {
 		num1=num1+1;
 		txtScore1.setText(Integer.toString(num1));
 		txtLastScored.setText("<-- Last Scored");
+		writeTeam1LastScored();
 		resetTimers();
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore2.getText()))) {
 			incrementGameCount1();
@@ -1411,6 +1415,7 @@ public class MainJPanel extends JPanel {
 		num1=num1+1;
 		txtScore2.setText(Integer.toString(num1));
 		txtLastScored.setText("    Last Scored -->");
+		writeTeam2LastScored();
 		resetTimers();
 		if (checkIfGameWon(num1, Integer.parseInt(txtScore1.getText()))) {
 			incrementGameCount2();
@@ -1472,6 +1477,30 @@ public class MainJPanel extends JPanel {
 		}
 	}
 
+	private void writeTeam1LastScored() {
+		try {
+			obsInterface.setContents(foosObsSettings.getLastScoredFileName(), foosObsSettings.getTeam1LastScored());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	private void writeTeam2LastScored() {
+		try {
+			obsInterface.setContents(foosObsSettings.getLastScoredFileName(), foosObsSettings.getTeam2LastScored());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	private void writeClearLastScored() {
+		try {
+			obsInterface.setContents(foosObsSettings.getLastScoredFileName(), foosObsSettings.getClearLastScored());
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
 	private void switchGameCount() {
 		String temp1 = txtGameCount1.getText();
 		txtGameCount1.setText(txtGameCount2.getText());
@@ -1499,7 +1528,6 @@ public class MainJPanel extends JPanel {
 	private void resetScores() {
 		txtScore1.setText("0");
 		txtScore2.setText("0");
-		resetLastScored();
 		writeScore1();
 		writeScore2();
 	}
@@ -1696,7 +1724,14 @@ public class MainJPanel extends JPanel {
 	
 	private void writeLastScored() {
     	try {
-    		obsInterface.setContents(foosObsSettings.getLastScoredFileName(), txtLastScored.getText());
+    		if (txtLastScored.getText().equals("<-- Last Scored")) {
+    			writeTeam1LastScored();
+    		} else if (txtLastScored.getText().equals("    Last Scored -->")) {
+    			writeTeam2LastScored();
+    		} else {
+    			writeClearLastScored();
+    		}
+   		obsInterface.setContents(foosObsSettings.getLastScoredFileName(), txtLastScored.getText());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1705,10 +1740,12 @@ public class MainJPanel extends JPanel {
 	private void switchLastScored() {
 		if (txtLastScored.getText().equals("<-- Last Scored")) {
 			txtLastScored.setText("    Last Scored -->");
+			writeTeam2LastScored();
 		} else if (txtLastScored.getText().equals("    Last Scored -->")) {
 			txtLastScored.setText("<-- Last Scored");
+			writeTeam1LastScored();
 		}
-		writeLastScored();
+//		writeLastScored();
 	}
 
 	private void resetTimeOuts() {
@@ -1736,7 +1773,8 @@ public class MainJPanel extends JPanel {
 	
 	private void resetLastScored() {
 		txtLastScored.setText("   Last Scored    ");
-		writeLastScored();
+		writeClearLastScored();
+//		writeLastScored();
 	}
 	
 	private void resetAll() {

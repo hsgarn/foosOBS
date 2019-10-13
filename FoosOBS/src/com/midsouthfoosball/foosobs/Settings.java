@@ -21,6 +21,9 @@ public class Settings {
 	private int announceMeatball;
 	private String winnerPrefix;
 	private String winnerSuffix;
+	private String team1LastScored;
+	private String team2LastScored;
+	private String clearLastScored;
 	private int shotTime;
 	private int passTime;
 	private int timeOutTime;
@@ -116,6 +119,9 @@ public class Settings {
 		defaultProps.setProperty("WinnerPrefix", "Match Winner: ");
 		defaultProps.setProperty("WinnerSuffix", "!!!");
 		defaultProps.setProperty("Meatball", "Meatball!!!");
+		defaultProps.setProperty("Team1LastScored", "<--- Last Scored");
+		defaultProps.setProperty("Team2LastScored", "Last Scored --->");
+		defaultProps.setProperty("ClearLastScored", "Last Scored");
 		defaultProps.setProperty("ShotTime", "15");
 		defaultProps.setProperty("PassTime", "10");
 		defaultProps.setProperty("TimeOutTime", "30");
@@ -208,6 +214,9 @@ public class Settings {
 	public String getWinnerPrefix() {return winnerPrefix;}
 	public String getWinnerSuffix() {return winnerSuffix;}
 	public String getMeatball() {return meatball;}
+	public String getTeam1LastScored() {return team1LastScored;}
+	public String getTeam2LastScored() {return team2LastScored;}
+	public String getClearLastScored() {return clearLastScored;}
 	public int getShotTime() {return shotTime;}
 	public int getPassTime() {return passTime;}
 	public int getTimeOutTime() {return timeOutTime;}
@@ -330,6 +339,18 @@ public class Settings {
 	public void setMeatball(String meatball) {
 		this.meatball = meatball;
 		configProps.setProperty("Meatball", this.meatball);
+	}
+	public void setTeam1LastScored(String team1LastScored) {
+		this.team1LastScored = team1LastScored;
+		configProps.setProperty("Team1LastScored", this.team1LastScored);
+	}
+	public void setTeam2LastScored(String team2LastScored) {
+		this.team2LastScored = team2LastScored;
+		configProps.setProperty("Team2LastScored", this.team2LastScored);
+	}
+	public void setClearLastScored(String clearLastScored) {
+		this.clearLastScored = clearLastScored;
+		configProps.setProperty("ClearLastScored", this.clearLastScored);
 	}
 	public void setShotTime(int shotTime) {
 		this.shotTime = shotTime;
@@ -633,6 +654,9 @@ public class Settings {
 	public String getDefaultWinnerPrefix() {return defaultProps.getProperty("WinnerPrefix");}
 	public String getDefaultWinnerSuffix() {return defaultProps.getProperty("WinnerSuffix");}
 	public String getDefaultMeatball() {return defaultProps.getProperty("Meatball");}
+	public String getDefaultTeam1LastScored() {return defaultProps.getProperty("Team1LastScored");}
+	public String getDefaultTeam2LastScored() {return defaultProps.getProperty("Team2LastScored");}
+	public String getDefaultClearLastScored() {return defaultProps.getProperty("ClearLastScored");}
 	public int getDefaultShotTime() {return Integer.parseInt(defaultProps.getProperty("ShotTime"));}
 	public int getDefaultPassTime() {return Integer.parseInt(defaultProps.getProperty("PassTime"));}
 	public int getDefaultTimeOutTime() {return Integer.parseInt(defaultProps.getProperty("TimeOutTime"));}
@@ -726,6 +750,9 @@ public class Settings {
 		winnerPrefix = configProps.getProperty("WinnerPrefix");
 		winnerSuffix = configProps.getProperty("WinnerSuffix");
 		meatball = configProps.getProperty("Meatball");
+		team1LastScored = configProps.getProperty("Team1LastScored");
+		team2LastScored = configProps.getProperty("Team2LastScored");
+		clearLastScored = configProps.getProperty("ClearLastScored");
 		shotTime = Integer.parseInt(configProps.getProperty("ShotTime"));
 		passTime = Integer.parseInt(configProps.getProperty("PassTime"));
 		timeOutTime = Integer.parseInt(configProps.getProperty("TimeOutTime"));
@@ -821,6 +848,9 @@ public class Settings {
 		configProps.setProperty("WinnerPrefix", this.getWinnerPrefix());
 		configProps.setProperty("WinnerSuffix", this.getWinnerSuffix());
 		configProps.setProperty("Meatball",  this.getMeatball());
+		configProps.setProperty("Team1LastScored", getTeam1LastScored());
+		configProps.setProperty("Team2LastScored", getTeam2LastScored());
+		configProps.setProperty("ClearLastScored", getClearLastScored());
 		configProps.setProperty("ShotTime", Integer.toString(this.getShotTime()));
 		configProps.setProperty("PassTime", Integer.toString(this.getPassTime()));
 		configProps.setProperty("TimeOutTime", Integer.toString(this.getTimeOutTime()));

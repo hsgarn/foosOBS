@@ -36,10 +36,13 @@ public class SettingsJPanel extends JPanel {
 	private JTextField txtRecallTime;
 	private JTextField txtMeatball;
 	private JCheckBox chckbxShowTimeOutsUsed;
+	private JTextField txtTeam1LastScored;
+	private JTextField txtTeam2LastScored;
+	private JTextField txtClearLastScored;
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
 
-		setLayout(new MigLayout("", "[119.00][50.00:87.00,left][78.00,grow][grow][]", "[][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[119.00][50.00:87.00,grow,left][78.00,grow][grow][]", "[][][][][][][][][][][][][][][][][][]"));
 		
 		JLabel lblParameter = new JLabel("Parameter");
 		lblParameter.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -137,8 +140,32 @@ public class SettingsJPanel extends JPanel {
 		add(txtRecallTime, "cell 3 5,growx,aligny top");
 		txtRecallTime.setColumns(10);
 		
+		JLabel lblTeam1LastScored = new JLabel("Team 1 Last Scored");
+		add(lblTeam1LastScored, "cell 0 6,alignx trailing");
+		
+		txtTeam1LastScored = new JTextField();
+		txtTeam1LastScored.setText(foosObsSettings.getTeam1LastScored());
+		add(txtTeam1LastScored, "cell 1 6,growx");
+		txtTeam1LastScored.setColumns(10);
+
+		JLabel lblTeam2LastScored = new JLabel("Team 2 Last Scored");
+		add(lblTeam2LastScored, "cell 2 6,alignx trailing");
+		
+		txtTeam2LastScored = new JTextField();
+		txtTeam2LastScored.setText(foosObsSettings.getTeam2LastScored());
+		add(txtTeam2LastScored, "cell 3 6,growx");
+		txtTeam2LastScored.setColumns(10);
+		
+		JLabel lblClearLastScored = new JLabel("Clear Last Scored");
+		add(lblClearLastScored, "cell 0 7,alignx trailing");
+		
+		txtClearLastScored = new JTextField();
+		txtClearLastScored.setText(foosObsSettings.getClearLastScored());
+		add(txtClearLastScored, "cell 1 7,growx");
+		txtClearLastScored.setColumns(10);
+		
 		JLabel lblAutoIncrementGame = new JLabel("Auto Increment Game");
-		add(lblAutoIncrementGame, "cell 0 7,alignx right");
+		add(lblAutoIncrementGame, "cell 0 11,alignx right");
 		
 		chckbxAutoIncrementGame = new JCheckBox("");
 		if (Integer.toString(foosObsSettings.getAutoIncrementGame()).equals("1")) {
@@ -146,16 +173,16 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxAutoIncrementGame.setSelected(false);
 		}
-		add(chckbxAutoIncrementGame, "cell 1 7");
+		add(chckbxAutoIncrementGame, "cell 1 11");
 		
 		JLabel lblWinnerPrefix = new JLabel("Winner Prefix");
-		add(lblWinnerPrefix, "cell 2 7,alignx center");
+		add(lblWinnerPrefix, "cell 2 11,alignx center");
 		
 		JLabel lblWinnerSuffix = new JLabel("Winner Suffix");
-		add(lblWinnerSuffix, "cell 3 7,alignx center");
+		add(lblWinnerSuffix, "cell 3 11,alignx center");
 		
 		JLabel lblAnnounceWinner = new JLabel("Announce Winner");
-		add(lblAnnounceWinner, "cell 0 8,alignx right");
+		add(lblAnnounceWinner, "cell 0 12,alignx right");
 		
 		chckbxAnnounceWinner = new JCheckBox("");
 		if (Integer.toString(foosObsSettings.getAnnounceWinner()).equals("1")) {
@@ -163,7 +190,7 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxAnnounceWinner.setSelected(false);
 		}
-		add(chckbxAnnounceWinner, "cell 1 8,alignx left");
+		add(chckbxAnnounceWinner, "cell 1 12,alignx left");
 		
 		JButton btnFiles = new JButton("Files...");
 		btnFiles.addActionListener(new ActionListener() {
@@ -190,21 +217,21 @@ public class SettingsJPanel extends JPanel {
 		btnFiles.setForeground(Color.BLACK);
 		btnFiles.setBackground(Color.CYAN);
 		btnFiles.setBounds(92, 100, 125, 23);
-		add(btnFiles, "cell 0 12,growx");
+		add(btnFiles, "cell 0 16,growx");
 
 		txtWinnerPrefix = new JTextField();
 		txtWinnerPrefix.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtWinnerPrefix.setText(foosObsSettings.getWinnerPrefix());
-		add(txtWinnerPrefix, "cell 2 8,alignx center");
+		add(txtWinnerPrefix, "cell 2 12,alignx center");
 		txtWinnerPrefix.setColumns(10);
 		
 		txtWinnerSuffix = new JTextField();
 		txtWinnerSuffix.setText(foosObsSettings.getWinnerSuffix());
-		add(txtWinnerSuffix, "cell 3 8,growx,aligny top");
+		add(txtWinnerSuffix, "cell 3 12,growx,aligny top");
 		txtWinnerSuffix.setColumns(10);
 		
 		JLabel lblAnnounceMeatball = new JLabel("Announce Meatball");
-		add(lblAnnounceMeatball, "cell 0 9,alignx right");
+		add(lblAnnounceMeatball, "cell 0 13,alignx right");
 		
 		chckbxAnnounceMeatball = new JCheckBox("");
 		if (Integer.toString(foosObsSettings.getAnnounceMeatball()).equals("1")) {
@@ -212,16 +239,16 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxAnnounceMeatball.setSelected(false);
 		}
-		add(chckbxAnnounceMeatball, "cell 1 9,alignx left");
+		add(chckbxAnnounceMeatball, "cell 1 13,alignx left");
 		
 		txtMeatball = new JTextField();
 		txtMeatball.setHorizontalAlignment(SwingConstants.CENTER);
 		txtMeatball.setText(foosObsSettings.getMeatball());
-		add(txtMeatball, "cell 2 9,alignx center");
+		add(txtMeatball, "cell 2 13,alignx center");
 		txtMeatball.setColumns(10);
 		
 		JLabel lblShowTimeOutsUsed = new JLabel("Show Time Outs Used");
-		add(lblShowTimeOutsUsed, "cell 0 10,alignx right");
+		add(lblShowTimeOutsUsed, "cell 0 14,alignx right");
 		
 		chckbxShowTimeOutsUsed = new JCheckBox("");
 		if (Integer.toString(foosObsSettings.getShowTimeOutsUsed()).equals("1")) {
@@ -229,7 +256,7 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxShowTimeOutsUsed.setSelected(false);
 		}
-		add(chckbxShowTimeOutsUsed, "cell 1 10");
+		add(chckbxShowTimeOutsUsed, "cell 1 14");
 		
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
@@ -262,8 +289,8 @@ public class SettingsJPanel extends JPanel {
 		btnHotKeys.setForeground(Color.BLACK);
 		btnHotKeys.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnHotKeys.setBackground(Color.CYAN);
-		add(btnHotKeys, "cell 0 13,growx");
-		add(btnSave, "cell 1 13,alignx center");
+		add(btnHotKeys, "cell 0 17,growx");
+		add(btnSave, "cell 1 17,alignx center");
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -271,7 +298,7 @@ public class SettingsJPanel extends JPanel {
 				cancelSettings(settingsFrame);
 			}
 		});
-		add(btnCancel, "cell 2 13,alignx center");
+		add(btnCancel, "cell 2 17,alignx center");
 		
 		JButton btnRestoreDefaults = new JButton("Restore Defaults");
 		btnRestoreDefaults.addActionListener(new ActionListener() {
@@ -280,7 +307,7 @@ public class SettingsJPanel extends JPanel {
 			}
 		});
 		btnRestoreDefaults.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(btnRestoreDefaults, "cell 3 13,alignx center");
+		add(btnRestoreDefaults, "cell 3 17,alignx center");
 	}
 
 	private void restoreDefaults(Settings foosObsSettings) {
@@ -317,6 +344,9 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxShowTimeOutsUsed.setSelected(false);
 		}
+		txtTeam1LastScored.setText(foosObsSettings.getDefaultTeam1LastScored());
+		txtTeam2LastScored.setText(foosObsSettings.getDefaultTeam2LastScored());
+		txtClearLastScored.setText(foosObsSettings.getDefaultClearLastScored());
 	}
 	
 	private void saveSettings(Settings foosObsSettings, JFrame settingsFrame) {
@@ -353,7 +383,11 @@ public class SettingsJPanel extends JPanel {
 		foosObsSettings.setMeatball(txtMeatball.getText());
 		foosObsSettings.setWinnerPrefix(txtWinnerPrefix.getText());
 		foosObsSettings.setWinnerSuffix(txtWinnerSuffix.getText());
-    	if (isValidInteger(txtShotTime.getText())) {
+		foosObsSettings.setTeam1LastScored(txtTeam1LastScored.getText());
+		foosObsSettings.setTeam2LastScored(txtTeam2LastScored.getText());
+		foosObsSettings.setClearLastScored(txtClearLastScored.getText());
+
+		if (isValidInteger(txtShotTime.getText())) {
     		foosObsSettings.setShotTime(Integer.parseInt(txtShotTime.getText()));
     	}
     	if (isValidInteger(txtPassTime.getText())) {
