@@ -205,6 +205,28 @@ public class MainJPanel extends JPanel {
 		txtEventName.setColumns(10);
 		
 		JButton btnAbout = new JButton("About");
+		btnAbout.setFont(new Font("Tahoma", Font.BOLD, 11));
+		btnAbout.setBackground(Color.CYAN);
+		btnAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JFrame aboutFrame = new JFrame("About Foos OBS");
+				aboutFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+				
+				AboutJPanel pnl;
+//				try {
+					aboutFrame.setAlwaysOnTop(true);
+					pnl = new AboutJPanel(aboutFrame);
+					pnl.setPreferredSize(new Dimension(270, 90));
+
+					aboutFrame.getContentPane().add(pnl);
+					aboutFrame.pack();
+					aboutFrame.setVisible(true);
+
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+			}
+		});
 		add(btnAbout, "cell 6 4,growx,aligny top");
 		
 		JLabel lblTeam1 = new JLabel("Team 1 Name(s):");
@@ -933,7 +955,7 @@ public class MainJPanel extends JPanel {
 				JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
 				timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
-//				timerWindowFrame.setAlwaysOnTop(true);
+				timerWindowFrame.setAlwaysOnTop(true);
 				if (lblTimerDisplay == null) {
 					System.out.println("lblTimerDisplay is null");
 				}
