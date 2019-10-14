@@ -354,6 +354,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnGameCount1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (txtGameCount1.getText().isEmpty()) {
+					txtGameCount1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtGameCount1.getText())) {
 		    		decrementGameCount1();
 		    	}
@@ -369,6 +372,9 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
+					if (txtGameCount1.getText().isEmpty()) {
+						txtGameCount1.setText(Integer.toString(0));
+					}
 			    	if (isValidInteger(txtGameCount1.getText())) {
 				    	writeGameCount1();			    		
 			    	}
@@ -378,6 +384,9 @@ public class MainJPanel extends JPanel {
 		txtGameCount1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
+				if (txtGameCount1.getText().isEmpty()) {
+					txtGameCount1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtGameCount1.getText())) {
 		    		writeGameCount1();
 		    	}
@@ -394,6 +403,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnGameCount1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtGameCount1.getText().isEmpty()) {
+					txtGameCount1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtGameCount1.getText())) {
 		    		incrementGameCount1();
 		    	}
@@ -422,6 +434,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnGameCount2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtGameCount2.getText().isEmpty()) {
+					txtGameCount2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtGameCount2.getText())) {
 		    		decrementGameCount2();
 		    	}
@@ -446,6 +461,9 @@ public class MainJPanel extends JPanel {
 		txtGameCount2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
+				if (txtGameCount2.getText().isEmpty()) {
+					txtGameCount2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtGameCount2.getText())) {
 		    		writeGameCount2();
 		    	}
@@ -462,6 +480,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnGameCount2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtGameCount2.getText().isEmpty()) {
+					txtGameCount2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtGameCount2.getText())) {
 		    		incrementGameCount2();
 		    	}
@@ -483,6 +504,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnScore1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtScore1.getText().isEmpty()) {
+					txtScore1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtScore1.getText())) {
 		    		decrementScore1();
 		    	}
@@ -499,6 +523,9 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
+					if (txtScore1.getText().isEmpty()) {
+						txtScore1.setText(Integer.toString(0));
+					}
 			    	if (isValidInteger(txtScore1.getText())) {
 			    		writeScore1();
 			    	}
@@ -508,6 +535,9 @@ public class MainJPanel extends JPanel {
 		txtScore1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
+				if (txtScore1.getText().isEmpty()) {
+					txtScore1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtScore1.getText())) {
 		    		writeScore1();
 		    	}
@@ -524,6 +554,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnScore1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtScore1.getText().isEmpty()) {
+					txtScore1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtScore1.getText())) {
 		    		incrementScore1();
 		    	}
@@ -552,6 +585,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnScore2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtScore2.getText().isEmpty()) {
+					txtScore2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtScore2.getText())) {
 		    		decrementScore2();
 		    	}
@@ -566,6 +602,9 @@ public class MainJPanel extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
+				if (txtScore2.getText().isEmpty()) {
+					txtScore2.setText(Integer.toString(0));
+				}
 			    if (key == KeyEvent.VK_ENTER) {
 			    	if (isValidInteger(txtScore2.getText())) {
 			    		writeScore2();
@@ -576,6 +615,9 @@ public class MainJPanel extends JPanel {
 		txtScore2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
+				if (txtScore2.getText().isEmpty()) {
+					txtScore2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtScore2.getText())) {
 		    		writeScore2();
 		    	}
@@ -592,6 +634,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnScore2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtScore2.getText().isEmpty()) {
+					txtScore2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtScore2.getText())) {
 		    		incrementScore2();
 		    	}
@@ -613,6 +658,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnTimeOut1Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				if (txtTimeOut1.getText().isEmpty()) {
+					txtTimeOut1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtTimeOut1.getText())) {
 		    		decrementTimeOut1();
 		    	}
@@ -628,6 +676,9 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
+					if (txtTimeOut1.getText().isEmpty()) {
+						txtTimeOut1.setText(Integer.toString(0));
+					}
 			    	if (isValidInteger(txtTimeOut1.getText())) {
 			    		writeTimeOut1();
 			    	}
@@ -637,6 +688,9 @@ public class MainJPanel extends JPanel {
 		txtTimeOut1.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
+				if (txtTimeOut1.getText().isEmpty()) {
+					txtTimeOut1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtTimeOut1.getText())) {
 		    		writeTimeOut1();
 		    	}
@@ -653,6 +707,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnTimeOut1Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtTimeOut1.getText().isEmpty()) {
+					txtTimeOut1.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtTimeOut1.getText())) {
 		    		incrementTimeOut1();
 		    	}
@@ -681,6 +738,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnTimeOut2Minus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtTimeOut2.getText().isEmpty()) {
+					txtTimeOut2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtTimeOut2.getText())) {
 		    		decrementTimeOut2();
 		    	}
@@ -696,6 +756,9 @@ public class MainJPanel extends JPanel {
 			public void keyPressed(KeyEvent evt) {
 				int key = evt.getKeyCode();
 			    if (key == KeyEvent.VK_ENTER) {
+					if (txtTimeOut2.getText().isEmpty()) {
+						txtTimeOut2.setText(Integer.toString(0));
+					}
 			    	if (isValidInteger(txtTimeOut2.getText())) {
 			    		writeTimeOut2();
 			    	}
@@ -705,6 +768,9 @@ public class MainJPanel extends JPanel {
 		txtTimeOut2.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusLost(FocusEvent arg0) {
+				if (txtTimeOut2.getText().isEmpty()) {
+					txtTimeOut2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtTimeOut2.getText())) {
 		    		writeTimeOut2();
 		    	}
@@ -721,6 +787,9 @@ public class MainJPanel extends JPanel {
 		};
 		btnTimeOut2Plus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if (txtTimeOut2.getText().isEmpty()) {
+					txtTimeOut2.setText(Integer.toString(0));
+				}
 		    	if (isValidInteger(txtTimeOut2.getText())) {
 		    		incrementTimeOut2();
 		    	}
@@ -1288,6 +1357,9 @@ public class MainJPanel extends JPanel {
 
 	private void decrementGameCount1() {
 		int num1;
+		if (txtGameCount1.getText().isEmpty()) {
+			txtGameCount1.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtGameCount1.getText());
 		num1=num1-1;
 		if (num1<0) {
@@ -1297,6 +1369,9 @@ public class MainJPanel extends JPanel {
 		writeGameCount1();
 		clearMatchWinner();
 		if (foosObsSettings.getAnnounceWinner()==1) {
+			if (txtGameCount2.getText().isEmpty()) {
+				txtGameCount2.setText(Integer.toString(0));
+			}
 			if(Integer.parseInt(txtGameCount2.getText()) == foosObsSettings.getGamesToWin()) {
 				writeMatchWinner(foosObsSettings.getWinnerPrefix() + txtTeam2.getText() + foosObsSettings.getWinnerSuffix());
 			}
@@ -1305,6 +1380,9 @@ public class MainJPanel extends JPanel {
 
 	private void incrementGameCount1() {
 		int num1;
+		if (txtGameCount1.getText().isEmpty()) {
+			txtGameCount1.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtGameCount1.getText());
 		num1=num1+1;
 		if (num1>foosObsSettings.getGamesToWin()) {
@@ -1330,6 +1408,9 @@ public class MainJPanel extends JPanel {
 	
 	private void decrementGameCount2() {
 		int num1;
+		if (txtGameCount2.getText().isEmpty()) {
+			txtGameCount2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtGameCount2.getText());
 		num1=num1-1;
 		if (num1<0) {
@@ -1339,6 +1420,9 @@ public class MainJPanel extends JPanel {
 		writeGameCount2();
 		clearMatchWinner();
 		if (foosObsSettings.getAnnounceWinner()==1) {
+			if (txtGameCount1.getText().isEmpty()) {
+				txtGameCount1.setText(Integer.toString(0));
+			}
 			if(Integer.parseInt(txtGameCount1.getText()) == foosObsSettings.getGamesToWin()) {
 				writeMatchWinner(foosObsSettings.getWinnerPrefix() + txtTeam1.getText() + foosObsSettings.getWinnerSuffix());
 			}
@@ -1347,6 +1431,9 @@ public class MainJPanel extends JPanel {
 
 	private void incrementGameCount2() {
 		int num1;
+		if (txtGameCount2.getText().isEmpty()) {
+			txtGameCount2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtGameCount2.getText());
 		num1=num1+1;
 		if (num1>foosObsSettings.getGamesToWin()) {
@@ -1371,6 +1458,9 @@ public class MainJPanel extends JPanel {
 	
 	private void decrementScore1() {
 		int num1;
+		if (txtScore1.getText().isEmpty()) {
+			txtScore1.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtScore1.getText());
 		num1=num1-1;
 		if (num1<0) {
@@ -1379,11 +1469,23 @@ public class MainJPanel extends JPanel {
 		txtScore1.setText(Integer.toString(num1));
 		resetLastScored();
 		writeScore1();
+		if (txtScore2.getText().isEmpty()) {
+			txtScore2.setText(Integer.toString(0));
+		}
+		if (txtGameCount1.getText().isEmpty()) {
+			txtGameCount1.setText(Integer.toString(0));
+		}
+		if (txtGameCount2.getText().isEmpty()) {
+			txtGameCount2.setText(Integer.toString(0));
+		}
 		checkMeatball(num1, Integer.parseInt(txtScore2.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 
 	private void incrementScore1() {
 		int num1;
+		if (txtScore1.getText().isEmpty()) {
+			txtScore1.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtScore1.getText());
 		num1=num1+1;
 		txtScore1.setText(Integer.toString(num1));
@@ -1396,6 +1498,15 @@ public class MainJPanel extends JPanel {
 			resetTimeOuts();
 		};
 		writeScore1();
+		if (txtScore2.getText().isEmpty()) {
+			txtScore2.setText(Integer.toString(0));
+		}
+		if (txtGameCount1.getText().isEmpty()) {
+			txtGameCount1.setText(Integer.toString(0));
+		}
+		if (txtGameCount2.getText().isEmpty()) {
+			txtGameCount2.setText(Integer.toString(0));
+		}
 		checkMeatball(num1, Integer.parseInt(txtScore2.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 	private boolean checkIfGameWon(int points1, int points2) {
@@ -1420,6 +1531,9 @@ public class MainJPanel extends JPanel {
 
 	private void decrementScore2() {
 		int num1;
+		if (txtScore2.getText().isEmpty()) {
+			txtScore2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtScore2.getText());
 		num1=num1-1;
 		if (num1<0) {
@@ -1428,11 +1542,23 @@ public class MainJPanel extends JPanel {
 		txtScore2.setText(Integer.toString(num1));
 		resetLastScored();
 		writeScore2();
+		if (txtScore1.getText().isEmpty()) {
+			txtScore1.setText(Integer.toString(0));
+		}
+		if (txtGameCount1.getText().isEmpty()) {
+			txtGameCount1.setText(Integer.toString(0));
+		}
+		if (txtGameCount2.getText().isEmpty()) {
+			txtGameCount2.setText(Integer.toString(0));
+		}
 		checkMeatball(num1, Integer.parseInt(txtScore1.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 
 	private void incrementScore2() {
 		int num1;
+		if (txtScore2.getText().isEmpty()) {
+			txtScore2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtScore2.getText());
 		num1=num1+1;
 		txtScore2.setText(Integer.toString(num1));
@@ -1445,6 +1571,15 @@ public class MainJPanel extends JPanel {
 			resetTimeOuts();
 		};
 		writeScore2();
+		if (txtScore1.getText().isEmpty()) {
+			txtScore1.setText(Integer.toString(0));
+		}
+		if (txtGameCount1.getText().isEmpty()) {
+			txtGameCount1.setText(Integer.toString(0));
+		}
+		if (txtGameCount2.getText().isEmpty()) {
+			txtGameCount2.setText(Integer.toString(0));
+		}
 		checkMeatball(num1, Integer.parseInt(txtScore1.getText()), Integer.parseInt(txtGameCount1.getText()), Integer.parseInt(txtGameCount2.getText()));
 	}
 	
@@ -1572,6 +1707,9 @@ public class MainJPanel extends JPanel {
 
 	private void decrementTimeOut1() {
 		int num1;
+		if (txtTimeOut1.getText().isEmpty()) {
+			txtTimeOut1.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtTimeOut1.getText());
 		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
 			num1=num1+1;
@@ -1594,6 +1732,9 @@ public class MainJPanel extends JPanel {
 
 	private void decrementTimeOut2() {
 		int num1;
+		if (txtTimeOut2.getText().isEmpty()) {
+			txtTimeOut2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtTimeOut2.getText());
 		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
 			num1=num1+1;
@@ -1624,6 +1765,9 @@ public class MainJPanel extends JPanel {
 	
 	private void incrementTimeOut1() {
 		int num1;
+		if (txtTimeOut1.getText().isEmpty()) {
+			txtTimeOut1.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtTimeOut1.getText());
 		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
 			num1=num1-1;
@@ -1643,6 +1787,9 @@ public class MainJPanel extends JPanel {
 	
 	private void incrementTimeOut2() {
 		int num1;
+		if (txtTimeOut2.getText().isEmpty()) {
+			txtTimeOut2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtTimeOut2.getText());
 		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
 			num1=num1-1;

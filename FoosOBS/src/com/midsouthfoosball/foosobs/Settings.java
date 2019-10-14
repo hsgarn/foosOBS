@@ -2,6 +2,7 @@ package com.midsouthfoosball.foosobs;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -734,9 +735,15 @@ public class Settings {
 	
 	public void loadFromConfig() throws IOException {
 
-		InputStream inputStream = new FileInputStream(configFile);
-		configProps.load(inputStream);
-		inputStream.close();
+		try {
+			InputStream inputStream = new FileInputStream(configFile);
+			configProps.load(inputStream);
+			inputStream.close();
+		} catch (FileNotFoundException e) {
+			configFile.createNewFile();
+			loadFromConfig();
+			saveToConfig();
+		}
 		
 		datapath = configProps.getProperty("datapath");
 		pointsToWin = Integer.parseInt(configProps.getProperty("PointsToWin"));
