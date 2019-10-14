@@ -1,7 +1,5 @@
 package com.midsouthfoosball.foosobs;
 
-import java.awt.Font;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
