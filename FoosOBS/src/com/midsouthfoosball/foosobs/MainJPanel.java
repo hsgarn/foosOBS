@@ -1,3 +1,23 @@
+/**
+Copyright 2019 Hugh Garner
+Permission is hereby granted, free of charge, to any person obtaining a copy 
+of this software and associated documentation files (the "Software"), to deal 
+in the Software without restriction, including without limitation the rights 
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell 
+copies of the Software, and to permit persons to whom the Software is 
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in 
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL 
+THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR 
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
+OTHER DEALINGS IN THE SOFTWARE.  
+**/
 package com.midsouthfoosball.foosobs;
 
 import javax.swing.JPanel;
@@ -71,6 +91,7 @@ public class MainJPanel extends JPanel {
 	JFrame f;
 	private JTextField txtLastScored;
 	private static TimerWindowJPanel twjp;
+	private JFrame timerWindowFrame;
 	private int displayWidth = 9;
 	private int prefixWidth;
 	private int suffixWidth = 3;
@@ -216,7 +237,7 @@ public class MainJPanel extends JPanel {
 //				try {
 					aboutFrame.setAlwaysOnTop(true);
 					pnl = new AboutJPanel(aboutFrame);
-					pnl.setPreferredSize(new Dimension(270, 90));
+					pnl.setPreferredSize(new Dimension(700, 400));
 
 					aboutFrame.getContentPane().add(pnl);
 					aboutFrame.pack();
@@ -1021,13 +1042,10 @@ public class MainJPanel extends JPanel {
 		btnTimerWindow.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				JFrame timerWindowFrame = new JFrame("Foos OBS Timer Window");
+				timerWindowFrame = new JFrame("Foos OBS Timer Window");
 				timerWindowFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 				
 				timerWindowFrame.setAlwaysOnTop(true);
-				if (lblTimerDisplay == null) {
-					System.out.println("lblTimerDisplay is null");
-				}
 				twjp = new TimerWindowJPanel(lblTimerDisplay.getText().trim(), lblTimerDisplay.getBackground());
 				twjp.setPreferredSize(new Dimension(256, 70));
 
@@ -1037,7 +1055,7 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		add(btnTimerWindow, "cell 0 21");
-
+		
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
 		add(lblRecallTimer, "cell 5 21,alignx right");
 		
