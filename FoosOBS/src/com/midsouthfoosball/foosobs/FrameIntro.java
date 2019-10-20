@@ -31,6 +31,8 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class FrameIntro {
 
@@ -71,7 +73,32 @@ public class FrameIntro {
 		frmFoosOBSIntro.getContentPane().setLayout(null);
 		
 		JButton btnContinue = new JButton("Continue");
-		btnContinue.addActionListener(new ActionListener() {
+		btnContinue.addKeyListener(new KeyAdapter() {
+ 			public void keyReleased(KeyEvent arg0) {
+
+				frmFoosOBSIntro.dispose();
+
+				JFrame f = new JFrame("Foos OBS");
+				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+				MainJPanel p;
+				try {
+					f.setAlwaysOnTop(true);
+					p = new MainJPanel(f);
+					p.setPreferredSize(new Dimension(850, 600));
+
+					f.getContentPane().add(p);
+					f.pack();
+					f.setVisible(true);
+
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			});
+			btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoosOBSIntro.dispose();
 
