@@ -45,6 +45,7 @@ public class Settings {
 	private String team1LastScored;
 	private String team2LastScored;
 	private String clearLastScored;
+	private String nameSeparator;
 	private int shotTime;
 	private int passTime;
 	private int timeOutTime;
@@ -52,6 +53,7 @@ public class Settings {
 	private int recallTime;
 	private String meatball;
 	private int showTimeOutsUsed;
+	private int autoCapNames;
 	private String logoImageURL;
 	private String logoLinkURI;
 
@@ -143,12 +145,14 @@ public class Settings {
 		defaultProps.setProperty("Team1LastScored", "<--- Last Scored");
 		defaultProps.setProperty("Team2LastScored", "Last Scored --->");
 		defaultProps.setProperty("ClearLastScored", "Last Scored");
+		defaultProps.setProperty("NameSeparator","/");
 		defaultProps.setProperty("ShotTime", "15");
 		defaultProps.setProperty("PassTime", "10");
 		defaultProps.setProperty("TimeOutTime", "30");
 		defaultProps.setProperty("GameTime", "90");
 		defaultProps.setProperty("RecallTime", "10");
 		defaultProps.setProperty("ShowTimeOutsUsed", "1");
+		defaultProps.setProperty("AutoCapNames",  "1");
 		defaultProps.setProperty("LogoImageURL", "/imgs/MidsouthFoosballLogo4.png");
 		defaultProps.setProperty("LogoLinkURI", "https://www.facebook.com/midsouthfoosball");
 
@@ -238,12 +242,14 @@ public class Settings {
 	public String getTeam1LastScored() {return team1LastScored;}
 	public String getTeam2LastScored() {return team2LastScored;}
 	public String getClearLastScored() {return clearLastScored;}
+	public String getNameSeparator() {return nameSeparator;}
 	public int getShotTime() {return shotTime;}
 	public int getPassTime() {return passTime;}
 	public int getTimeOutTime() {return timeOutTime;}
 	public int getGameTime() {return gameTime;}
 	public int getRecallTime() {return recallTime;}
 	public int getShowTimeOutsUsed() {return showTimeOutsUsed;}
+	public int getAutoCapNames() {return autoCapNames;}
 	public String getLogoImageURL() {return logoImageURL;}
 	public String getLogoLinkURI() {return logoLinkURI;}
 
@@ -373,6 +379,10 @@ public class Settings {
 		this.clearLastScored = clearLastScored;
 		configProps.setProperty("ClearLastScored", this.clearLastScored);
 	}
+	public void setNameSeparator(String nameSeparator) {
+		this.nameSeparator = nameSeparator;
+		configProps.setProperty("NameSeparator", this.nameSeparator);
+	}
 	public void setShotTime(int shotTime) {
 		this.shotTime = shotTime;
 		configProps.setProperty("ShotTime", Integer.toString(this.shotTime));
@@ -396,6 +406,10 @@ public class Settings {
 	public void setShowTimeOutsUsed(int showTimeOutsUsed) {
 		this.showTimeOutsUsed = showTimeOutsUsed;
 		configProps.setProperty("ShowTimeOutsUsed", Integer.toString(this.showTimeOutsUsed));
+	}
+	public void setAutoCapNames(int autoCapNames) {
+		this.autoCapNames = autoCapNames;
+		configProps.setProperty("AutoCapNames", Integer.toString(this.autoCapNames));
 	}
 	public void setLogoImageURL(String logoImageURL) {
 		this.logoImageURL = logoImageURL;
@@ -678,12 +692,14 @@ public class Settings {
 	public String getDefaultTeam1LastScored() {return defaultProps.getProperty("Team1LastScored");}
 	public String getDefaultTeam2LastScored() {return defaultProps.getProperty("Team2LastScored");}
 	public String getDefaultClearLastScored() {return defaultProps.getProperty("ClearLastScored");}
+	public String getDefaultNameSeparator() {return defaultProps.getProperty("NameSeparator");}
 	public int getDefaultShotTime() {return Integer.parseInt(defaultProps.getProperty("ShotTime"));}
 	public int getDefaultPassTime() {return Integer.parseInt(defaultProps.getProperty("PassTime"));}
 	public int getDefaultTimeOutTime() {return Integer.parseInt(defaultProps.getProperty("TimeOutTime"));}
 	public int getDefaultGameTime() {return Integer.parseInt(defaultProps.getProperty("GameTime"));}
 	public int getDefaultRecallTime() {return Integer.parseInt(defaultProps.getProperty("RecallTime"));}
 	public int getDefaultShowTimeOutsUsed() {return Integer.parseInt(defaultProps.getProperty("ShowTimeOutsUsed"));}
+	public int getDefaultAutoCapNames() {return Integer.parseInt(defaultProps.getProperty("AutoCapNames"));}
 	public String getDefaultLogoImageURL() {return defaultProps.getProperty("LogoImageURL");}
 	public String getDefaultLogoLinkURI() {return defaultProps.getProperty("LogoLinkURI");}
 	
@@ -780,12 +796,14 @@ public class Settings {
 		team1LastScored = configProps.getProperty("Team1LastScored");
 		team2LastScored = configProps.getProperty("Team2LastScored");
 		clearLastScored = configProps.getProperty("ClearLastScored");
+		nameSeparator = configProps.getProperty("NameSeparator");
 		shotTime = Integer.parseInt(configProps.getProperty("ShotTime"));
 		passTime = Integer.parseInt(configProps.getProperty("PassTime"));
 		timeOutTime = Integer.parseInt(configProps.getProperty("TimeOutTime"));
 		gameTime = Integer.parseInt(configProps.getProperty("GameTime"));
 		recallTime = Integer.parseInt(configProps.getProperty("RecallTime"));
 		showTimeOutsUsed = Integer.parseInt(configProps.getProperty("ShowTimeOutsUsed"));
+		autoCapNames = Integer.parseInt(configProps.getProperty("AutoCapNames"));
 		logoImageURL = configProps.getProperty("LogoImageURL");
 		if (logoImageURL.isEmpty()) {
 			logoImageURL = this.getDefaultLogoImageURL();
@@ -878,12 +896,14 @@ public class Settings {
 		configProps.setProperty("Team1LastScored", getTeam1LastScored());
 		configProps.setProperty("Team2LastScored", getTeam2LastScored());
 		configProps.setProperty("ClearLastScored", getClearLastScored());
+		configProps.setProperty("NameSeparator", getNameSeparator());
 		configProps.setProperty("ShotTime", Integer.toString(this.getShotTime()));
 		configProps.setProperty("PassTime", Integer.toString(this.getPassTime()));
 		configProps.setProperty("TimeOutTime", Integer.toString(this.getTimeOutTime()));
 		configProps.setProperty("GameTime", Integer.toString(this.getGameTime()));
 		configProps.setProperty("RecallTime", Integer.toString(this.getRecallTime()));
 		configProps.setProperty("ShowTimeOutsUsed", Integer.toString(this.getShowTimeOutsUsed()));
+		configProps.setProperty("AutoCapNames", Integer.toString(this.getAutoCapNames()));
 //		configProps.setProperty("LogoImageURL", this.getLogoImageURL());
 //		configProps.setProperty("LogoLinkURI", this.getLogoLinkURI());
 

@@ -56,13 +56,15 @@ public class SettingsJPanel extends JPanel {
 	private JTextField txtRecallTime;
 	private JTextField txtMeatball;
 	private JCheckBox chckbxShowTimeOutsUsed;
+	private JCheckBox chckbxAutoCapNames;
 	private JTextField txtTeam1LastScored;
 	private JTextField txtTeam2LastScored;
 	private JTextField txtClearLastScored;
+	private JTextField txtNameSeparator;
 
 	public SettingsJPanel(Settings foosObsSettings, JFrame settingsFrame) throws IOException {
 
-		setLayout(new MigLayout("", "[119.00][50.00:87.00,grow,left][78.00,grow][grow][]", "[][][][][][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[119.00][50.00:87.00,grow,left][78.00,grow][grow][]", "[][][][][][][][][][][][][][][][][][][]"));
 		
 		JLabel lblParameter = new JLabel("Parameter");
 		lblParameter.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -184,6 +186,14 @@ public class SettingsJPanel extends JPanel {
 		add(txtClearLastScored, "cell 1 7,growx");
 		txtClearLastScored.setColumns(10);
 		
+		JLabel lblTeamNameSeparator = new JLabel("Team Name Separator");
+		add(lblTeamNameSeparator, "cell 2 7,alignx trailing");
+		
+		txtNameSeparator = new JTextField();
+		txtNameSeparator.setText(foosObsSettings.getNameSeparator());
+		add(txtNameSeparator, "cell 3 7,alignx left");
+		txtNameSeparator.setColumns(10);
+		
 		JLabel lblAutoIncrementGame = new JLabel("Auto Increment Game");
 		add(lblAutoIncrementGame, "cell 0 11,alignx right");
 		
@@ -237,8 +247,8 @@ public class SettingsJPanel extends JPanel {
 		btnFiles.setForeground(Color.BLACK);
 		btnFiles.setBackground(Color.CYAN);
 		btnFiles.setBounds(92, 100, 125, 23);
-		add(btnFiles, "cell 0 16,growx");
-
+		add(btnFiles, "cell 0 17,growx");
+		
 		txtWinnerPrefix = new JTextField();
 		txtWinnerPrefix.setHorizontalAlignment(SwingConstants.RIGHT);
 		txtWinnerPrefix.setText(foosObsSettings.getWinnerPrefix());
@@ -278,6 +288,17 @@ public class SettingsJPanel extends JPanel {
 		}
 		add(chckbxShowTimeOutsUsed, "cell 1 14");
 		
+		JLabel lblAutoCapitalizeTeam = new JLabel("Auto Capitalize Names");
+		add(lblAutoCapitalizeTeam, "cell 0 15,alignx right");
+		
+		chckbxAutoCapNames = new JCheckBox("");
+		if (Integer.toString(foosObsSettings.getAutoCapNames()).equals("1")) {
+			chckbxAutoCapNames.setSelected(true);
+		} else {
+			chckbxAutoCapNames.setSelected(false);
+		}
+		add(chckbxAutoCapNames, "cell 1 15");
+
 		JButton btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -309,8 +330,8 @@ public class SettingsJPanel extends JPanel {
 		btnHotKeys.setForeground(Color.BLACK);
 		btnHotKeys.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnHotKeys.setBackground(Color.CYAN);
-		add(btnHotKeys, "cell 0 17,growx");
-		add(btnSave, "cell 1 17,alignx center");
+		add(btnHotKeys, "cell 0 18,growx");
+		add(btnSave, "cell 1 18,alignx center");
 		
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -318,7 +339,7 @@ public class SettingsJPanel extends JPanel {
 				cancelSettings(settingsFrame);
 			}
 		});
-		add(btnCancel, "cell 2 17,alignx center");
+		add(btnCancel, "cell 2 18,alignx center");
 		
 		JButton btnRestoreDefaults = new JButton("Restore Defaults");
 		btnRestoreDefaults.addActionListener(new ActionListener() {
@@ -327,7 +348,7 @@ public class SettingsJPanel extends JPanel {
 			}
 		});
 		btnRestoreDefaults.setHorizontalAlignment(SwingConstants.RIGHT);
-		add(btnRestoreDefaults, "cell 3 17,alignx center");
+		add(btnRestoreDefaults, "cell 3 18,alignx center");
 	}
 
 	private void restoreDefaults(Settings foosObsSettings) {
@@ -364,9 +385,15 @@ public class SettingsJPanel extends JPanel {
 		} else {
 			chckbxShowTimeOutsUsed.setSelected(false);
 		}
+		if (Integer.toString(foosObsSettings.getDefaultAutoCapNames()).equals("1")) {
+			chckbxAutoCapNames.setSelected(true);
+		} else {
+			chckbxAutoCapNames.setSelected(false);
+		}
 		txtTeam1LastScored.setText(foosObsSettings.getDefaultTeam1LastScored());
 		txtTeam2LastScored.setText(foosObsSettings.getDefaultTeam2LastScored());
 		txtClearLastScored.setText(foosObsSettings.getDefaultClearLastScored());
+		txtNameSeparator.setText(foosObsSettings.getDefaultNameSeparator());
 	}
 	
 	private void saveSettings(Settings foosObsSettings, JFrame settingsFrame) {
@@ -406,6 +433,7 @@ public class SettingsJPanel extends JPanel {
 		foosObsSettings.setTeam1LastScored(txtTeam1LastScored.getText());
 		foosObsSettings.setTeam2LastScored(txtTeam2LastScored.getText());
 		foosObsSettings.setClearLastScored(txtClearLastScored.getText());
+		foosObsSettings.setNameSeparator(txtNameSeparator.getText());
 
 		if (isValidInteger(txtShotTime.getText())) {
     		foosObsSettings.setShotTime(Integer.parseInt(txtShotTime.getText()));
@@ -426,6 +454,11 @@ public class SettingsJPanel extends JPanel {
 			foosObsSettings.setShowTimeOutsUsed(1);
 		} else {
 			foosObsSettings.setShowTimeOutsUsed(0);
+		}
+		if (chckbxAutoCapNames.isSelected()) {
+			foosObsSettings.setAutoCapNames(1);
+		} else {
+			foosObsSettings.setAutoCapNames(0);
 		}
 		try {
 			foosObsSettings.saveToConfig();
