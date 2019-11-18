@@ -158,6 +158,10 @@ public class MainJPanel extends JPanel {
 			public void focusLost(FocusEvent evt) {
 				writeTournamentName();
 			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtTournamentName.selectAll();
+			}
 		});
 		
 		txtLastScored = new JTextField();
@@ -220,6 +224,10 @@ public class MainJPanel extends JPanel {
 			public void focusLost(FocusEvent arg0) {
 				writeEventName();
 			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtEventName.selectAll();
+			}
 		});
 		txtEventName.setText("DYP #1");
 		add(txtEventName, "flowx,cell 5 4,growx");
@@ -271,6 +279,10 @@ public class MainJPanel extends JPanel {
 			@Override
 			public void focusLost(FocusEvent arg0) {
 		    	writeTeam1Name();
+			}
+			@Override
+			public void focusGained(FocusEvent arg0) {
+				txtTeam1.selectAll();
 			}
 		});
 		add(txtTeam1, "cell 1 7,growx");
@@ -330,6 +342,10 @@ public class MainJPanel extends JPanel {
 			@Override
 			public void focusLost(FocusEvent arg0) {
 		    	writeTeam2Name();
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtTeam2.selectAll();
 			}
 		});
 		add(txtTeam2, "flowx,cell 5 7,growx");
@@ -412,6 +428,10 @@ public class MainJPanel extends JPanel {
 		    		writeGameCount1();
 		    	}
 			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtGameCount1.selectAll();
+			}
 		});
 		add(txtGameCount1, "cell 1 10,growx");
 		txtGameCount1.setColumns(10);
@@ -489,6 +509,10 @@ public class MainJPanel extends JPanel {
 		    		writeGameCount2();
 		    	}
 			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtGameCount2.selectAll();
+			}
 		});
 		add(txtGameCount2, "cell 5 10,growx");
 		txtGameCount2.setColumns(10);
@@ -562,6 +586,10 @@ public class MainJPanel extends JPanel {
 		    	if (isValidInteger(txtScore1.getText())) {
 		    		writeScore1();
 		    	}
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtScore1.selectAll();
 			}
 		});
 		add(txtScore1, "cell 1 12,growx");
@@ -643,6 +671,10 @@ public class MainJPanel extends JPanel {
 		    		writeScore2();
 		    	}
 			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtScore2.selectAll();
+			}
 		});
 		add(txtScore2, "cell 5 12,growx");
 		txtScore2.setColumns(10);
@@ -715,6 +747,10 @@ public class MainJPanel extends JPanel {
 		    	if (isValidInteger(txtTimeOut1.getText())) {
 		    		writeTimeOut1();
 		    	}
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtTimeOut1.selectAll();
 			}
 		});
 		add(txtTimeOut1, "cell 1 14,growx");
@@ -795,6 +831,10 @@ public class MainJPanel extends JPanel {
 		    	if (isValidInteger(txtTimeOut2.getText())) {
 		    		writeTimeOut2();
 		    	}
+			}
+			@Override
+			public void focusGained(FocusEvent e) {
+				txtTimeOut2.selectAll();
 			}
 		});
 		add(txtTimeOut2, "cell 5 14,growx");
@@ -1310,6 +1350,17 @@ public class MainJPanel extends JPanel {
     }
 
 	private void writeTeam1Name() {
+		
+		String team = txtTeam1.getText();
+		int index = team.indexOf("/");
+		if (index>-1) {
+			String player1 = team.substring(0,index);
+			String player2 = team.substring(index+1);
+			txtTeam1.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+"/"+player2.substring(0,1).toUpperCase() + player2.substring(1));
+		} else {
+			txtTeam1.setText(team.substring(0,1).toUpperCase() + team.substring(1));
+		}
+		
 		try {
 			obsInterface.setContents(foosObsSettings.getTeam1FileName(), txtTeam1.getText());
 		} catch (IOException e) {
@@ -1318,11 +1369,19 @@ public class MainJPanel extends JPanel {
 	}
 
 	private void clearTeam1Name() {
-		txtTeam1.setText(null);
 		writeTeam1Name();
 	}
 
 	private void writeTeam2Name() {
+		String team = txtTeam2.getText();
+		int index = team.indexOf("/");
+		if (index>-1) {
+			String player1 = team.substring(0,index);
+			String player2 = team.substring(index+1);
+			txtTeam2.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+"/"+player2.substring(0,1).toUpperCase() + player2.substring(1));
+		} else {
+			txtTeam2.setText(team.substring(0,1).toUpperCase() + team.substring(1));
+		}
 		try {
 			obsInterface.setContents(foosObsSettings.getTeam2FileName(), txtTeam2.getText());
 		} catch (IOException e) {
