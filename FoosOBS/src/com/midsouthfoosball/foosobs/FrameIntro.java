@@ -23,8 +23,6 @@ package com.midsouthfoosball.foosobs;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
@@ -135,16 +133,5 @@ public class FrameIntro {
 		lblFoosObs.setFont(new Font("Tahoma", Font.BOLD, 26));
 		lblFoosObs.setBounds(72, 32, 156, 47);
 		frmFoosOBSIntro.getContentPane().add(lblFoosObs);
-	}
-	private JMenuBar createMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
-		
-		JMenu fileMenu = new JMenu("File");
-		JMenu windowMenu = new JMenu("Window");
-		
-		menuBar.add(fileMenu);
-		menuBar.add(windowMenu);
-		return menuBar;
-		
 	}
 }
