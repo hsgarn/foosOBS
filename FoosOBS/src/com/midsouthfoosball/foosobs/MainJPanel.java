@@ -1350,16 +1350,17 @@ public class MainJPanel extends JPanel {
     }
 
 	private void writeTeam1Name() {
-		
-		if (foosObsSettings.getAutoCapNames()==1) {
-			String team = txtTeam1.getText();
-			int index = team.indexOf(foosObsSettings.getNameSeparator());
-			if (index>-1) {
-				String player1 = team.substring(0,index);
-				String player2 = team.substring(index+1);
-				txtTeam1.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+foosObsSettings.getNameSeparator()+player2.substring(0,1).toUpperCase() + player2.substring(1));
-			} else {
-				txtTeam1.setText(team.substring(0,1).toUpperCase() + team.substring(1));
+		if (txtTeam1.getText().isEmpty()) {} else {
+			if (foosObsSettings.getAutoCapNames()==1) {
+				String team = txtTeam1.getText();
+				int index = team.indexOf(foosObsSettings.getNameSeparator());
+				if (index>-1) {
+					String player1 = team.substring(0,index);
+					String player2 = team.substring(index+1);
+					txtTeam1.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+foosObsSettings.getNameSeparator()+player2.substring(0,1).toUpperCase() + player2.substring(1));
+				} else {
+					txtTeam1.setText(team.substring(0,1).toUpperCase() + team.substring(1));
+				}
 			}
 		}
 		try {
@@ -1370,19 +1371,22 @@ public class MainJPanel extends JPanel {
 	}
 
 	private void clearTeam1Name() {
+		txtTeam1.setText(null);
 		writeTeam1Name();
 	}
 
 	private void writeTeam2Name() {
-		if (foosObsSettings.getAutoCapNames()==1) {
-			String team = txtTeam2.getText();
-			int index = team.indexOf(foosObsSettings.getNameSeparator());
-			if (index>-1) {
-				String player1 = team.substring(0,index);
-				String player2 = team.substring(index+1);
-				txtTeam2.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+foosObsSettings.getNameSeparator()+player2.substring(0,1).toUpperCase() + player2.substring(1));
-			} else {
-				txtTeam2.setText(team.substring(0,1).toUpperCase() + team.substring(1));
+		if (txtTeam2.getText().isEmpty()) {} else {
+			if (foosObsSettings.getAutoCapNames()==1) {
+				String team = txtTeam2.getText();
+				int index = team.indexOf(foosObsSettings.getNameSeparator());
+				if (index>-1) {
+					String player1 = team.substring(0,index);
+					String player2 = team.substring(index+1);
+					txtTeam2.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+foosObsSettings.getNameSeparator()+player2.substring(0,1).toUpperCase() + player2.substring(1));
+				} else {
+					txtTeam2.setText(team.substring(0,1).toUpperCase() + team.substring(1));
+				}
 			}
 		}
 		try {
