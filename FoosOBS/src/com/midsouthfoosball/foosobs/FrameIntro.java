@@ -33,10 +33,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JTextField;
 
 public class FrameIntro {
 
 	private JFrame frmFoosOBSIntro;
+	private JTextField txtTableName;
 	/**
 	 * Launch the application.
 	 */
@@ -68,7 +70,7 @@ public class FrameIntro {
 		frmFoosOBSIntro.setTitle("Foos OBS");
 		frmFoosOBSIntro.setBackground(new Color(240, 240, 240));
 		frmFoosOBSIntro.getContentPane().setFont(new Font("Tahoma", Font.BOLD, 15));
-		frmFoosOBSIntro.setBounds(100, 100, 320, 200);
+		frmFoosOBSIntro.setBounds(100, 100, 320, 197);
 		frmFoosOBSIntro.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmFoosOBSIntro.getContentPane().setLayout(null);
 		
@@ -84,7 +86,7 @@ public class FrameIntro {
 				MainJPanel p;
 				try {
 					f.setAlwaysOnTop(true);
-					p = new MainJPanel(f);
+					p = new MainJPanel(f, txtTableName.getText());
 					p.setPreferredSize(new Dimension(850, 600));
 
 					f.getContentPane().add(p);
@@ -108,8 +110,9 @@ public class FrameIntro {
 				MainJPanel p;
 				try {
 					f.setAlwaysOnTop(true);
-					p = new MainJPanel(f);
+					p = new MainJPanel(f, txtTableName.getText());
 					p.setPreferredSize(new Dimension(850, 600));
+					p.setTable(txtTableName.getText());
 
 					f.getContentPane().add(p);
 					f.pack();
@@ -125,13 +128,23 @@ public class FrameIntro {
 		btnContinue.setFont(new Font("Tahoma", Font.BOLD, 15));
 		btnContinue.setForeground(Color.BLACK);
 		btnContinue.setBackground(new Color(0, 255, 255));
-		btnContinue.setBounds(92, 100, 125, 23);
+		btnContinue.setBounds(89, 110, 125, 23);
 		frmFoosOBSIntro.getContentPane().add(btnContinue);
 		
 		JLabel lblFoosObs = new JLabel("Foos OBS");
 		lblFoosObs.setHorizontalAlignment(SwingConstants.CENTER);
 		lblFoosObs.setFont(new Font("Tahoma", Font.BOLD, 26));
-		lblFoosObs.setBounds(72, 32, 156, 47);
+		lblFoosObs.setBounds(71, 11, 156, 47);
 		frmFoosOBSIntro.getContentPane().add(lblFoosObs);
+		
+		txtTableName = new JTextField();
+		txtTableName.setText("T1");
+		txtTableName.setBounds(141, 69, 86, 20);
+		frmFoosOBSIntro.getContentPane().add(txtTableName);
+		txtTableName.setColumns(10);
+		
+		JLabel lblTableName = new JLabel("Table Name");
+		lblTableName.setBounds(71, 69, 56, 14);
+		frmFoosOBSIntro.getContentPane().add(lblTableName);
 	}
 }

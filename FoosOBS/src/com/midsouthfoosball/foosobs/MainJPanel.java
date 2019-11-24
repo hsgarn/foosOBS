@@ -95,13 +95,15 @@ public class MainJPanel extends JPanel {
 	private int displayWidth = 9;
 	private int prefixWidth;
 	private int suffixWidth = 3;
+	private String tableName;
+	private JTextField txtTableName;
 	/**
 	 * Create the panel.
 	 **/
-    public MainJPanel(JFrame f) throws IOException {
-
+    public MainJPanel(JFrame f, String tableName) throws IOException {
+        this.tableName = tableName;
     	initialize();
-    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00][grow][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][][][][]"));
+    	setLayout(new MigLayout("", "[90.00][135.00,grow][90.00,grow][grow][90.00][135.00,grow][90.00]", "[][][][][][][][][][][][][][][][][][][][][][][][][][]"));
     	
 		Image image = imageIcon.getImage(); // transform it 
 		Image newimg = image.getScaledInstance(100, 70,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
@@ -119,7 +121,7 @@ public class MainJPanel extends JPanel {
 		});
 		lblLogo.setBackground(Color.BLACK);
 		lblLogo.setOpaque(true);
-		add(lblLogo, "cell 0 0 1 4");
+		add(lblLogo, "cell 0 0 1 7");
 	
 		JLabel lblLogo2 = new JLabel(imageIcon);
 		lblLogo2.addMouseListener(new MouseAdapter() {
@@ -134,10 +136,7 @@ public class MainJPanel extends JPanel {
 		});
 		lblLogo2.setBackground(Color.BLACK);
 		lblLogo2.setOpaque(true);
-		add(lblLogo2, "flowx,cell 6 0 1 4");
-		
-		JLabel lblTournamentName = new JLabel("Tournament:");
-		add(lblTournamentName, "flowx,cell 1 1,alignx center,aligny bottom");
+		add(lblLogo2, "flowx,cell 6 0 1 7");
 		
 		JSeparator separator = new JSeparator();
 		add(separator, "flowx,cell 3 1");
@@ -163,20 +162,48 @@ public class MainJPanel extends JPanel {
 				txtTournamentName.selectAll();
 			}
 		});
+				
+				JLabel lblTableName = new JLabel("Table:");
+				add(lblTableName, "cell 1 3,alignx right");
+				
+				txtTableName = new JTextField(tableName);
+				txtTableName.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						setTable(txtTableName.getText());
+					}
+				});
+				txtTableName.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						setTable(txtTableName.getText());
+					}
+				});
+				add(txtTableName, "cell 2 3,alignx left,aligny center");
+				txtTableName.setColumns(10);
+				
+				lblTimerDisplay = new JLabel(" 0.0 ");
+				lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
+				lblTimerDisplay.setOpaque(true);
+				lblTimerDisplay.setBackground(Color.GREEN);
+				lblTimerDisplay.setFont(new Font("Consolas", Font.BOLD, 25));
+				add(lblTimerDisplay, "cell 3 3,alignx center,aligny center");
+				
+				JLabel lblTournamentName = new JLabel("Tournament:");
+				add(lblTournamentName, "flowx,cell 1 5,alignx center,aligny bottom");
+				
+				txtLastScored = new JTextField();
+				txtLastScored.setEditable(false);
+				txtLastScored.setFont(UIManager.getFont("TextArea.font"));
+				txtLastScored.setText("    Last Scored    ");
+				add(txtLastScored, "cell 3 5,alignx center");
+				txtLastScored.setColumns(10);
 		
-		txtLastScored = new JTextField();
-		txtLastScored.setEditable(false);
-		txtLastScored.setFont(UIManager.getFont("TextArea.font"));
-		txtLastScored.setText("    Last Scored    ");
-		add(txtLastScored, "cell 3 2,alignx center");
-		txtLastScored.setColumns(10);
+				JLabel lblEvent = new JLabel("Event:");
+				add(lblEvent, "cell 5 5,alignx center,aligny bottom");
 		
 		txtTournamentName.setText("High Pockets Monday Night");
-		add(txtTournamentName, "flowy,cell 1 4,growx");
+		add(txtTournamentName, "flowy,cell 1 7,growx");
 		txtTournamentName.setColumns(10);
-
-		JLabel lblEvent = new JLabel("Event:");
-		add(lblEvent, "cell 5 1,alignx center,aligny bottom");
 		
 		JButton btnTournamentNameClear = new JButton("Clear");
 		if(foosObsSettings.getTournamentNameClearHotKey().isEmpty()) {
@@ -189,7 +216,7 @@ public class MainJPanel extends JPanel {
 				clearTournamentName();
 			}
 		});
-		add(btnTournamentNameClear, "cell 2 4,alignx left");
+		add(btnTournamentNameClear, "cell 2 7,alignx left");
 		
 		JButton btnEventClear = new JButton("Clear");
 		if(foosObsSettings.getEventClearHotKey().isEmpty()) {
@@ -202,11 +229,11 @@ public class MainJPanel extends JPanel {
 				clearEventName();
 			}
 		});
-		add(btnEventClear, "cell 4 4,alignx right");
+		add(btnEventClear, "cell 4 7,alignx right");
 		
 		lblTimerInUse = new JLabel("Timer Reset");
 		lblTimerInUse.setHorizontalAlignment(SwingConstants.CENTER);
-		add(lblTimerInUse, "cell 3 4,growx");
+		add(lblTimerInUse, "cell 3 7,growx");
 		
 		txtEventName = new JTextField();
 		txtEventName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -230,7 +257,7 @@ public class MainJPanel extends JPanel {
 			}
 		});
 		txtEventName.setText("DYP #1");
-		add(txtEventName, "flowx,cell 5 4,growx");
+		add(txtEventName, "flowx,cell 5 7,growx");
 		txtEventName.setColumns(10);
 		
 		JButton btnAbout = new JButton("About");
@@ -256,13 +283,13 @@ public class MainJPanel extends JPanel {
 //				}
 			}
 		});
-		add(btnAbout, "cell 6 4,growx,aligny top");
+		add(btnAbout, "cell 6 7,growx,aligny top");
 		
 		JLabel lblTeam1 = new JLabel("Team 1 Name(s):");
-		add(lblTeam1, "cell 1 6,alignx center");
+		add(lblTeam1, "cell 1 9,alignx center");
 		
 		JLabel lblTeam2 = new JLabel("Team 2 Name(s):");
-		add(lblTeam2, "cell 5 6,alignx center");
+		add(lblTeam2, "cell 5 9,alignx center");
 		
 		txtTeam1 = new JTextField();
 		txtTeam1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -285,7 +312,7 @@ public class MainJPanel extends JPanel {
 				txtTeam1.selectAll();
 			}
 		});
-		add(txtTeam1, "cell 1 7,growx");
+		add(txtTeam1, "cell 1 10,growx");
 		txtTeam1.setColumns(10);
 		
 		JButton btnTeam1NameSwitch = new JButton("<-Switch->");
@@ -299,7 +326,7 @@ public class MainJPanel extends JPanel {
 				switchTeam1Names();
 			}
 		});
-		add(btnTeam1NameSwitch, "cell 0 7,alignx right");
+		add(btnTeam1NameSwitch, "cell 0 10,alignx right");
 		
 		JButton btnTeam1Clear = new JButton("Clear");
 		if(foosObsSettings.getTeam1ClearHotKey().isEmpty()) {
@@ -312,7 +339,7 @@ public class MainJPanel extends JPanel {
 				clearTeam1Name();
 			}
 		});
-		add(btnTeam1Clear, "cell 2 7,alignx left,aligny bottom");
+		add(btnTeam1Clear, "cell 2 10,alignx left,aligny bottom");
 		
 		JButton btnTeamSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getTeamSwitchHotKey().isEmpty()) {
@@ -325,7 +352,7 @@ public class MainJPanel extends JPanel {
 				switchTeamNames();
 			}
 		});
-		add(btnTeamSwitch, "cell 3 7,alignx center");
+		add(btnTeamSwitch, "cell 3 10,alignx center");
 		
 		txtTeam2 = new JTextField();
 		txtTeam2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -348,7 +375,7 @@ public class MainJPanel extends JPanel {
 				txtTeam2.selectAll();
 			}
 		});
-		add(txtTeam2, "flowx,cell 5 7,growx");
+		add(txtTeam2, "flowx,cell 5 10,growx");
 		txtTeam2.setColumns(10);
 		
 		JButton btnTeam2Clear = new JButton("Clear");
@@ -362,7 +389,7 @@ public class MainJPanel extends JPanel {
 		    	clearTeam2Name();
 			}
 		});
-		add(btnTeam2Clear, "cell 4 7,alignx right");
+		add(btnTeam2Clear, "cell 4 10,alignx right");
 		
 		JButton btnTeam2NameSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getTeam2NameSwitchHotKey().isEmpty()) {
@@ -375,13 +402,13 @@ public class MainJPanel extends JPanel {
 				switchTeam2Names();
 			}
 		});
-		add(btnTeam2NameSwitch, "cell 6 7,alignx left");
+		add(btnTeam2NameSwitch, "cell 6 10,alignx left");
 		
 		JLabel lblGameCount1 = new JLabel("Game Count");
-		add(lblGameCount1, "cell 1 9,alignx center");
+		add(lblGameCount1, "cell 1 12,alignx center");
 		
 		JLabel lblGameCount2 = new JLabel("Game Count");
-		add(lblGameCount2, "cell 5 9,alignx center");
+		add(lblGameCount2, "cell 5 12,alignx center");
 		
 		JButton btnGameCount1Minus = new JButton("-");
 		if(foosObsSettings.getGameCount1MinusHotKey().isEmpty()) {
@@ -399,7 +426,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount1Minus, "cell 0 10,growx");
+		add(btnGameCount1Minus, "cell 0 13,growx");
 		
 		txtGameCount1 = new JTextField();
 		txtGameCount1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -433,7 +460,7 @@ public class MainJPanel extends JPanel {
 				txtGameCount1.selectAll();
 			}
 		});
-		add(txtGameCount1, "cell 1 10,growx");
+		add(txtGameCount1, "cell 1 13,growx");
 		txtGameCount1.setColumns(10);
 		
 		JButton btnGameCount1Plus = new JButton("+");
@@ -452,7 +479,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount1Plus, "cell 2 10,growx");
+		add(btnGameCount1Plus, "cell 2 13,growx");
 		
 		JButton btnGameCountSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getGameCountSwitchHotKey().isEmpty()) {
@@ -465,7 +492,7 @@ public class MainJPanel extends JPanel {
 				switchGameCount();
 			}
 		});
-		add(btnGameCountSwitch, "cell 3 10,growx");
+		add(btnGameCountSwitch, "cell 3 13,growx");
 		
 		JButton btnGameCount2Minus = new JButton("-");
 		if(foosObsSettings.getGameCount2MinusHotKey().isEmpty()) {
@@ -483,7 +510,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount2Minus, "cell 4 10,growx");
+		add(btnGameCount2Minus, "cell 4 13,growx");
 		
 		txtGameCount2 = new JTextField();
 		txtGameCount2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -514,7 +541,7 @@ public class MainJPanel extends JPanel {
 				txtGameCount2.selectAll();
 			}
 		});
-		add(txtGameCount2, "cell 5 10,growx");
+		add(txtGameCount2, "cell 5 13,growx");
 		txtGameCount2.setColumns(10);
 		
 		JButton btnGameCount2Plus = new JButton("+");
@@ -533,13 +560,13 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnGameCount2Plus, "cell 6 10,growx");
+		add(btnGameCount2Plus, "cell 6 13,growx");
 		
 		JLabel lblScore1 = new JLabel("Score");
-		add(lblScore1, "cell 1 11,alignx center");
+		add(lblScore1, "cell 1 14,alignx center");
 		
 		JLabel lblScore = new JLabel("Score");
-		add(lblScore, "cell 5 11,alignx center");
+		add(lblScore, "cell 5 14,alignx center");
 		
 		JButton btnScore1Minus = new JButton("-");
 		if(foosObsSettings.getScore1MinusHotKey().isEmpty()) {
@@ -557,7 +584,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore1Minus, "cell 0 12,growx,aligny top");
+		add(btnScore1Minus, "cell 0 15,growx,aligny top");
 		
 		txtScore1 = new JTextField();
 		txtScore1.setBackground(Color.WHITE);
@@ -592,7 +619,7 @@ public class MainJPanel extends JPanel {
 				txtScore1.selectAll();
 			}
 		});
-		add(txtScore1, "cell 1 12,growx");
+		add(txtScore1, "cell 1 15,growx");
 		txtScore1.setColumns(10);
 		
 		JButton btnScore1Plus = new JButton("+");
@@ -611,7 +638,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore1Plus, "cell 2 12,growx");
+		add(btnScore1Plus, "cell 2 15,growx");
 		
 		JButton btnScoreSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getScoreSwitchHotKey().isEmpty()) {
@@ -624,7 +651,7 @@ public class MainJPanel extends JPanel {
 				switchScore();
 			}
 		});
-		add(btnScoreSwitch, "cell 3 12,growx");
+		add(btnScoreSwitch, "cell 3 15,growx");
 		
 		JButton btnScore2Minus = new JButton("-");
 		if(foosObsSettings.getScore2MinusHotKey().isEmpty()) {
@@ -642,7 +669,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore2Minus, "cell 4 12,growx");
+		add(btnScore2Minus, "cell 4 15,growx");
 		
 		txtScore2 = new JTextField();
 		txtScore2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -676,7 +703,7 @@ public class MainJPanel extends JPanel {
 				txtScore2.selectAll();
 			}
 		});
-		add(txtScore2, "cell 5 12,growx");
+		add(txtScore2, "cell 5 15,growx");
 		txtScore2.setColumns(10);
 		
 		JButton btnScore2Plus = new JButton("+");
@@ -695,13 +722,13 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnScore2Plus, "cell 6 12,growx");
+		add(btnScore2Plus, "cell 6 15,growx");
 		
 		JLabel lblTimeOut1 = new JLabel("TimeOut");
-		add(lblTimeOut1, "cell 1 13,alignx center");
+		add(lblTimeOut1, "cell 1 16,alignx center");
 		
 		JLabel lblTimeout = new JLabel("TimeOut");
-		add(lblTimeout, "cell 5 13,alignx center");
+		add(lblTimeout, "cell 5 16,alignx center");
 		
 		JButton btnTimeOut1Minus = new JButton("Return TO");
 		if(foosObsSettings.getTimeOut1MinusHotKey().isEmpty()) {
@@ -719,7 +746,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut1Minus, "cell 0 14,growx");
+		add(btnTimeOut1Minus, "cell 0 17,growx");
 		
 		txtTimeOut1 = new JTextField();
 		txtTimeOut1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -753,7 +780,7 @@ public class MainJPanel extends JPanel {
 				txtTimeOut1.selectAll();
 			}
 		});
-		add(txtTimeOut1, "cell 1 14,growx");
+		add(txtTimeOut1, "cell 1 17,growx");
 		txtTimeOut1.setColumns(10);
 		
 		JButton btnTimeOut1Plus = new JButton("Use TO");
@@ -772,7 +799,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut1Plus, "cell 2 14,growx");
+		add(btnTimeOut1Plus, "cell 2 17,growx");
 		
 		JButton btnTimeOutSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getTimeOutSwitchHotKey().isEmpty()) {
@@ -785,7 +812,7 @@ public class MainJPanel extends JPanel {
 				switchTimeOut();
 			}
 		});
-		add(btnTimeOutSwitch, "cell 3 14,growx");
+		add(btnTimeOutSwitch, "cell 3 17,growx");
 		
 		JButton btnTimeOut2Minus = new JButton("Return TO");
 		if(foosObsSettings.getTimeOut2MinusHotKey().isEmpty()) {
@@ -803,7 +830,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut2Minus, "cell 4 14,growx");
+		add(btnTimeOut2Minus, "cell 4 17,growx");
 		
 		txtTimeOut2 = new JTextField();
 		txtTimeOut2.setHorizontalAlignment(SwingConstants.CENTER);
@@ -837,7 +864,7 @@ public class MainJPanel extends JPanel {
 				txtTimeOut2.selectAll();
 			}
 		});
-		add(txtTimeOut2, "cell 5 14,growx");
+		add(txtTimeOut2, "cell 5 17,growx");
 		txtTimeOut2.setColumns(10);
 		
 		JButton btnTimeOut2Plus = new JButton("Use TO");
@@ -856,7 +883,7 @@ public class MainJPanel extends JPanel {
 		    	}
 			}
 		});
-		add(btnTimeOut2Plus, "cell 6 14,growx");
+		add(btnTimeOut2Plus, "cell 6 17,growx");
 		
 		tglbtnReset1 = new JToggleButton("Reset");
 		tglbtnReset1.addActionListener(new ActionListener() {
@@ -864,7 +891,7 @@ public class MainJPanel extends JPanel {
 				writeReset1();
 			}
 		});
-		add(tglbtnReset1, "cell 0 15,growx");
+		add(tglbtnReset1, "cell 0 18,growx");
 		
 		tglbtnWarn1 = new JToggleButton(" Warn");
 		tglbtnWarn1.addActionListener(new ActionListener() {
@@ -872,7 +899,7 @@ public class MainJPanel extends JPanel {
 				writeWarn1();
 			}
 		});
-		add(tglbtnWarn1, "cell 2 15,growx");
+		add(tglbtnWarn1, "cell 2 18,growx");
 		
 		tglbtnReset2 = new JToggleButton("Reset");
 		tglbtnReset2.addActionListener(new ActionListener() {
@@ -880,7 +907,7 @@ public class MainJPanel extends JPanel {
 				writeReset2();
 			}
 		});
-		add(tglbtnReset2, "cell 4 15,growx");
+		add(tglbtnReset2, "cell 4 18,growx");
 		
 		tglbtnWarn2 = new JToggleButton(" Warn");
 		tglbtnWarn2.addActionListener(new ActionListener() {
@@ -888,7 +915,7 @@ public class MainJPanel extends JPanel {
 				writeWarn2();
 			}
 		});
-		add(tglbtnWarn2, "cell 6 15,growx");
+		add(tglbtnWarn2, "cell 6 18,growx");
 
 		JButton btnResetSwitch = new JButton("<-Switch->");
 		if(foosObsSettings.getResetSwitchHotKey().isEmpty()) {
@@ -901,7 +928,7 @@ public class MainJPanel extends JPanel {
 				switchResetWarn();
 			}
 		});
-		add(btnResetSwitch, "cell 3 15,growx");
+		add(btnResetSwitch, "cell 3 18,growx");
 		
 		JButton btnResetGameCounts = new JButton("Reset Game Counts");
 		if(foosObsSettings.getResetGameCountsHotKey().isEmpty()) {
@@ -914,7 +941,7 @@ public class MainJPanel extends JPanel {
 				resetGameCounts();
 			}
 		});
-		add(btnResetGameCounts, "cell 1 16,growx");
+		add(btnResetGameCounts, "cell 1 19,growx");
 		
 		JButton btnResetScores = new JButton("Reset Scores");
 		if(foosObsSettings.getResetScoresHotKey().isEmpty()) {
@@ -927,7 +954,7 @@ public class MainJPanel extends JPanel {
 				resetScores();
 			}
 		});
-		add(btnResetScores, "cell 1 17,growx");
+		add(btnResetScores, "cell 1 20,growx");
 		
 		JButton btnResetTimers = new JButton("Reset Timer");
 		if(foosObsSettings.getResetTimersHotKey().isEmpty()) {
@@ -940,7 +967,7 @@ public class MainJPanel extends JPanel {
 				resetTimers();
 		}
 		});
-		add(btnResetTimers, "cell 5 16,growx,aligny bottom");
+		add(btnResetTimers, "cell 5 19,growx,aligny bottom");
 		
 		JButton btnResetTimeOuts = new JButton("Reset Time Outs");
 		if(foosObsSettings.getResetTimeOutsHotKey().isEmpty()) {
@@ -953,7 +980,7 @@ public class MainJPanel extends JPanel {
 				resetTimeOuts();
 			}
 		});
-		add(btnResetTimeOuts, "cell 1 18,growx");
+		add(btnResetTimeOuts, "cell 1 21,growx");
 		
 		JButton btnResetResetWarn = new JButton("Reset Reset/Warn");
 		if(foosObsSettings.getResetResetWarnHotKey().isEmpty()) {
@@ -966,7 +993,7 @@ public class MainJPanel extends JPanel {
 				resetResetWarns();
 			}
 		});
-		add(btnResetResetWarn, "cell 1 19,growx");
+		add(btnResetResetWarn, "cell 1 22,growx");
 		
 		JButton btnResetAll = new JButton("Reset All");
 		if(foosObsSettings.getResetAllHotKey().isEmpty()) {
@@ -979,7 +1006,7 @@ public class MainJPanel extends JPanel {
 				resetAll();
 			}
 		});
-		add(btnResetAll, "cell 1 20,growx");
+		add(btnResetAll, "cell 1 23,growx");
 		
 		JButton btnAllSwitch = new JButton("<-Switch Sides->");
 		if(foosObsSettings.getAllSwitchHotKey().isEmpty()) {
@@ -992,7 +1019,7 @@ public class MainJPanel extends JPanel {
 				switchAll();
 			}
 		});
-		add(btnAllSwitch, "cell 2 16 3 1,growx");
+		add(btnAllSwitch, "cell 2 19 3 1,growx");
 
 		ActionListener alAction = new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
@@ -1002,7 +1029,7 @@ public class MainJPanel extends JPanel {
 		timeClock.addTimeClockTimerListener(alAction);
 		
 		JLabel lblShotTimer = new JLabel("Shot Timer (2 & 3 row)");
-		add(lblShotTimer, "cell 5 17,alignx right");
+		add(lblShotTimer, "cell 5 20,alignx right");
 		
 		btnShotTimer = new JButton("Start");
 		if(foosObsSettings.getShotTimerHotKey().isEmpty()) {
@@ -1015,10 +1042,10 @@ public class MainJPanel extends JPanel {
 				startShotTimer();
 			}
 		});
-		add(btnShotTimer, "cell 6 17,growx");
+		add(btnShotTimer, "cell 6 20,growx");
 		
 		JLabel lblPassTimer = new JLabel("Pass Timer (5 row)");
-		add(lblPassTimer, "cell 5 18,alignx right");
+		add(lblPassTimer, "cell 5 21,alignx right");
 		
 		btnPassTimer = new JButton("Start");
 		if(foosObsSettings.getPassTimerHotKey().isEmpty()) {
@@ -1031,10 +1058,10 @@ public class MainJPanel extends JPanel {
 				startPassTimer();
 			}
 		});
-		add(btnPassTimer, "cell 6 18,growx,aligny bottom");
+		add(btnPassTimer, "cell 6 21,growx,aligny bottom");
 		
 		JLabel lblTimeOutTimer = new JLabel("Time Out Timer");
-		add(lblTimeOutTimer, "cell 5 19,alignx right");
+		add(lblTimeOutTimer, "cell 5 22,alignx right");
 		
 		btnTimeOutTimer = new JButton("Start");
 		if(foosObsSettings.getTimeOutTimerHotKey().isEmpty()) {
@@ -1047,7 +1074,7 @@ public class MainJPanel extends JPanel {
 				startTimeOutTimer();
 			}
 		});
-		add(btnTimeOutTimer, "cell 6 19,growx");
+		add(btnTimeOutTimer, "cell 6 22,growx");
 		
 		JButton btnClearAll = new JButton("Clear All");
 		if(foosObsSettings.getClearAllHotKey().isEmpty()) {
@@ -1060,10 +1087,10 @@ public class MainJPanel extends JPanel {
 				clearAll();
 			}
 		});
-		add(btnClearAll, "cell 3 20,growx");
+		add(btnClearAll, "cell 3 23,growx");
 		
 		JLabel lblGameTimer = new JLabel("Game Timer");
-		add(lblGameTimer, "cell 5 20,alignx right");
+		add(lblGameTimer, "cell 5 23,alignx right");
 
 		btnGameTimer = new JButton("Start");
 		if(foosObsSettings.getGameTimerHotKey().isEmpty()) {
@@ -1076,7 +1103,7 @@ public class MainJPanel extends JPanel {
 				startGameTimer();
 			}
 		});
-		add(btnGameTimer, "cell 6 20,growx");
+		add(btnGameTimer, "cell 6 23,growx");
 		
 		JButton btnTimerWindow = new JButton("Timer Window");
 		btnTimerWindow.addActionListener(new ActionListener() {
@@ -1094,10 +1121,10 @@ public class MainJPanel extends JPanel {
 				timerWindowFrame.setVisible(true);
 			}
 		});
-		add(btnTimerWindow, "cell 0 21");
+		add(btnTimerWindow, "cell 0 24");
 		
 		JLabel lblRecallTimer = new JLabel("Recall Timer");
-		add(lblRecallTimer, "cell 5 21,alignx right");
+		add(lblRecallTimer, "cell 5 24,alignx right");
 		
 		btnRecallTimer = new JButton("Start");
 		if(foosObsSettings.getRecallTimerHotKey().isEmpty()) {
@@ -1110,7 +1137,7 @@ public class MainJPanel extends JPanel {
 				startRecallTimer();
 			}
 		});
-		add(btnRecallTimer, "cell 6 21,growx");
+		add(btnRecallTimer, "cell 6 24,growx");
 		
 		formattedTxtPath = new JFormattedTextField(defaultFilePath);
 		formattedTxtPath.setText(foosObsSettings.getDatapath());
@@ -1141,7 +1168,7 @@ public class MainJPanel extends JPanel {
 			    }
 			}
 		});
-		add(formattedTxtPath, "cell 1 22,growx");
+		add(formattedTxtPath, "cell 1 25,growx");
 		
 		JButton btnSelectPath = new JButton("Select Path");
 		if(foosObsSettings.getSelectPathHotKey().isEmpty()) {
@@ -1180,7 +1207,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnSelectPath, "cell 0 22,growx");
+		add(btnSelectPath, "cell 0 25,growx");
 		
 		JButton btnFetchData = new JButton("Fetch Data");
 		if(foosObsSettings.getFetchDataHotKey().isEmpty()) {
@@ -1193,7 +1220,7 @@ public class MainJPanel extends JPanel {
 				fetchAll();
 			}
 		});
-		add(btnFetchData, "cell 3 22,growx");
+		add(btnFetchData, "cell 3 25,growx");
 		
 		JButton btnSetPath = new JButton("Set Path");
 		if(foosObsSettings.getSetPathHotKey().isEmpty()) {
@@ -1219,7 +1246,7 @@ public class MainJPanel extends JPanel {
 				}
 			}
 		});
-		add(btnSetPath, "cell 2 22,growx");
+		add(btnSetPath, "cell 2 25,growx");
 		
 		JButton btnSaveAll = new JButton("Save All");
 		if(foosObsSettings.getSaveAllHotKey().isEmpty()) {
@@ -1232,7 +1259,7 @@ public class MainJPanel extends JPanel {
 				saveAll();
 			}
 		});
-		add(btnSaveAll, "cell 4 22,growx");
+		add(btnSaveAll, "cell 4 25,growx");
 		
 		JButton btnSettings = new JButton("Settings");
 		if(foosObsSettings.getSettingsHotKey().isEmpty()) {
@@ -1264,7 +1291,7 @@ public class MainJPanel extends JPanel {
 		btnSettings.setForeground(Color.BLACK);
 		btnSettings.setBackground(new Color(0, 255, 255));
 		btnSettings.setBounds(92, 100, 125, 23);
-		add(btnSettings, "cell 6 22,growx");
+		add(btnSettings, "cell 6 25,growx");
 		
 		JCheckBox chckbxAlwaysOnTop = new JCheckBox("Always On Top");
 		chckbxAlwaysOnTop.addActionListener(new ActionListener() {
@@ -1274,19 +1301,11 @@ public class MainJPanel extends JPanel {
 		});
 		chckbxAlwaysOnTop.setHorizontalAlignment(SwingConstants.CENTER);
 		chckbxAlwaysOnTop.setSelected(f.isAlwaysOnTop());
-		add(chckbxAlwaysOnTop, "cell 5 22,alignx right");
-		
-		lblTimerDisplay = new JLabel(" 0.0 ");
-		lblTimerDisplay.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTimerDisplay.setOpaque(true);
-		lblTimerDisplay.setBackground(Color.GREEN);
-		lblTimerDisplay.setFont(new Font("Consolas", Font.BOLD, 50));
-		add(lblTimerDisplay, "cell 2 1 3 1,alignx center,aligny center");
+		add(chckbxAlwaysOnTop, "cell 5 25,alignx right");
 		if (twjp != null) {
 			twjp.setTimerWindowColor(Color.GREEN);
 		}
 		postInitialize();
-
     }
 
     private void postInitialize() {
@@ -1296,6 +1315,7 @@ public class MainJPanel extends JPanel {
     private void initialize() throws IOException {
     	timeClock = new TimeClock();
 		obsInterface = new OBSInterface();
+		obsInterface.setTableName(tableName);
 		foosObsSettings = new Settings();
 		obsInterface.setFilePath(foosObsSettings.getDatapath());
     	try {
@@ -1570,6 +1590,9 @@ public class MainJPanel extends JPanel {
 		if (txtScore1.getText().isEmpty()) {
 			txtScore1.setText(Integer.toString(0));
 		}
+		if (txtScore2.getText().isEmpty()) {
+			txtScore2.setText(Integer.toString(0));
+		}
 		num1=Integer.parseInt(txtScore1.getText());
 		num1=num1+1;
 		txtScore1.setText(Integer.toString(num1));
@@ -1640,6 +1663,9 @@ public class MainJPanel extends JPanel {
 
 	private void incrementScore2() {
 		int num1;
+		if (txtScore1.getText().isEmpty()) {
+			txtScore1.setText(Integer.toString(0));
+		}
 		if (txtScore2.getText().isEmpty()) {
 			txtScore2.setText(Integer.toString(0));
 		}
@@ -1998,7 +2024,6 @@ public class MainJPanel extends JPanel {
 			txtLastScored.setText("<-- Last Scored");
 			writeTeam1LastScored();
 		}
-//		writeLastScored();
 	}
 
 	private void resetTimeOuts() {
@@ -2027,7 +2052,6 @@ public class MainJPanel extends JPanel {
 	private void resetLastScored() {
 		txtLastScored.setText("   Last Scored    ");
 		writeClearLastScored();
-//		writeLastScored();
 	}
 	
 	private void resetAll() {
@@ -2073,7 +2097,6 @@ public class MainJPanel extends JPanel {
 			
 		} else {
 
-
 			String timeLeft = new String(Float.toString(tr));
 			prefixWidth = displayWidth - timeLeft.length() - suffixWidth;
 			char[] c1 = new char[prefixWidth];
@@ -2082,14 +2105,11 @@ public class MainJPanel extends JPanel {
 		    Arrays.fill(c2, ' ');
 			lblTimerDisplay.setText(String.valueOf(c1) + timeLeft + String.valueOf(c2));
 			
-			
-//		lblTimerDisplay.setText("   " + Float.toString(tr) + "   ");
 		}
 		if(tr == (int) tr) {
 			writeTimeRemaining();
 		};
 			if (twjp != null) {
-//				updateTimerWindow(twjp);
 				updateTimerWindow();
 			};
 	}
@@ -2207,5 +2227,10 @@ public class MainJPanel extends JPanel {
 		writeLastScored();
 	}
 
+	public void setTable(String tableName ) {
+		this.tableName = tableName;
+		obsInterface.setTableName(tableName);
+		fetchAll();
+	}
 }
 

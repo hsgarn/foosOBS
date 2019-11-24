@@ -30,22 +30,38 @@ import java.io.IOException;
 public class OBSInterface {
 	
 	private String txtFilePath = "c:" + File.separator + "Temp";
-	
+	private String tableName;
+	private String fileName;
+	private String theFileName;
+
 	public void setFilePath(String filePath) {
 		this.txtFilePath = filePath;
 	}
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
 	
-	public String getFilePath() {return this.txtFilePath;} 
+	public String getFilePath() {return this.txtFilePath;}
+	public String getTableName() {return this.tableName;}
 
 	public void setContents(String whichFile, String theContents) throws IOException {
-		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + File.separator + whichFile));
+		if (tableName.isEmpty()) {
+			fileName = whichFile;
+		} else {
+			fileName = tableName + "_" + whichFile;
+		}
+		BufferedWriter writer = new BufferedWriter(new FileWriter(txtFilePath + File.separator + fileName));
 		writer.write(theContents);
 		writer.close();
 	}
 
 	public String getContents(String whichFile) throws IOException {
 		String theContents = null;
-		String theFileName = txtFilePath + File.separator + whichFile;
+		if (tableName.isEmpty()) {
+			theFileName = txtFilePath + File.separator + whichFile;
+		} else {
+			theFileName = txtFilePath + File.separator + tableName + "_" + whichFile;
+		}
 		File theFile = new File(theFileName); 
 		if (!theFile.exists()) {
 			theContents = null;
