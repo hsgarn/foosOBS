@@ -170,12 +170,12 @@ public class MainJPanel extends JPanel {
 				txtTableName.addFocusListener(new FocusAdapter() {
 					@Override
 					public void focusLost(FocusEvent arg0) {
-						setTable(txtTableName.getText());
+						setTable(f, txtTableName.getText());
 					}
 				});
 				txtTableName.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
-						setTable(txtTableName.getText());
+						setTable(f, txtTableName.getText());
 					}
 				});
 				add(txtTableName, "cell 2 3,alignx left,aligny center");
@@ -2227,8 +2227,9 @@ public class MainJPanel extends JPanel {
 		writeLastScored();
 	}
 
-	public void setTable(String tableName ) {
+	public void setTable(JFrame f, String tableName ) {
 		this.tableName = tableName;
+		f.setTitle("Foos OBS: " + tableName);
 		obsInterface.setTableName(tableName);
 		fetchAll();
 	}

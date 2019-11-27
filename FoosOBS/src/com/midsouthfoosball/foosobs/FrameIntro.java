@@ -104,7 +104,7 @@ public class FrameIntro {
 			public void actionPerformed(ActionEvent arg0) {
 				frmFoosOBSIntro.dispose();
 
-				JFrame f = new JFrame("Foos OBS");
+				JFrame f = new JFrame("Foos OBS: " + txtTableName.getText());
 				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				MainJPanel p;
@@ -112,7 +112,7 @@ public class FrameIntro {
 					f.setAlwaysOnTop(true);
 					p = new MainJPanel(f, txtTableName.getText());
 					p.setPreferredSize(new Dimension(850, 600));
-					p.setTable(txtTableName.getText());
+					p.setTable(f, txtTableName.getText());
 
 					f.getContentPane().add(p);
 					f.pack();
