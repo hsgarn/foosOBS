@@ -18,10 +18,10 @@ If running foosOBS for the first time, it will create a config.properties file w
 
 ### Operating Parameters
 foosOBS tries to make keeping track of a foosball match's progress as simple as possible.  To that end, there is a settings screen that contains parameters that affect how foosOBS will behave.  Click the Settings button on the main page to get to the settings screen.
-<img align="left" width="640" height="480" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings1.png"
+<img align="left" width="640" height="480" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings1.png">
 
 Main Settings Page:
-<img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings2.png"
+<img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings2.png">
 
 #### Points to Win
 This is the number of points required to win a game.  This is only used if the Auto Increment Game checkbox is checked. Once a team's score reaches this number, it will reset to zero and increase the game counter for the team.  If the Announce Winner check box is set and the team has reached the number in the Games to Win parameter, then the Team's name will be written to the Match Winner file along with the text specified in the Winner Prefix and Winner Suffix parameters.  Points to Win is also utilized to determine if it is meatball (both teams 1 point away from winning score).
