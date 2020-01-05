@@ -1,5 +1,5 @@
 # foosOBS
-Flexible foosball score keeper program compatible with OBS Studio
+FoosOBS is a flexible foosball score keeper program compatible with OBS Studio and also plays well with Elagto's Stream Deck products.
 
 ## Overview
 foosOBS was written to update text files used by OBS Studio to display scores and game counts while live streaming foosball matches.  Almost every field displayed in foosOBS can be output to a file that OBS Studio can then read and display in a scene. 
@@ -81,5 +81,83 @@ When checked, the program will put the number of time outs remaining for each te
 When checked, the program will automatically capitalize the first letter of each team's player's names.  If not checked, the team names are left as entered.
 
 ### FileNames
+FoosOBS writes out most of it's data to text files so that it can be read by programs such as OBS Studio and displayed in a live video stream.  The names of these files are configurable if the default names do not suit you.  FoosOBS also allows you to run more than one table at a time.  It does this by prefixing each file with the table name.  Below are the file names that can be configured:
 
+#### Tournament
+
+This is the filename of a freeform text field that can be used for the name of the tournament or venue.  Default filename is tournament.txt.
+
+#### Event
+
+This is the filename of a freeform text field that can be used for the name of the event being played (i.e. DYP, Open Singles, etc).  Default filename is event.txt.
+
+#### Team1
+
+This is the filename for Team 1's name(s). Default filename is team1.txt.
+
+#### Team2
+
+This is the filename for Team 2's name(s). Default filename is team2.txt.
+
+#### GameCount1
+
+This is the filename for Team 1's game count. Default filename is gamecount1.txt.
+
+#### GameCount2
+
+This is the filename for Team 2's game count. Default filename is gamecount2.txt.
+
+#### Score1
+
+This is the filename for Team 1's score. Default filename is score1.txt.
+
+#### Score2
+
+This is the filename for Team 2's score. Default filename is score2.txt.
+
+#### TimeOut1
+
+This is the filename for Team 1's time outs used or remaining depending the Show Time Outs Used checkbox. Default filename is timeout1.txt.
+
+#### TimeOut2
+
+This is the filename for Team 2's time outs used or remaining depending the Show Time Outs Used checkbox. Default filename is timeout2.txt.
+
+#### Reset1
+
+This is the filename for Team 1's Reset flag.  Default filename is reset1.txt.
+
+#### Reset2
+
+This is the filename for Team 2's Reset flag.  Default filename is reset2.txt.
+
+#### Warn1
+
+This is the filename for Team 1's Reset Warning flag.  Default filename is warn1.txt.
+
+#### Reset2
+
+This is the filename for Team 2's Reset Warning flag.  Default filename is warn2.txt.
+
+#### TimeRemaining
+
+This is the filename for the Time Remaining on the current timer.  Default filename is timeremaining.txt.
+
+#### TimerInUse
+
+This is the filename that holds the name of the current timer that is running (Shot, Pass, Game, Timeout, Recall). Default filename is timerinuse.txt.
+
+#### MatchWinner
+
+This is the filename that holds the Winner Prefix, Team's Name and Winner Suffix of the team that won the match.  Default filename is matchwinner.txt.
+
+#### Meatball
+
+This is the filename that holds the Meatball text when a game is tied just prior to the final point.  Default filename is meatball.txt.
+
+#### LastScored
+
+This is the filename that holds the indicator for which team scored last.  Default filename is lastscored.txt.
+
+### Hot Keys
 
