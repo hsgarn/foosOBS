@@ -55,7 +55,7 @@ public class AboutJPanel extends JPanel {
 		JLabel lblCopyright = new JLabel("Copyright \u00A9");
 		add(lblCopyright, "cell 0 3,alignx right");
 		
-		JLabel lblCopyrightValue = new JLabel("2019 Hugh Garner");
+		JLabel lblCopyrightValue = new JLabel("2019, 2020 Hugh Garner");
 		add(lblCopyrightValue, "cell 1 3");
 		
 		JLabel lblLicense = new JLabel("License:");

@@ -144,7 +144,7 @@ public class FrameIntro {
 		txtTableName.setColumns(10);
 		
 		JLabel lblTableName = new JLabel("Table Name");
-		lblTableName.setBounds(71, 69, 56, 14);
+		lblTableName.setBounds(68, 72, 73, 14);
 		frmFoosOBSIntro.getContentPane().add(lblTableName);
 	}
 }
