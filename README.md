@@ -18,10 +18,11 @@ If running foosOBS for the first time, it will create a config.properties file w
 
 ### Operating Parameters
 foosOBS tries to make keeping track of a foosball match's progress as simple as possible.  To that end, there is a settings screen that contains parameters that affect how foosOBS will behave.  Click the Settings button on the main page to get to the settings screen.
-<img align="left" width="640" height="480" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings1.png">
+
+<img width="640" height="480" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings1.png">
 
 Main Settings Page:
-<img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings2.png">
+<img width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings2.png">
 
 #### Points to Win
 This is the number of points required to win a game.  This is only used if the Auto Increment Game checkbox is checked. Once a team's score reaches this number, it will reset to zero and increase the game counter for the team.  If the Announce Winner check box is set and the team has reached the number in the Games to Win parameter, then the Team's name will be written to the Match Winner file along with the text specified in the Winner Prefix and Winner Suffix parameters.  Points to Win is also utilized to determine if it is meatball (both teams 1 point away from winning score).
@@ -82,7 +83,9 @@ When checked, the program will automatically capitalize the first letter of each
 
 ### FileNames
 FoosOBS writes out most of it's data to text files so that it can be read by programs such as OBS Studio and displayed in a live video stream.  The names of these files are configurable if the default names do not suit you.  FoosOBS also allows you to run more than one table at a time.  It does this by prefixing each file with the table name.  To get to the filenames configuration, click on the Files... button on the Settings window:
+
 <img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings3.png">
+
 <img align="left" width="502" height="302" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings5.png">
 
 Below are the file names that can be configured:
@@ -155,31 +158,71 @@ Click the Restore Defaults button to restore the default filenames.
 
 ### Hot Keys
 FoosOBS uses buttons to do various functions such as increase or decrease scores, switch sides, reset game counts, start timers, etc.  Each button can have a Hot Key assigned to it.  Pressing ALT plus the assigned Hot Key for the button will function just like pressing the actual button.  The hot keys can be used in Stream Deck commands to make operating FoosOBS a simple push button affair.
+
 <img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings4.png">
+
 <img align="left" width="802" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings6.png">
 
 #### Clear(Tournament)
+Assigns the hot key for the Clear Tournament button.  Default hot key is unassigned.
+
 #### Clear(Event)
+Assigns the hot key for the Clear Event button.  Default hot key is unassigned.
+
 #### Reset(Team 1)
+Assigns the hot key for the Reset button for Team 1.  Default hot key is z.
+
 #### Reset(Team 2)
+Assigns the hot key for the Reset button for Team 2.  Default hot key is ,.
+
 #### Warn(Team 1)
+Assigns the hot key for the Warn button for Team 1. Default hot key is x.
+
 #### Warn(Team 2)
+Assigns the hot key for the Warn button for Team 2. Default hot key is ..
+
 #### Team Names
 ##### Clear(Team 1)
+Assigns the hot key for the Clear button for Team 1's name. Default hot key is unassigned.
+
 ##### Clear(Team 2)
+Assigns the hot key for the Clear button for Team 2's name. Default hot key is unassigned.
+
 ##### Switch(Team 1)
+Assigns the hot key to Switch Team 1 and Team 2's names. Default hot key is t.
+
 ##### Switch(Team 2)
+Assigns the hot key for the Switch button for Team 2's names. Default hot key is m.
+
 #### Scores
 ##### -(Team 1)
+Assigns the hot key for the - button for Team 1's score. Default hot key is unassigned.
+
 ##### -(Team 2)
+Assigns the hot key for the - button for Team 2's score. Default hot key is unassigned.
+
 ##### +(Team 1)
+Assigns the hot key for the + button to increase Team 1's score. Default hot key is 1.
+
 ##### +(Team 2)
+Assigns the hot key for the + button to increase Team 2's score. Default hot key is 2.
+
 ##### Switch
+Assigns the hot key to Switch Team 1 and Team 2's scores.  Default hot key is e.
+
 #### Game Counts
 ##### -(Team 1)
+Assigns the hot key for the - button for Team 1's score. Default hot key is unassigned.
+
 ##### -(Team 2)
+Assigns the hot key for the - button for Team 2's score. Default hot key is unassigned.
+
 ##### +(Team 1)
+Assigns the hot key for the + button to increase Team 1's game count. Default hot key is 5.
+
 ##### +(Team 2)
+Assigns the hot key for the + button to increase Team 2's game count. Default hot key is 6.
+
 ##### Switch
 #### Time Outs
 ##### Return TO(Team 1)
