@@ -81,83 +81,138 @@ When checked, the program will put the number of time outs remaining for each te
 When checked, the program will automatically capitalize the first letter of each team's player's names.  If not checked, the team names are left as entered.
 
 ### FileNames
-FoosOBS writes out most of it's data to text files so that it can be read by programs such as OBS Studio and displayed in a live video stream.  The names of these files are configurable if the default names do not suit you.  FoosOBS also allows you to run more than one table at a time.  It does this by prefixing each file with the table name.  Below are the file names that can be configured:
+FoosOBS writes out most of it's data to text files so that it can be read by programs such as OBS Studio and displayed in a live video stream.  The names of these files are configurable if the default names do not suit you.  FoosOBS also allows you to run more than one table at a time.  It does this by prefixing each file with the table name.  To get to the filenames configuration, click on the Files... button on the Settings window:
+<img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings3.png">
+<img align="left" width="502" height="302" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings5.png">
+
+Below are the file names that can be configured:
+
+#### Team 1
+This is the filename for Team 1's name(s). Default filename is team1.txt.
+
+#### Team 2
+This is the filename for Team 2's name(s). Default filename is team2.txt.
+
+#### Game Count 1
+This is the filename for Team 1's game count. Default filename is gamecount1.txt.
+
+#### Game Count 2
+This is the filename for Team 2's game count. Default filename is gamecount2.txt.
+
+#### Score 1
+This is the filename for Team 1's score. Default filename is score1.txt.
+
+#### Score 2
+This is the filename for Team 2's score. Default filename is score2.txt.
+
+#### Time Out 1
+This is the filename for Team 1's time outs used or remaining depending the Show Time Outs Used checkbox. Default filename is timeout1.txt.
+
+#### Time Out 2
+This is the filename for Team 2's time outs used or remaining depending the Show Time Outs Used checkbox. Default filename is timeout2.txt.
+
+#### Reset 1
+This is the filename for Team 1's Reset flag.  Default filename is reset1.txt.
+
+#### Reset 2
+This is the filename for Team 2's Reset flag.  Default filename is reset2.txt.
+
+#### Warn 1
+This is the filename for Team 1's Reset Warning flag.  Default filename is warn1.txt.
+
+#### Warn 2
+This is the filename for Team 2's Reset Warning flag.  Default filename is warn2.txt.
 
 #### Tournament
-
 This is the filename of a freeform text field that can be used for the name of the tournament or venue.  Default filename is tournament.txt.
 
 #### Event
-
 This is the filename of a freeform text field that can be used for the name of the event being played (i.e. DYP, Open Singles, etc).  Default filename is event.txt.
 
-#### Team1
-
-This is the filename for Team 1's name(s). Default filename is team1.txt.
-
-#### Team2
-
-This is the filename for Team 2's name(s). Default filename is team2.txt.
-
-#### GameCount1
-
-This is the filename for Team 1's game count. Default filename is gamecount1.txt.
-
-#### GameCount2
-
-This is the filename for Team 2's game count. Default filename is gamecount2.txt.
-
-#### Score1
-
-This is the filename for Team 1's score. Default filename is score1.txt.
-
-#### Score2
-
-This is the filename for Team 2's score. Default filename is score2.txt.
-
-#### TimeOut1
-
-This is the filename for Team 1's time outs used or remaining depending the Show Time Outs Used checkbox. Default filename is timeout1.txt.
-
-#### TimeOut2
-
-This is the filename for Team 2's time outs used or remaining depending the Show Time Outs Used checkbox. Default filename is timeout2.txt.
-
-#### Reset1
-
-This is the filename for Team 1's Reset flag.  Default filename is reset1.txt.
-
-#### Reset2
-
-This is the filename for Team 2's Reset flag.  Default filename is reset2.txt.
-
-#### Warn1
-
-This is the filename for Team 1's Reset Warning flag.  Default filename is warn1.txt.
-
-#### Reset2
-
-This is the filename for Team 2's Reset Warning flag.  Default filename is warn2.txt.
-
-#### TimeRemaining
-
+#### Time Remaining
 This is the filename for the Time Remaining on the current timer.  Default filename is timeremaining.txt.
 
-#### TimerInUse
-
+#### Timer
 This is the filename that holds the name of the current timer that is running (Shot, Pass, Game, Timeout, Recall). Default filename is timerinuse.txt.
 
-#### MatchWinner
-
+#### Match Winner
 This is the filename that holds the Winner Prefix, Team's Name and Winner Suffix of the team that won the match.  Default filename is matchwinner.txt.
 
 #### Meatball
-
 This is the filename that holds the Meatball text when a game is tied just prior to the final point.  Default filename is meatball.txt.
 
-#### LastScored
-
+#### Last Scored
 This is the filename that holds the indicator for which team scored last.  Default filename is lastscored.txt.
 
+#### Save
+Click the save button to save any filename changes made.
+
+#### Cancel
+Click the cancel button to discard any filename changes made.
+
+#### Restore Defaults
+Click the Restore Defaults button to restore the default filenames.
+
 ### Hot Keys
+FoosOBS uses buttons to do various functions such as increase or decrease scores, switch sides, reset game counts, start timers, etc.  Each button can have a Hot Key assigned to it.  Pressing ALT plus the assigned Hot Key for the button will function just like pressing the actual button.  The hot keys can be used in Stream Deck commands to make operating FoosOBS a simple push button affair.
+<img align="left" width="552" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings4.png">
+<img align="left" width="802" height="442" src="https://github.com/hsgarn/foosOBS/blob/master/foosOBSSettings6.png">
+
+#### Clear(Tournament)
+#### Clear(Event)
+#### Reset(Team 1)
+#### Reset(Team 2)
+#### Warn(Team 1)
+#### Warn(Team 2)
+#### Team Names
+##### Clear(Team 1)
+##### Clear(Team 2)
+##### Switch(Team 1)
+##### Switch(Team 2)
+#### Scores
+##### -(Team 1)
+##### -(Team 2)
+##### +(Team 1)
+##### +(Team 2)
+##### Switch
+#### Game Counts
+##### -(Team 1)
+##### -(Team 2)
+##### +(Team 1)
+##### +(Team 2)
+##### Switch
+#### Time Outs
+##### Return TO(Team 1)
+##### Use TO(Team 1)
+##### Return TO(Team 2)
+##### Use TO(Team 2)
+##### Switch
+#### Switch Sides
+#### Reset Game Counts
+#### Reset Scores
+#### Reset Time Outs
+#### Reset Reset/Warn
+#### Reset All
+#### Timers
+##### Start(Shot)
+##### Start(Pass)
+##### Start(Time Out)
+##### Start(Game)
+##### Start(Recall)
+#### Select Path
+#### Set Path
+#### Fetch Data
+#### Save All
+#### Settings
+
+#### Save
+Click the save button to save any hot key changes made.
+
+#### Cancel
+Click the cancel button to discard any hot keye changes made.
+
+#### Restore Defaults
+Click the Restore Defaults button to restore the default hot keys.
+
+
 
