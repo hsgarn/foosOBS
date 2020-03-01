@@ -84,6 +84,7 @@ public class FileNamesJPanel extends JPanel {
 		add(lblTeam1Name1, "cell 4 1,alignx trailing");
 		
 		txtTeam1Name1FileName = new JTextField();
+		txtTeam1Name1FileName.setText(foosObsSettings.getTeam1Name1FileName());
 		add(txtTeam1Name1FileName, "cell 5 1,alignx left");
 		txtTeam1Name1FileName.setColumns(10);
 		
@@ -99,6 +100,7 @@ public class FileNamesJPanel extends JPanel {
 		add(lblTeam1Name2, "cell 4 2,alignx trailing");
 		
 		txtTeam1Name2FileName = new JTextField();
+		txtTeam1Name2FileName.setText(foosObsSettings.getTeam1Name2FileName());
 		add(txtTeam1Name2FileName, "cell 5 2,alignx left");
 		txtTeam1Name2FileName.setColumns(10);
 		
@@ -114,6 +116,7 @@ public class FileNamesJPanel extends JPanel {
 		add(lblTeam2Name1, "cell 4 3,alignx trailing");
 		
 		txtTeam2Name1FileName = new JTextField();
+		txtTeam2Name1FileName.setText(foosObsSettings.getTeam2Name1FileName());
 		add(txtTeam2Name1FileName, "cell 5 3,alignx left");
 		txtTeam2Name1FileName.setColumns(10);
 
@@ -129,6 +132,7 @@ public class FileNamesJPanel extends JPanel {
 		add(lblTeam2Name2, "cell 4 4,alignx trailing");
 		
 		txtTeam2Name2FileName = new JTextField();
+		txtTeam2Name2FileName.setText(foosObsSettings.getTeam2Name2FileName());
 		add(txtTeam2Name2FileName, "cell 5 4,alignx left");
 		txtTeam2Name2FileName.setColumns(10);
 
