@@ -1,5 +1,5 @@
 /**
-Copyright 2019 Hugh Garner
+Copyright 2019, 2020 Hugh Garner
 Permission is hereby granted, free of charge, to any person obtaining a copy 
 of this software and associated documentation files (the "Software"), to deal 
 in the Software without restriction, including without limitation the rights 
@@ -1370,21 +1370,35 @@ public class MainJPanel extends JPanel {
     }
 
 	private void writeTeam1Name() {
+		String player1 = "";
+		String player2 = "";
 		if (txtTeam1.getText().isEmpty()) {} else {
 			if (foosObsSettings.getAutoCapNames()==1) {
 				String team = txtTeam1.getText();
 				int index = team.indexOf(foosObsSettings.getNameSeparator());
 				if (index>-1) {
-					String player1 = team.substring(0,index);
-					String player2 = team.substring(index+1);
+					player1 = team.substring(0,index);
+					player2 = team.substring(index+1);
 					txtTeam1.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+foosObsSettings.getNameSeparator()+player2.substring(0,1).toUpperCase() + player2.substring(1));
 				} else {
+					player1 = (team.substring(0,1).toUpperCase() + team.substring(1));
+					player2 = "";
 					txtTeam1.setText(team.substring(0,1).toUpperCase() + team.substring(1));
 				}
 			}
 		}
 		try {
 			obsInterface.setContents(foosObsSettings.getTeam1FileName(), txtTeam1.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			obsInterface.setContents(foosObsSettings.getTeam1Name1FileName(), player1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			obsInterface.setContents(foosObsSettings.getTeam1Name2FileName(), player2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1396,21 +1410,35 @@ public class MainJPanel extends JPanel {
 	}
 
 	private void writeTeam2Name() {
+		String player1 = "";
+		String player2 = "";
 		if (txtTeam2.getText().isEmpty()) {} else {
 			if (foosObsSettings.getAutoCapNames()==1) {
 				String team = txtTeam2.getText();
 				int index = team.indexOf(foosObsSettings.getNameSeparator());
 				if (index>-1) {
-					String player1 = team.substring(0,index);
-					String player2 = team.substring(index+1);
+					player1 = team.substring(0,index);
+					player2 = team.substring(index+1);
 					txtTeam2.setText(player1.substring(0,1).toUpperCase() + player1.substring(1)+foosObsSettings.getNameSeparator()+player2.substring(0,1).toUpperCase() + player2.substring(1));
 				} else {
+					player1 = (team.substring(0,1).toUpperCase() + team.substring(1));
+					player2 = "";
 					txtTeam2.setText(team.substring(0,1).toUpperCase() + team.substring(1));
 				}
 			}
 		}
 		try {
 			obsInterface.setContents(foosObsSettings.getTeam2FileName(), txtTeam2.getText());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			obsInterface.setContents(foosObsSettings.getTeam2Name1FileName(), player1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			obsInterface.setContents(foosObsSettings.getTeam2Name2FileName(), player2);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,5 @@
 /**
-Copyright 2019 Hugh Garner
+Copyright 2019, 2020 Hugh Garner
 Permission is hereby granted, free of charge, to any person obtaining a copy 
 of this software and associated documentation files (the "Software"), to deal 
 in the Software without restriction, including without limitation the rights 
@@ -37,7 +37,11 @@ public class FileNamesJPanel extends JPanel {
 	private JTextField txtTournamentFileName;
 	private JTextField txtEventFileName;
 	private JTextField txtTeam1FileName;
+	private JTextField txtTeam1Name1FileName;
+	private JTextField txtTeam1Name2FileName;
 	private JTextField txtTeam2FileName;
+	private JTextField txtTeam2Name1FileName;
+	private JTextField txtTeam2Name2FileName;
 	private JTextField txtGameCount1FileName;
 	private JTextField txtGameCount2FileName;
 	private JTextField txtScore1FileName;
@@ -60,7 +64,7 @@ public class FileNamesJPanel extends JPanel {
 	public FileNamesJPanel(Settings foosObsSettings, JFrame fileNamesFrame) throws IOException {
 //		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 853, 489);
-		setLayout(new MigLayout("", "[][][151.00][15.00][][grow][]", "[][][][][][][][][][][][][][][]"));
+		setLayout(new MigLayout("", "[][][151.00][15.00][91.00][grow][]", "[][][][][][][][][][][][][][][]"));
 		
 		JLabel lblFileName = new JLabel("File Name");
 		add(lblFileName, "cell 2 0,alignx left");
@@ -76,13 +80,12 @@ public class FileNamesJPanel extends JPanel {
 		add(txtTeam1FileName, "cell 2 1,alignx left");
 		txtTeam1FileName.setColumns(10);
 		
-		JLabel lblTournamentFileName = new JLabel("Tournament:");
-		add(lblTournamentFileName, "cell 4 1,alignx right");
+		JLabel lblTeam1Name1 = new JLabel("Team 1 Name 1");
+		add(lblTeam1Name1, "cell 4 1,alignx trailing");
 		
-		txtTournamentFileName = new JTextField();
-		txtTournamentFileName.setText(foosObsSettings.getTournamentFileName());
-		add(txtTournamentFileName, "cell 5 1,alignx left");
-		txtTournamentFileName.setColumns(10);
+		txtTeam1Name1FileName = new JTextField();
+		add(txtTeam1Name1FileName, "cell 5 1,alignx left");
+		txtTeam1Name1FileName.setColumns(10);
 		
 		JLabel lblTeam2FileName = new JLabel("Team 2:");
 		add(lblTeam2FileName, "cell 1 2,alignx right");
@@ -92,13 +95,12 @@ public class FileNamesJPanel extends JPanel {
 		add(txtTeam2FileName, "cell 2 2,alignx left");
 		txtTeam2FileName.setColumns(10);
 		
-		JLabel lblEventFileName = new JLabel("Event:");
-		add(lblEventFileName, "cell 4 2,alignx trailing");
+		JLabel lblTeam1Name2 = new JLabel("Team 1 Name 2");
+		add(lblTeam1Name2, "cell 4 2,alignx trailing");
 		
-		txtEventFileName = new JTextField();
-		txtEventFileName.setText(foosObsSettings.getEventFileName());
-		add(txtEventFileName, "cell 5 2,alignx left");
-		txtEventFileName.setColumns(10);
+		txtTeam1Name2FileName = new JTextField();
+		add(txtTeam1Name2FileName, "cell 5 2,alignx left");
+		txtTeam1Name2FileName.setColumns(10);
 		
 		JLabel lblGameCountFileName = new JLabel("Game Count 1:");
 		add(lblGameCountFileName, "cell 1 3,alignx right");
@@ -108,13 +110,12 @@ public class FileNamesJPanel extends JPanel {
 		add(txtGameCount1FileName, "cell 2 3,alignx left");
 		txtGameCount1FileName.setColumns(10);
 		
-		JLabel lblTimeRemainingFileName = new JLabel("Time Remaining:");
-		add(lblTimeRemainingFileName, "cell 4 3,alignx trailing");
+		JLabel lblTeam2Name1 = new JLabel("Team 2 Name 1");
+		add(lblTeam2Name1, "cell 4 3,alignx trailing");
 		
-		txtTimeRemainingFileName = new JTextField();
-		txtTimeRemainingFileName.setText(foosObsSettings.getTimeRemainingFileName());
-		add(txtTimeRemainingFileName, "cell 5 3,alignx left");
-		txtTimeRemainingFileName.setColumns(10);
+		txtTeam2Name1FileName = new JTextField();
+		add(txtTeam2Name1FileName, "cell 5 3,alignx left");
+		txtTeam2Name1FileName.setColumns(10);
 
 		JLabel lblGameCount2FileName = new JLabel("Game Count 2:");
 		add(lblGameCount2FileName, "cell 1 4,alignx right");
@@ -124,13 +125,12 @@ public class FileNamesJPanel extends JPanel {
 		add(txtGameCount2FileName, "cell 2 4,alignx left");
 		txtGameCount2FileName.setColumns(10);
 		
-		JLabel lblTimerFileName = new JLabel("Timer:");
-		add(lblTimerFileName, "cell 4 4,alignx trailing");
+		JLabel lblTeam2Name2 = new JLabel("Team 2 Name 2");
+		add(lblTeam2Name2, "cell 4 4,alignx trailing");
 		
-		txtTimerInUseFileName = new JTextField();
-		txtTimerInUseFileName.setText(foosObsSettings.getTimerInUseFileName());
-		add(txtTimerInUseFileName, "cell 5 4,alignx left");
-		txtTimerInUseFileName.setColumns(10);
+		txtTeam2Name2FileName = new JTextField();
+		add(txtTeam2Name2FileName, "cell 5 4,alignx left");
+		txtTeam2Name2FileName.setColumns(10);
 
 		JLabel lblScore1FileName = new JLabel("Score 1:");
 		add(lblScore1FileName, "cell 1 5,alignx trailing");
@@ -140,13 +140,13 @@ public class FileNamesJPanel extends JPanel {
 		add(txtScore1FileName, "cell 2 5,alignx left");
 		txtScore1FileName.setColumns(10);
 		
-		JLabel lblMatchWinnerFileName = new JLabel("Match Winner:");
-		add(lblMatchWinnerFileName, "cell 4 5,alignx trailing");
+		JLabel lblTournamentFileName = new JLabel("Tournament:");
+		add(lblTournamentFileName, "cell 4 5,alignx right");
 		
-		txtMatchWinnerFileName = new JTextField();
-		txtMatchWinnerFileName.setText(foosObsSettings.getMatchWinnerFileName());
-		add(txtMatchWinnerFileName, "cell 5 5,alignx left");
-		txtMatchWinnerFileName.setColumns(10);
+		txtTournamentFileName = new JTextField();
+		txtTournamentFileName.setText(foosObsSettings.getTournamentFileName());
+		add(txtTournamentFileName, "cell 5 5,alignx left");
+		txtTournamentFileName.setColumns(10);
 		
 		JLabel lblScore2FileName = new JLabel("Score 2:");
 		add(lblScore2FileName, "cell 1 6,alignx trailing");
@@ -156,13 +156,13 @@ public class FileNamesJPanel extends JPanel {
 		add(txtScore2FileName, "cell 2 6,alignx left");
 		txtScore2FileName.setColumns(10);
 		
-		JLabel lblMeatball = new JLabel("Meatball:");
-		add(lblMeatball, "cell 4 6,alignx trailing");
+		JLabel lblEventFileName = new JLabel("Event:");
+		add(lblEventFileName, "cell 4 6,alignx trailing");
 		
-		txtMeatballFileName = new JTextField();
-		txtMeatballFileName.setText(foosObsSettings.getMeatballFileName());
-		add(txtMeatballFileName, "cell 5 6,alignx left");
-		txtMeatballFileName.setColumns(10);
+		txtEventFileName = new JTextField();
+		txtEventFileName.setText(foosObsSettings.getEventFileName());
+		add(txtEventFileName, "cell 5 6,alignx left");
+		txtEventFileName.setColumns(10);
 		
 		JLabel lblTimeOut1FileName = new JLabel("Time Out 1:");
 		add(lblTimeOut1FileName, "cell 1 7,alignx trailing");
@@ -172,13 +172,13 @@ public class FileNamesJPanel extends JPanel {
 		add(txtTimeOut1FileName, "cell 2 7,alignx left");
 		txtTimeOut1FileName.setColumns(10);
 		
-		JLabel lblLastScored = new JLabel("Last Scored:");
-		add(lblLastScored, "cell 4 7,alignx trailing");
+		JLabel lblTimeRemainingFileName = new JLabel("Time Remaining:");
+		add(lblTimeRemainingFileName, "cell 4 7,alignx trailing");
 		
-		txtLastScoredFileName = new JTextField();
-		txtLastScoredFileName.setText(foosObsSettings.getLastScoredFileName());
-		add(txtLastScoredFileName, "cell 5 7,alignx left");
-		txtLastScoredFileName.setColumns(10);
+		txtTimeRemainingFileName = new JTextField();
+		txtTimeRemainingFileName.setText(foosObsSettings.getTimeRemainingFileName());
+		add(txtTimeRemainingFileName, "cell 5 7,alignx left");
+		txtTimeRemainingFileName.setColumns(10);
 		
 		JLabel lblTimeOut2FileName = new JLabel("Time Out 2:");
 		add(lblTimeOut2FileName, "cell 1 8,alignx trailing");
@@ -188,6 +188,14 @@ public class FileNamesJPanel extends JPanel {
 		add(txtTimeOut2FileName, "cell 2 8,alignx left");
 		txtTimeOut2FileName.setColumns(10);
 		
+		JLabel lblTimerFileName = new JLabel("Timer:");
+		add(lblTimerFileName, "cell 4 8,alignx trailing");
+		
+		txtTimerInUseFileName = new JTextField();
+		txtTimerInUseFileName.setText(foosObsSettings.getTimerInUseFileName());
+		add(txtTimerInUseFileName, "cell 5 8,alignx left");
+		txtTimerInUseFileName.setColumns(10);
+		
 		JLabel lblReset1FileName = new JLabel("Reset 1:");
 		add(lblReset1FileName, "cell 1 9,alignx trailing");
 		
@@ -195,6 +203,14 @@ public class FileNamesJPanel extends JPanel {
 		txtReset1FileName.setText(foosObsSettings.getReset1FileName());
 		add(txtReset1FileName, "cell 2 9,alignx left");
 		txtReset1FileName.setColumns(10);
+		
+		JLabel lblMatchWinnerFileName = new JLabel("Match Winner:");
+		add(lblMatchWinnerFileName, "cell 4 9,alignx trailing");
+		
+		txtMatchWinnerFileName = new JTextField();
+		txtMatchWinnerFileName.setText(foosObsSettings.getMatchWinnerFileName());
+		add(txtMatchWinnerFileName, "cell 5 9,alignx left");
+		txtMatchWinnerFileName.setColumns(10);
 		
 		JLabel lblReset2FileName = new JLabel("Reset 2:");
 		add(lblReset2FileName, "cell 1 10,alignx trailing");
@@ -204,6 +220,14 @@ public class FileNamesJPanel extends JPanel {
 		add(txtReset2FileName, "cell 2 10,alignx left");
 		txtReset2FileName.setColumns(10);
 		
+		JLabel lblMeatball = new JLabel("Meatball:");
+		add(lblMeatball, "cell 4 10,alignx trailing");
+		
+		txtMeatballFileName = new JTextField();
+		txtMeatballFileName.setText(foosObsSettings.getMeatballFileName());
+		add(txtMeatballFileName, "cell 5 10,alignx left");
+		txtMeatballFileName.setColumns(10);
+		
 		JLabel lblWarn1FileName = new JLabel("Warn 1:");
 		add(lblWarn1FileName, "cell 1 11,alignx trailing");
 		
@@ -211,6 +235,14 @@ public class FileNamesJPanel extends JPanel {
 		txtWarn1FileName.setText(foosObsSettings.getWarn1FileName());
 		add(txtWarn1FileName, "cell 2 11,alignx left");
 		txtWarn1FileName.setColumns(10);
+		
+		JLabel lblLastScored = new JLabel("Last Scored:");
+		add(lblLastScored, "cell 4 11,alignx trailing");
+		
+		txtLastScoredFileName = new JTextField();
+		txtLastScoredFileName.setText(foosObsSettings.getLastScoredFileName());
+		add(txtLastScoredFileName, "cell 5 11,alignx left");
+		txtLastScoredFileName.setColumns(10);
 		
 		JLabel lblWarn2FileName = new JLabel("Warn 2:");
 		add(lblWarn2FileName, "cell 1 12,alignx trailing");
@@ -247,8 +279,12 @@ public class FileNamesJPanel extends JPanel {
 
 	private void restoreDefaults(Settings foosObsSettings) {
 		txtTeam1FileName.setText(foosObsSettings.getDefaultTeam1FileName());
+		txtTeam1Name1FileName.setText(foosObsSettings.getDefaultTeam1Name1FileName());
+		txtTeam1Name2FileName.setText(foosObsSettings.getDefaultTeam1Name2FileName());
 		txtTournamentFileName.setText(foosObsSettings.getDefaultTournamentFileName());
 		txtTeam2FileName.setText(foosObsSettings.getDefaultTeam2FileName());
+		txtTeam2Name1FileName.setText(foosObsSettings.getDefaultTeam2Name1FileName());
+		txtTeam2Name2FileName.setText(foosObsSettings.getDefaultTeam2Name2FileName());
 		txtEventFileName.setText(foosObsSettings.getDefaultEventFileName());
 		txtGameCount1FileName.setText(foosObsSettings.getDefaultGameCount1FileName());
 		txtTimeRemainingFileName.setText(foosObsSettings.getDefaultTimeRemainingFileName());
@@ -269,8 +305,12 @@ public class FileNamesJPanel extends JPanel {
 	
 	private void saveSettings(Settings foosObsSettings, JFrame fileNamesFrame) {
 		foosObsSettings.setTeam1FileName(txtTeam1FileName.getText());
+		foosObsSettings.setTeam1Name1FileName(txtTeam1Name1FileName.getText());
+		foosObsSettings.setTeam1Name2FileName(txtTeam1Name2FileName.getText());
 		foosObsSettings.setTournamentFileName(txtTournamentFileName.getText());
 		foosObsSettings.setTeam2FileName(txtTeam2FileName.getText());
+		foosObsSettings.setTeam2Name1FileName(txtTeam2Name1FileName.getText());
+		foosObsSettings.setTeam2Name2FileName(txtTeam2Name2FileName.getText());
 		foosObsSettings.setEventFileName(txtEventFileName.getText());
 		foosObsSettings.setGameCount1FileName(txtGameCount1FileName.getText());
 		foosObsSettings.setTimeRemainingFileName(txtTimeRemainingFileName.getText());

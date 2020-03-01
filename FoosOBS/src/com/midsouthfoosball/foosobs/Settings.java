@@ -1,5 +1,5 @@
 /**
-Copyright 2019 Hugh Garner
+Copyright 2019, 2020 Hugh Garner
 Permission is hereby granted, free of charge, to any person obtaining a copy 
 of this software and associated documentation files (the "Software"), to deal 
 in the Software without restriction, including without limitation the rights 
@@ -58,8 +58,12 @@ public class Settings {
 	private String logoLinkURI;
 
 	private String team1FileName;
+	private String team1Name1FileName;
+	private String team1Name2FileName;
 	private String tournamentFileName;
 	private String team2FileName;
+	private String team2Name1FileName;
+	private String team2Name2FileName;
 	private String eventFileName;
 	private String gameCount1FileName;
 	private String timeRemainingFileName;
@@ -157,8 +161,12 @@ public class Settings {
 		defaultProps.setProperty("LogoLinkURI", "https://www.facebook.com/midsouthfoosball");
 
 		defaultProps.setProperty("Team1FileName", "team1.txt");
+		defaultProps.setProperty("Team1Name1FileName", "team1name1.txt");
+		defaultProps.setProperty("Team1Name2FileName", "team1name2.txt");
 		defaultProps.setProperty("TournamentFileName", "tournament.txt");
 		defaultProps.setProperty("Team2FileName", "team2.txt");
+		defaultProps.setProperty("Team2Name1FileName", "team2name1.txt");
+		defaultProps.setProperty("Team2Name2FileName", "team2name2.txt");
 		defaultProps.setProperty("EventFileName", "event.txt");
 		defaultProps.setProperty("GameCount1FileName", "gamecount1.txt");
 		defaultProps.setProperty("TimeRemainingFileName", "timeremaining.txt");
@@ -254,8 +262,12 @@ public class Settings {
 	public String getLogoLinkURI() {return logoLinkURI;}
 
 	public String getTeam1FileName() {return team1FileName;}
+	public String getTeam1Name1FileName() {return team1Name1FileName;}
+	public String getTeam1Name2FileName() {return team1Name2FileName;}
 	public String getTournamentFileName() {return tournamentFileName;}
 	public String getTeam2FileName() {return team2FileName;}
+	public String getTeam2Name1FileName() {return team2Name1FileName;}
+	public String getTeam2Name2FileName() {return team2Name2FileName;}
 	public String getEventFileName() {return eventFileName;}
 	public String getGameCount1FileName() {return gameCount1FileName;}
 	public String getTimeRemainingFileName() {return timeRemainingFileName;}
@@ -424,6 +436,14 @@ public class Settings {
 		this.team1FileName = team1FileName;
 		configProps.setProperty("Team1FileName", this.team1FileName);
 	}
+	public void setTeam1Name1FileName(String team1Name1FileName) {
+		this.team1Name1FileName = team1Name1FileName;
+		configProps.setProperty("Team1Name1FileName", this.team1Name1FileName);
+	}
+	public void setTeam1Name2FileName(String team1Name2FileName) {
+		this.team1Name2FileName = team1Name2FileName;
+		configProps.setProperty("Team1Name2FileName", this.team1Name2FileName);
+	}
 	public void setTournamentFileName(String tournamentFileName) {
 		this.tournamentFileName = tournamentFileName;
 		configProps.setProperty("TournamentFileName", this.tournamentFileName);
@@ -431,6 +451,14 @@ public class Settings {
 	public void setTeam2FileName(String team2FileName) {
 		this.team2FileName = team2FileName;
 		configProps.setProperty("Team2FileName", this.team2FileName);
+	}
+	public void setTeam2Name1FileName(String team2Name1FileName) {
+		this.team2Name1FileName = team2Name1FileName;
+		configProps.setProperty("Team2Name1FileName", this.team2Name1FileName);
+	}
+	public void setTeam2Name2FileName(String team2Name2FileName) {
+		this.team2Name2FileName = team2Name2FileName;
+		configProps.setProperty("Team2Name2FileName", this.team2Name2FileName);
 	}
 	public void setEventFileName(String eventFileName) {
 		this.eventFileName = eventFileName;
@@ -496,7 +524,6 @@ public class Settings {
 		this.lastScoredFileName = lastScoredFileName;
 		configProps.setProperty("LastScoredFileName", this.lastScoredFileName);
 	}
-	
 	public void setTournamentNameClearHotKey(String tournamentNameClearHotKey) {
 		this.tournamentNameClearHotKey = tournamentNameClearHotKey;
 		configProps.setProperty("TournamentNameClearHotKey", this.tournamentNameClearHotKey);
@@ -704,8 +731,12 @@ public class Settings {
 	public String getDefaultLogoLinkURI() {return defaultProps.getProperty("LogoLinkURI");}
 	
 	public String getDefaultTeam1FileName() {return defaultProps.getProperty("Team1FileName");}
+	public String getDefaultTeam1Name1FileName() {return defaultProps.getProperty("Team1Name1FileName");}
+	public String getDefaultTeam1Name2FileName() {return defaultProps.getProperty("Team1Name2FileName");}
 	public String getDefaultTournamentFileName() {return defaultProps.getProperty("TournamentFileName");}
 	public String getDefaultTeam2FileName() {return defaultProps.getProperty("Team2FileName");}
+	public String getDefaultTeam2Name1FileName() {return defaultProps.getProperty("Team2Name1FileName");}
+	public String getDefaultTeam2Name2FileName() {return defaultProps.getProperty("Team2Name2FileName");}
 	public String getDefaultEventFileName() {return defaultProps.getProperty("EventFileName");}
 	public String getDefaultGameCount1FileName() {return defaultProps.getProperty("GameCount1FileName");}
 	public String getDefaultTimeRemainingFileName() {return defaultProps.getProperty("TimeRemainingFileName");}
@@ -814,8 +845,12 @@ public class Settings {
 		};
 
 		team1FileName = configProps.getProperty("Team1FileName");
+		team1Name1FileName = configProps.getProperty("Team1Name1FileName");
+		team1Name2FileName = configProps.getProperty("Team1Name2FileName");
 		tournamentFileName = configProps.getProperty("TournamentFileName");
 		team2FileName = configProps.getProperty("Team2FileName");
+		team2Name1FileName = configProps.getProperty("Team2Name1FileName");
+		team2Name2FileName = configProps.getProperty("Team2Name2FileName");
 		eventFileName = configProps.getProperty("EventFileName");
 		gameCount1FileName = configProps.getProperty("GameCount1FileName");
 		timeRemainingFileName = configProps.getProperty("TimeRemainingFileName");
@@ -908,8 +943,12 @@ public class Settings {
 //		configProps.setProperty("LogoLinkURI", this.getLogoLinkURI());
 
 		configProps.setProperty("Team1FileName", this.getTeam1FileName());
+		configProps.setProperty("Team1Name1FileName", this.getTeam1Name1FileName());
+		configProps.setProperty("Team1Name2FileName", this.getTeam1Name2FileName());
 		configProps.setProperty("TournamentFileName", this.getTournamentFileName());
 		configProps.setProperty("Team2FileName", this.getTeam2FileName());
+		configProps.setProperty("Team2Name1FileName", this.getTeam2Name1FileName());
+		configProps.setProperty("Team2Name2FileName", this.getTeam2Name2FileName());
 		configProps.setProperty("EventFileName", this.getEventFileName());
 		configProps.setProperty("GameCount1FileName", this.getGameCount1FileName());
 		configProps.setProperty("TimeRemainingFileName", this.getTimeRemainingFileName());
