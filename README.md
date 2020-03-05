@@ -126,6 +126,18 @@ This is the filename for Team 1's Reset Warning flag.  Default filename is warn1
 #### Warn 2
 This is the filename for Team 2's Reset Warning flag.  Default filename is warn2.txt.
 
+#### Team 1 Name 1
+This is the filename that holds Team 1's player 1's name.  Usually this would be the forward player.  Default filename is team1name1.txt
+
+#### Team 1 Name 2
+This is the filename that holds Team 1's player 2's name.  Usually this would be the goalie player.  Default filename is team1name2.txt
+
+#### Team 2 Name 1
+This is the filename that holds Team 2's player 1's name.  Usually this would be the forward player.  Default filename is team2name1.txt
+
+#### Team 2 Name 2
+This is the filename that holds Team 2's player 2's name.  Usually this would be the goalie player.  Default filename is team2name2.txt
+
 #### Tournament
 This is the filename of a freeform text field that can be used for the name of the tournament or venue.  Default filename is tournament.txt.
 
@@ -181,18 +193,24 @@ Assigns the hot key for the Warn button for Team 1. Default hot key is x.
 #### Warn(Team 2)
 Assigns the hot key for the Warn button for Team 2. Default hot key is ..
 
+#### <-Switch->(Reset/Warn)
+Assigns the hot key to swap the Reset and Warn flags for Team 1 with Team 2.  Deafult hot key is not assigned.
+
 #### Team Names
 ##### Clear(Team 1)
 Assigns the hot key for the Clear button for Team 1's name. Default hot key is unassigned.
 
+##### <-Switch->(Team 1)
+Assigns the hot key to Switch Team 1 and Team 2's names. Default hot key is t.
+
+##### <-Switch->(Team 2)
+Assigns the hot key for the Switch button for Team 2's names. Default hot key is m.
+
 ##### Clear(Team 2)
 Assigns the hot key for the Clear button for Team 2's name. Default hot key is unassigned.
 
-##### Switch(Team 1)
-Assigns the hot key to Switch Team 1 and Team 2's names. Default hot key is t.
-
-##### Switch(Team 2)
-Assigns the hot key for the Switch button for Team 2's names. Default hot key is m.
+##### <-Switch->
+Assigns the hot key to swap Team 1's and Team 2's names with each other.  Default hot key is e.
 
 #### Scores
 ##### -(Team 1)
@@ -207,7 +225,7 @@ Assigns the hot key for the + button to increase Team 1's score. Default hot key
 ##### +(Team 2)
 Assigns the hot key for the + button to increase Team 2's score. Default hot key is 2.
 
-##### Switch
+##### <-Switch->
 Assigns the hot key to Switch Team 1 and Team 2's scores.  Default hot key is e.
 
 #### Game Counts
@@ -223,30 +241,76 @@ Assigns the hot key for the + button to increase Team 1's game count. Default ho
 ##### +(Team 2)
 Assigns the hot key for the + button to increase Team 2's game count. Default hot key is 6.
 
-##### Switch
+##### <-Switch->
+Assigns the hot key to switch the game counts. Team 1's game count will be swapped with Team 2's game count.  Default hot key is unassigned.
+
 #### Time Outs
 ##### Return TO(Team 1)
+Assigns the hot key to return a time out to Team 1's available pool of timeouts or used pool of time outs depending on how the Show Time Outs Used setting is set.  Default hot key is unassigned.
+
 ##### Use TO(Team 1)
+Assigns the hot key to use a time out for Team 1.  Default hot key is 9.
+
 ##### Return TO(Team 2)
+Assigns the hot key to return a time out to Team 2's available pool of timeouts or used pool of time outs depending on how the Show Time Outs Used setting is set.  Default hot key is unassigned.
+
 ##### Use TO(Team 2)
-##### Switch
-#### Switch Sides
+Assigns the hot key to use a time out for Team 2.  Default hot key is 0.
+
+##### <-Switch->
+Assigns the hot key to switch the time out counts. Team 1's time out count will be swapped with Team 2's time out count.  Default hot key is unassigned.
+
+#### <-Switch Sides->
+Assigns the hot key to swap all Team 1's data with Team 2's data.  Use this when the teams switch sides. Default hot key is w.
+
 #### Reset Game Counts
+Assigns the hot key to reset Team 1's and Team 2's game counts to 0.  Default hot key is 7.
+
 #### Reset Scores
+Assigns the hot key to reset Team 1's and Team 2's scores to 0.  Default hot key is 3.
+
 #### Reset Time Outs
+Assigns the hot key to reset Team 1's and Team 2's time outs to 0 or the max time outs depending on how the Show Time Outs Used setting is set.  Default hot key is -.
+
 #### Reset Reset/Warn
+Assigns the hot key to clear the Reset and Warn flags for both Team 1 and Team 2.  Default hot key is unassigned.
+
 #### Reset All
+Assigns the hot key to clear the game counts, scores, time outs, reset flags and warn flags for both Team 1 and Team 2.  Default hot key is a.
+
+#### Reset Timer
+Assigns the hot key to reset the timer to 0 regardless of what it is currently timing.  Default hot key is r.
+
 #### Timers
 ##### Start(Shot)
+Assigns the hot key to start the Shot timer.  Default hot key is s.
+
 ##### Start(Pass)
+Assigns the hot key to start the Pass timer.  Default hot key is p.
+
 ##### Start(Time Out)
+Assigns the hot key to start the Time Out timer.  Default hot key is o.
+
 ##### Start(Game)
+Assigns the hot key to start the Game timer.  Default hot key is g.
+
 ##### Start(Recall)
+Assigns the hot key to start the Recall timer.  Default hot key is c.
+
 #### Select Path
+Assigns the hot key to bring up the Select directory for path dialog box.  Default hot key is unassigned.
+
 #### Set Path
+Assigns the hot key to set the Path for the current data files.  Default hot key is unassigned.
+
 #### Fetch Data
+Assigns the hot key to fetch the current data stored in the data files.  Default hot key is unassigned.
+
 #### Save All
+Assigns the hot key to Save All the data for the current table to the currently selected path.  Default hot key is unassigned.
+
 #### Settings
+Assigns the hot key to bring up the Settings window.  Default hot key is unassigned.
 
 #### Save
 Click the save button to save any hot key changes made.
