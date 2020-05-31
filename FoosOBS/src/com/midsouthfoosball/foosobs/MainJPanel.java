@@ -1631,6 +1631,7 @@ public class MainJPanel extends JPanel {
 			incrementGameCount1();
 			resetScores();
 			resetTimeOuts();
+			resetResetWarns();
 		};
 		writeScore1();
 		if (txtScore2.getText().isEmpty()) {
@@ -1707,6 +1708,7 @@ public class MainJPanel extends JPanel {
 			incrementGameCount2();
 			resetScores();
 			resetTimeOuts();
+			resetResetWarns();
 		};
 		writeScore2();
 		if (txtScore1.getText().isEmpty()) {
@@ -1849,7 +1851,7 @@ public class MainJPanel extends JPanel {
 			txtTimeOut1.setText(Integer.toString(0));
 		}
 		num1=Integer.parseInt(txtTimeOut1.getText());
-		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+		if (foosObsSettings.getShowTimeOutsUsed() == 0) {
 			num1=num1+1;
 			if (num1>foosObsSettings.getMaxTimeOuts()) {
 				num1 = foosObsSettings.getMaxTimeOuts();
@@ -1874,7 +1876,7 @@ public class MainJPanel extends JPanel {
 			txtTimeOut2.setText(Integer.toString(0));
 		}
 		num1=Integer.parseInt(txtTimeOut2.getText());
-		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+		if (foosObsSettings.getShowTimeOutsUsed() == 0) {
 			num1=num1+1;
 			if (num1>foosObsSettings.getMaxTimeOuts()) {
 				num1 = foosObsSettings.getMaxTimeOuts();
@@ -1907,7 +1909,7 @@ public class MainJPanel extends JPanel {
 			txtTimeOut1.setText(Integer.toString(0));
 		}
 		num1=Integer.parseInt(txtTimeOut1.getText());
-		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+		if (foosObsSettings.getShowTimeOutsUsed() == 0) {
 			num1=num1-1;
 			if (num1<0) {
 				num1 = 0;
@@ -1929,7 +1931,7 @@ public class MainJPanel extends JPanel {
 			txtTimeOut2.setText(Integer.toString(0));
 		}
 		num1=Integer.parseInt(txtTimeOut2.getText());
-		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+		if (foosObsSettings.getShowTimeOutsUsed() == 0) {
 			num1=num1-1;
 			if (num1<0) {
 				num1 = 0;
@@ -2055,7 +2057,7 @@ public class MainJPanel extends JPanel {
 	}
 
 	private void resetTimeOuts() {
-		if (foosObsSettings.getShowTimeOutsUsed() == 1) {
+		if (foosObsSettings.getShowTimeOutsUsed() == 0) {
 			txtTimeOut1.setText(Integer.toString(foosObsSettings.getMaxTimeOuts()));
 			txtTimeOut2.setText(Integer.toString(foosObsSettings.getMaxTimeOuts()));
 		} else {
