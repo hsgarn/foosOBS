@@ -1,3 +1,5 @@
+NOTE: FoosOBS is no longer an active project.  Try FoosOBSPlus (https://github.com/hsgarn/foosobsplus).
+
 # foosOBS
 FoosOBS is a flexible foosball score keeper program compatible with OBS Studio and also plays well with Elagto's Stream Deck products.
 
